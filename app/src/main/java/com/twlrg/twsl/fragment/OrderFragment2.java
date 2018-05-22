@@ -1,5 +1,6 @@
 package com.twlrg.twsl.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -66,6 +67,7 @@ public class OrderFragment2 extends BaseFragment implements PullToRefreshBase.On
     private static final int    REQUEST_SUCCESS = 0x01;
     private static final int    REQUEST_FAIL    = 0x02;
 
+    @SuppressLint("HandlerLeak")
     private BaseHandler mHandler = new BaseHandler(getActivity())
     {
         @Override
@@ -230,7 +232,16 @@ public class OrderFragment2 extends BaseFragment implements PullToRefreshBase.On
                 new OrderListHandler());
     }
 
-
+    public void searchOrder(String keyword, String s_date, String e_date)
+    {
+        this.keyword = keyword;
+        this.s_date = s_date;
+        this.e_date = e_date;
+        orderInfoList.clear();
+        pn = 1;
+        mRefreshStatus = 0;
+        getOrderList();
+    }
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView)
     {

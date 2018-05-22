@@ -90,7 +90,7 @@ public class OrderFragment1 extends BaseFragment implements PullToRefreshBase.On
                     break;
 
                 case REQUEST_FAIL:
-                   // ToastUtil.show(getActivity(), msg.obj.toString());
+                    // ToastUtil.show(getActivity(), msg.obj.toString());
                     if (orderInfoList.isEmpty())
                     {
                         mRecyclerView.setVisibility(View.GONE);
@@ -231,6 +231,17 @@ public class OrderFragment1 extends BaseFragment implements PullToRefreshBase.On
                 new OrderListHandler());
     }
 
+
+    public void searchOrder(String keyword, String s_date, String e_date)
+    {
+        this.keyword = keyword;
+        this.s_date = s_date;
+        this.e_date = e_date;
+        orderInfoList.clear();
+        pn = 1;
+        mRefreshStatus = 0;
+        getOrderList();
+    }
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView)

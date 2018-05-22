@@ -1,23 +1,30 @@
 package com.twlrg.twsl.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.ActionMode;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.twlrg.twsl.MyApplication;
 import com.twlrg.twsl.R;
+import com.twlrg.twsl.activity.HotelTimeActivity;
 import com.twlrg.twsl.activity.LoginActivity;
 import com.twlrg.twsl.activity.MainActivity;
 import com.twlrg.twsl.adapter.MyViewPagerAdapter;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.StringUtils;
+import com.twlrg.twsl.widget.ClearEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,25 +38,29 @@ import butterknife.Unbinder;
 public class OrderListFragment extends BaseFragment implements View.OnClickListener
 {
     @BindView(R.id.view)
-    View         mViewLayout;
+    View          mViewLayout;
     @BindView(R.id.tv_check)
-    TextView     tvCheck;
+    TextView      tvCheck;
     @BindView(R.id.tv_leave)
-    TextView     tvLeave;
+    TextView      tvLeave;
     @BindView(R.id.ll_date)
-    LinearLayout llDate;
+    LinearLayout  llDate;
     @BindView(R.id.et_keyword)
-    EditText     etKeyword;
+    ClearEditText mEtKeyword;
     @BindView(R.id.tabLayout)
-    TabLayout    mTabLayout;
+    TabLayout     mTabLayout;
     @BindView(R.id.viewpager)
-    ViewPager    mViewPager;
+    ViewPager     mViewPager;
     Unbinder unbinder;
     private View rootView = null;
 
 
     private String keyword = "", s_date = "", e_date = "";
 
+    private OrderFragment1 mOrderFragment1;
+    private OrderFragment2 mOrderFragment2;
+    private OrderFragment  mOrderFragment;
+    private static final int GET_DATE_CODE = 0x99;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -104,12 +115,62 @@ public class OrderListFragment extends BaseFragment implements View.OnClickListe
     @Override
     protected void initEvent()
     {
+        llDate.setOnClickListener(this);
+
+        mEtKeyword.setOnEditorActionListener(new TextView.OnEditorActionListener()
+        {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+            {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH)
+                {
+
+                    keyword = mEtKeyword.getText().toString();
+
+                    mOrderFragment.searchOrder(keyword, s_date, e_date);
+                    mOrderFragment1.searchOrder(keyword, s_date, e_date);
+                    mOrderFragment2.searchOrder(keyword, s_date, e_date);
+
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
     }
 
     @Override
     protected void initViewData()
     {
 
+        //不需要用复制
+        mEtKeyword.setCustomSelectionActionModeCallback(new ActionMode.Callback()
+        {
+            @Override
+            public boolean onCreateActionMode(ActionMode actionMode, Menu menu)
+            {
+                return false;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu)
+            {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem)
+            {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode actionMode)
+            {
+
+            }
+        });
         tvCheck.setText("起 " + StringUtils.toMonthAndDay(s_date));
         tvLeave.setText("止 " + StringUtils.toMonthAndDay(e_date));
 
@@ -118,10 +179,14 @@ public class OrderListFragment extends BaseFragment implements View.OnClickListe
         LinearLayout.LayoutParams topViewParams = new LinearLayout.LayoutParams(widthPixels, APPUtils.getStatusBarHeight(getActivity()));
         mViewLayout.setLayoutParams(topViewParams);
         mViewLayout.setVisibility(View.VISIBLE);
+
+        mOrderFragment1 = OrderFragment1.newInstance(keyword, s_date, e_date);
+        mOrderFragment2 = OrderFragment2.newInstance(keyword, s_date, e_date);
+        mOrderFragment = OrderFragment.newInstance(keyword, s_date, e_date);
         MyViewPagerAdapter viewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager());
-        viewPagerAdapter.addFragment(OrderFragment1.newInstance(keyword, s_date, e_date), "待处理");//添加Fragment
-        viewPagerAdapter.addFragment(OrderFragment2.newInstance(keyword, s_date, e_date), "今日入住");
-        viewPagerAdapter.addFragment(OrderFragment.newInstance(keyword, s_date, e_date), "全部订单");
+        viewPagerAdapter.addFragment(mOrderFragment1, "待处理");//添加Fragment
+        viewPagerAdapter.addFragment(mOrderFragment2, "今日入住");
+        viewPagerAdapter.addFragment(mOrderFragment, "全部订单");
         mViewPager.setAdapter(viewPagerAdapter);//设置适配器
         mViewPager.setOffscreenPageLimit(2);
         mTabLayout.addTab(mTabLayout.newTab().setText("待处理"));//给TabLayout添加Tab
@@ -135,9 +200,37 @@ public class OrderListFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v)
     {
-
+        if (v == llDate)
+        {
+            startActivityForResult(new Intent(getActivity(), HotelTimeActivity.class), GET_DATE_CODE);
+        }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GET_DATE_CODE)
+        {
+            if (resultCode == Activity.RESULT_OK && null != data)
+            {
+                s_date = data.getStringExtra("CHEK_IN");
+                e_date = data.getStringExtra("CHEK_OUT");
+
+                if (!StringUtils.stringIsEmpty(s_date) && !StringUtils.stringIsEmpty(e_date))
+                {
+                    tvCheck.setText("起 " + StringUtils.toMonthAndDay(s_date));
+                    tvLeave.setText("止 " + StringUtils.toMonthAndDay(e_date));
+                    mOrderFragment.searchOrder(keyword, s_date, e_date);
+                    mOrderFragment1.searchOrder(keyword, s_date, e_date);
+                    mOrderFragment2.searchOrder(keyword, s_date, e_date);
+
+
+                }
+            }
+
+        }
+    }
 
     @Override
     public void onDestroy()

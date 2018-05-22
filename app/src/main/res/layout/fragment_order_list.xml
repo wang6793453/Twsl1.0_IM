@@ -68,18 +68,21 @@
                 android:layout_toRightOf="@+id/line1"
                 android:src="@drawable/ic_search_black"/>
 
-            <EditText
+
+            <com.twlrg.twsl.widget.ClearEditText
                 android:id="@+id/et_keyword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/iv_search"
                 android:background="@color/translucent"
+                android:gravity="center_vertical"
                 android:hint="搜索订单号/客人姓名"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="@dimen/dm_5"
+                android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/t14"/>
         </RelativeLayout>

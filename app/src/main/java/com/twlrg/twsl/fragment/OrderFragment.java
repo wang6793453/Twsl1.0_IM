@@ -237,7 +237,16 @@ public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnR
                 new OrderListHandler());
     }
 
-
+    public void searchOrder(String keyword, String s_date, String e_date)
+    {
+        this.keyword = keyword;
+        this.s_date = s_date;
+        this.e_date = e_date;
+        orderInfoList.clear();
+        pn = 1;
+        mRefreshStatus = 0;
+        getOrderList();
+    }
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView)
     {
