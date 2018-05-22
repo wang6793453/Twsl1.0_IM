@@ -107,6 +107,7 @@
                 android:paddingLeft="@dimen/dm_20"
                 android:paddingRight="@dimen/dm_20"
                 android:paddingTop="@dimen/dm_7"
+                android:visibility="gone"
                 android:text="预定"
                 android:textColor="@color/white"
                 android:textSize="@dimen/t16"/>
