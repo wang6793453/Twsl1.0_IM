@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:id="@+id/ll_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dm_10"
+    android:background="@drawable/common_white_bg"
+    android:orientation="vertical"
+    android:padding="@dimen/dm_10"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.twlrg.twsl.widget.AutoFitTextView
+            android:id="@+id/tv_merchant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dm_15"
+            android:layout_toLeftOf="@+id/tv_total_fee"
+            android:maxLines="1"
+            android:text="某某酒店1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t16"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_total_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="￥500"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/t14"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm_10">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="豪华大床房(无早餐)    1间 10晚"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t14"/>
+
+        <TextView
+            android:id="@+id/tv_payment_trade_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="已支付"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/t14"/>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm_10"
+        android:text="崔先生 2018-04-13 入住"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t14"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm_10">
+        <TextView
+            android:id="@+id/tv_create_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2017-05-12 16:05"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t14"/>
+
+        <TextView
+
+            android:id="@+id/tv_evaluate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dm_20"
+            android:layout_toLeftOf="@+id/tv_create_time"
+            android:text="评价"
+            android:visibility="gone"
+            android:textColor="@color/green"
+            android:textSize="@dimen/t14"/>
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:id="@+id/ll_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dm_10"
+    >
+
+    <com.twlrg.twsl.widget.CircleImageView
+        android:id="@+id/iv_user_head"
+        android:layout_width="@dimen/dm_50"
+        android:layout_height="@dimen/dm_50"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_user"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/iv_user_head"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tv_salesperson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:text="111"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t14"/>
+
+            <TextView
+                android:id="@+id/tv_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_toRightOf="@+id/tv_salesperson"
+                android:text="销售总监"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t14"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_role_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dm_15"
+            android:text="111"
+            android:textColor="@color/blackA"
+            android:textSize="@dimen/t14"/>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dm_40"
+        android:layout_toLeftOf="@+id/iv_phone"
+        android:src="@drawable/ic_message_on"/>
+
+    <ImageView
+        android:id="@+id/iv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_phone"/>
+
+</RelativeLayout>

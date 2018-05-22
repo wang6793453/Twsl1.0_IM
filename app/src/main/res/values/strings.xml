@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">腾为商旅</string>
+
+    <string name="label_cancel">取消</string>
+    <string name="label_ok">确定</string>
+
+    <string name="permission_title_rationale">权限需求</string>
+    <string name="permission_read_storage_rationale">选择图片时需要读取权限</string>
+    <string name="permission_write_storage_rationale">拍照时需要存储权限</string>
+    <string name="modify"><u>修改</u></string>
+    <string name="time_more">99+</string>
+    <string name="time_day">日</string>
+    <string name="time_month">月</string>
+    <string name="time_year">年</string>
+    <string name="time_yesterday">昨天</string>
+    <!-- conversation fragment -->
+    <string name="conversation_system">系统消息</string>
+    <string name="conversation_system_friend">新朋友</string>
+    <string name="conversation_system_group">群组消息</string>
+    <string name="conversation_del">删除会话</string>
+    <string name="conversation_draft">[草稿]</string>
+
+    <string name="default_group_name">默认分组</string>
+    <string name="wxts">紧急情况请联系商旅部落客服务
+                        \n400-688-1248
+    </string>
+
+    <!-- contact fragment -->
+    <string name="home_contact_tab">联系人</string>
+    <string name="new_friend">新朋友</string>
+    <string name="public_group">公开群</string>
+    <string name="discuss_group">讨论组</string>
+    <string name="chatroom">聊天室</string>
+    <string name="addfriend">添加好友</string>
+    <string name="contact_add_group">添加群组</string>
+    <string name="manangergroup">管理分组</string>
+
+    <string name="chat_up_finger">手指上滑，取消发送</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="chat_press_talk">按住 说话</string>
+    <string name="chat_release_send">松开 结束</string>
+    <string name="chat_image">图片</string>
+    <string name="chat_file">文件</string>
+    <string name="chat_photo">拍摄</string>
+    <string name="chat_video">小视频</string>
+    <string name="chat_audio_too_short">录音过短，请重试</string>
+    <string name="chat_video_too_short">录制过短，请重试</string>
+    <string name="chat_resend">重新发送</string>
+    <string name="chat_del">删除</string>
+    <string name="chat_save">保存</string>
+    <string name="chat_file_too_large">文件过大，发送失败</string>
+    <string name="chat_file_not_exist">文件不存在，发送失败</string>
+    <string name="chat_image_preview_title">图片预览</string>
+    <string name="chat_image_preview_send">发送</string>
+    <string name="chat_image_preview_load_err">图片加载失败</string>
+    <string name="chat_image_preview_ori">原图发送</string>
+</resources>

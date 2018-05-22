@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <include layout="@layout/layout_head"/>
+
+    <ScrollView
+        android:layout_below="@+id/ll_head"
+        android:layout_above="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_hotel_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dm_10"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:layout_marginTop="@dimen/dm_10"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t14"
+                android:textStyle="bold"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="@color/line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dm_10"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:layout_marginTop="@dimen/dm_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/dm_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="入住人"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="@dimen/t14"/>
+                <TextView
+                    android:id="@+id/tv_occupant"
+                    android:layout_width="@dimen/dm_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="1111"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t14"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="@color/line"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dm_10"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:layout_marginTop="@dimen/dm_10">
+
+                <TextView
+                    android:id="@+id/tv_room_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11111"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t14"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="11111"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t14"
+                    android:textStyle="bold"/>
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="@color/line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dm_10"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:layout_marginTop="@dimen/dm_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/dm_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="手机号"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="@dimen/t14"/>
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="@dimen/dm_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@color/transparent"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t14"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="@color/line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:layout_marginTop="@dimen/dm_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/dm_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="入住时间"
+                    android:textColor="@color/textColorBlack" android:textSize="@dimen/t14"/>
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="@dimen/dm_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:text="2018-01-01至2018-01-01"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t14"/>
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:layout_marginTop="@dimen/dm_10"
+                android:background="@color/line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dm_10"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:layout_marginTop="@dimen/dm_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/dm_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="取消政策"
+                    android:textColor="@color/textColorBlack"
+                    android:textSize="@dimen/t14"/>
+                <TextView
+                    android:id="@+id/tv_cancel_policy"
+                    android:layout_width="@dimen/dm_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t14"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="@color/line"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dm_10"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:layout_marginTop="@dimen/dm_10">
+
+
+                <TextView
+                    android:id="@+id/tv_total_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="0"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/t14"/>
+                <TextView
+                    android:id="@+id/tv_yfze"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/tv_total_fee"
+                    android:text="应付总额："
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t14"/>
+
+                <TextView
+                    android:id="@+id/tv_price_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dm_15"
+                    android:layout_toLeftOf="@+id/tv_yfze"
+                    android:text="费用明细"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/t14"/>
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="@color/line"/>
+
+            <com.twlrg.twsl.widget.AutoFitTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dm_10"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:layout_marginTop="@dimen/dm_10"
+                android:text="请选择您的私人酒店顾问,您的预定有他/她服务"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t14"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="@color/line"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/et_mark"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_100"
+                android:layout_margin="@dimen/dm_10"
+                android:background="@drawable/gray_frame_5dp"
+                android:gravity="top"
+                android:hint="如果有特殊要求请在这里填写(最多100字)"
+                android:maxLength="100"
+                android:padding="@dimen/dm_5"
+                android:textColor="@color/blackA"
+                android:textSize="@dimen/t14"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/order_btn_selector"
+        android:text="提交订单"
+        android:textColor="@color/white"
+        android:textSize="@dimen/t22"/>
+</RelativeLayout>

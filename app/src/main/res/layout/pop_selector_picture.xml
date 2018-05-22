@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8000"
+    android:gravity="center_horizontal|bottom"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_10"
+        android:layout_marginRight="@dimen/dm_10"
+        android:background="@drawable/white_corner_background"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/openCamera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/click_gray_normal_trans"
+            android:gravity="center"
+            android:padding="@dimen/dm_10"
+            android:text="拍照"
+            android:textColor="#037AFF"
+            android:textSize="18sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#D5D5D5"/>
+
+        <TextView
+            android:id="@+id/openAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/click_gray_normal_trans"
+            android:gravity="center"
+            android:padding="@dimen/dm_10"
+            android:text="从相册中选取"
+            android:textColor="#037AFF"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dm_10"
+        android:background="@drawable/white_corner_background"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_corner_background"
+            android:gravity="center"
+            android:padding="@dimen/dm_10"
+            android:text="取消"
+            android:textColor="#037AFF"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+</LinearLayout>

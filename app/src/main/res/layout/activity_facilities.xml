@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/layout_head"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_10"
+                android:text="酒店设施"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t16"/>
+
+            <com.twlrg.twsl.widget.NoScrollGridView
+                android:id="@+id/gv_hotel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/dm_20"
+                android:listSelector="#00000000"
+                android:numColumns="3"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/dm_10"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_10"
+                android:text="活动设施"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t16"/>
+
+            <com.twlrg.twsl.widget.NoScrollGridView
+                android:id="@+id/gv_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/dm_20"
+                android:listSelector="#00000000"
+                android:numColumns="3"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/dm_10"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_10"
+                android:text="客房设施"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t16"/>
+
+            <com.twlrg.twsl.widget.NoScrollGridView
+                android:id="@+id/gv_room"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/dm_20"
+                android:listSelector="#00000000"
+                android:numColumns="3"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/dm_10"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_10"
+                android:text="会议设施"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t16"/>
+
+
+            <com.twlrg.twsl.widget.NoScrollGridView
+                android:id="@+id/gv_conferenc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/dm_20"
+                android:listSelector="#00000000"
+                android:numColumns="3"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/dm_10"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_10"
+                android:text="餐厅设施"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t16"/>
+
+
+            <com.twlrg.twsl.widget.NoScrollGridView
+                android:id="@+id/gv_dining"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/dm_20"
+                android:listSelector="#00000000"
+                android:numColumns="3"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/dm_10"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/layout_head"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_15"
+        android:layout_marginTop="@dimen/dm_15"
+        android:text="入离时间"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t16"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_15"
+        android:layout_marginRight="@dimen/dm_15"
+        android:layout_marginTop="@dimen/dm_5"
+        android:textColor="@color/blackA"
+        android:textSize="@dimen/t14"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_15"
+        android:layout_marginTop="@dimen/dm_15"
+        android:text="儿童及加床"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t16"/>
+
+    <TextView
+        android:id="@+id/tv_children_policy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_15"
+        android:layout_marginRight="@dimen/dm_15"
+        android:layout_marginTop="@dimen/dm_5"
+        android:textColor="@color/blackA"
+        android:textSize="@dimen/t14"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_15"
+        android:layout_marginTop="@dimen/dm_15"
+        android:text="膳食安排"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t16"/>
+
+    <TextView
+        android:id="@+id/tv_meal_plans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_15"
+        android:layout_marginRight="@dimen/dm_15"
+        android:layout_marginTop="@dimen/dm_5"
+        android:textColor="@color/blackA"
+        android:textSize="@dimen/t14"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_15"
+        android:layout_marginTop="@dimen/dm_15"
+        android:text="宠物政策"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t16"/>
+
+    <TextView
+        android:id="@+id/tv_pet_policy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_15"
+        android:layout_marginRight="@dimen/dm_15"
+        android:layout_marginTop="@dimen/dm_5"
+        android:textColor="@color/blackA"
+        android:textSize="@dimen/t14"/>
+
+</LinearLayout>
