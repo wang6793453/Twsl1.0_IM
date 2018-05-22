@@ -164,7 +164,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private LocationService locationService;
 
     private int    count;
-    private Dialog  mToastDialog;
+    private Dialog mToastDialog;
     private static final int REQUEST_SUCCESS    = 0x01;
     private static final int REQUEST_FAIL       = 0x02;
     private static final int GET_CITY_SUCCESS   = 0x03;
@@ -430,7 +430,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     {
         super.onResume();
 
-        if(null !=mToastDialog)
+        if (null != mToastDialog)
         {
             mToastDialog.dismiss();
         }
@@ -481,8 +481,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
         tvCheck.setText("住 " + StringUtils.toMonthAndDay(mStartDate));
         tvLeave.setText("离 " + StringUtils.toMonthAndDay(mEndDate));
-
-
 
 
     }
@@ -984,50 +982,61 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                 int index = getCityIndex(currentCity);
 
                 String title = "";
-                if (index < 0)
+
+                try
                 {
-                    if (StringUtils.stringIsEmpty(currentCity))
+                    if (index < 0)
                     {
-                        if (!cityInfoList.isEmpty())
+                        if (StringUtils.stringIsEmpty(currentCity))
                         {
-                            CityInfo mCityInfo = cityInfoList.get(0);
-                            title = "定位失败,已为您自动切换到" + mCityInfo.getName();
-                            tvCity.setText(mCityInfo.getName());
-                            city_value = mCityInfo.getId();
+                            if (!cityInfoList.isEmpty())
+                            {
+                                CityInfo mCityInfo = cityInfoList.get(0);
+                                title = "定位失败,已为您自动切换到" + mCityInfo.getName();
+                                tvCity.setText(mCityInfo.getName());
+                                city_value = mCityInfo.getId();
+                            }
+                            else
+                            {
+                                title = "定位失败,已为您自动切换到深圳市";
+                                tvCity.setText("深圳市");
+                                city_value = "2158";
+                            }
+
+
                         }
                         else
                         {
-                            title = "定位失败,已为您自动切换到深圳市";
-                            tvCity.setText("深圳市");
-                            city_value = "2158";
+                            if (cityInfoList.isEmpty())
+                            {
+                                title = "定位成功,您的城市为" + currentCity + ",已为你自动切换到深圳";
+                                tvCity.setText("深圳市");
+                                city_value = "2158";
+                            }
+                            else
+                            {
+                                CityInfo mCityInfo = cityInfoList.get(0);
+                                title = "定位成功,您的城市为" + currentCity + ",已为你自动切换到" + mCityInfo.getName();
+                                tvCity.setText(mCityInfo.getName());
+                                city_value = mCityInfo.getId();
+                            }
+
                         }
 
 
                     }
                     else
                     {
-                        if (cityInfoList.isEmpty())
-                        {
-                            title = "定位成功,您的城市为" + currentCity + ",已为你自动切换到深圳";
-                            tvCity.setText("深圳市");
-                            city_value = "2158";
-                        }
-                        else
-                        {
-                            CityInfo mCityInfo = cityInfoList.get(0);
-                            title = "定位成功,您的城市为" + currentCity + ",已为你自动切换到" + mCityInfo.getName();
-                            tvCity.setText(mCityInfo.getName());
-                            city_value = mCityInfo.getId();
-                        }
-
+                        title = "定位成功,您的城市为" + currentCity;
+                        tvCity.setText(currentCity);
                     }
 
-
-                }
-                else
+                } catch (Exception e)
                 {
-                    title = "定位成功,您的城市为" + currentCity;
-                    tvCity.setText(currentCity);
+                    e.printStackTrace();
+                    title = "定位失败,已为您自动切换到深圳市";
+                    tvCity.setText("深圳市");
+                    city_value = "2158";
                 }
 
                 DialogUtils.showPromptDialog(getActivity(), title, new MyItemClickListener()
@@ -1168,7 +1177,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         }
         else
         {
-            if(null !=mToastDialog)
+            if (null != mToastDialog)
             {
                 mToastDialog.show();
             }
