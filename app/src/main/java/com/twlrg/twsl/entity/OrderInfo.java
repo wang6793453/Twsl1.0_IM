@@ -61,8 +61,8 @@ public class OrderInfo
     private String position;
     private String nickname;
     private String sale_mobile;
-
-
+    private  boolean priceModify;
+    public OrderInfo(){}
     public OrderInfo(JSONObject obj)
     {
         this.status = obj.optString("status");
@@ -628,5 +628,15 @@ public class OrderInfo
     public void setRemark(String remark)
     {
         this.remark = remark;
+    }
+
+    public boolean isPriceModify()
+    {
+        return priceModify;
+    }
+
+    public void setPriceModify(boolean priceModify)
+    {
+        this.priceModify = priceModify;
     }
 }

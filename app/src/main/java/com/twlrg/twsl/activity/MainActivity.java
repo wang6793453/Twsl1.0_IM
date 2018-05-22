@@ -17,7 +17,9 @@ import com.twlrg.twsl.R;
 import com.twlrg.twsl.fragment.HomeFragment;
 import com.twlrg.twsl.fragment.MessageFragment;
 import com.twlrg.twsl.fragment.OrderFragment;
+import com.twlrg.twsl.fragment.OrderListFragment;
 import com.twlrg.twsl.fragment.UserCenterFragment;
+import com.twlrg.twsl.fragment.UserCenterFragment1;
 import com.twlrg.twsl.utils.DialogUtils;
 import com.twlrg.twsl.utils.LogUtil;
 
@@ -34,9 +36,8 @@ public class MainActivity extends BaseActivity
             R.drawable.ic_home_selector, R.drawable.ic_message_selector,
             R.drawable.ic_order_selector, R.drawable.ic_user_center_selector};
 
-    UserCenterFragment mUserCenterFragment = new UserCenterFragment();
 
-    private Class fragmentArray[] = {HomeFragment.class, MessageFragment.class, OrderFragment.class, mUserCenterFragment.getClass()};
+    private Class fragmentArray[] = {HomeFragment.class, MessageFragment.class, OrderListFragment.class, UserCenterFragment1.class};
 
     private final String USER_LOGOUT = "USER_LOGOUT";
 
@@ -127,12 +128,6 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        mUserCenterFragment.onActivityResult(requestCode, resultCode, data);
-    }
 
     @Override
     protected void onDestroy()

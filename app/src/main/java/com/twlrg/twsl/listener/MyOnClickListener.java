@@ -7,31 +7,6 @@ package com.twlrg.twsl.listener;
  */
 public class MyOnClickListener
 {
-    /**
-     * <pop dismiss 监听>
-     *
-     * @author zhong
-     */
-    public interface OnLivePopDismissListener
-    {
-
-        public abstract void dismissBackCall();
-    }
-
-
-
-    /**
-     * <pop dismiss 监听>
-     *
-     * @author zhong
-     */
-    public interface OnChooseGiftListener
-    {
-
-        public abstract void setGiftId(String id, int num);
-    }
-
-
     public interface OnSuccessListener
     {
         public abstract void onSuccess();
@@ -43,16 +18,16 @@ public class MyOnClickListener
         public abstract void onSubmit(String content);
     }
 
-
-    public interface  OnQuestionSubmitListener
-    {
-        public abstract void onSubmit(String content, String type);
-    }
-
-
     public interface OnCallBackListener
     {
-        public abstract void OnCallBack(String msgId);
+        public abstract void onSubmit(int p,String content);
     }
+
+
+    public interface OnClickCallBackListener
+    {
+        public abstract void onSubmit(int p,int i);
+    }
+
 
 }

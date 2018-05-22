@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/layout_head"/>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_hotel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm_15"
+        android:background="@drawable/common_click_selector"
+        android:orientation="vertical"
+        android:padding="@dimen/dm_10"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="酒店图片"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t16"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_arrow_right_48"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm_15"
+        android:background="@drawable/common_click_selector"
+        android:orientation="vertical"
+        android:padding="@dimen/dm_10"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客房图片"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t16"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_arrow_right_48"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_conference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm_15"
+        android:background="@drawable/common_click_selector"
+        android:orientation="vertical"
+        android:padding="@dimen/dm_10"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="会议室图片"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t16"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_arrow_right_48"/>
+    </RelativeLayout>
+</LinearLayout>

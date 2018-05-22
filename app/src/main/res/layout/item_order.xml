@@ -28,12 +28,16 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/tv_total_fee"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_type"
+            android:layout_width="@dimen/dm_66"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="￥500"
-            android:textColor="@color/orange"
+            android:background="@drawable/common_yellow_5dp"
+            android:paddingBottom="@dimen/dm_5"
+            android:paddingTop="@dimen/dm_5"
+            android:text="待确认"
+            android:textColor="@color/white"
             android:textSize="@dimen/t14"/>
 
     </RelativeLayout>
@@ -46,55 +50,63 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="豪华大床房(无早餐)    1间 10晚"
+            android:text="豪华大床房(无早餐)"
             android:textColor="@color/black"
             android:textSize="@dimen/t14"/>
 
         <TextView
-            android:id="@+id/tv_payment_trade_status"
+            android:id="@+id/tv_room_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="已支付"
-            android:textColor="@color/orange"
+            android:layout_marginRight="@dimen/dm_15"
+            android:text="1间"
+            android:textColor="@color/black"
             android:textSize="@dimen/t14"/>
 
     </RelativeLayout>
-
-
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm_10"
-        android:text="崔先生 2018-04-13 入住"
-        android:textColor="@color/black"
-        android:textSize="@dimen/t14"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dm_10">
+
         <TextView
-            android:id="@+id/tv_create_time"
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1111111"
+            android:textColor="@color/blackA"
+            android:textSize="@dimen/t14"/>
+
+        <TextView
+            android:id="@+id/tv_days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="2017-05-12 16:05"
-            android:textColor="@color/black"
+            android:layout_marginRight="@dimen/dm_15"
+            android:text="1晚"
+            android:textColor="@color/blackA"
             android:textSize="@dimen/t14"/>
-
-        <TextView
-
-            android:id="@+id/tv_evaluate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dm_20"
-            android:layout_toLeftOf="@+id/tv_create_time"
-            android:text="评价"
-            android:visibility="gone"
-            android:textColor="@color/green"
-            android:textSize="@dimen/t14"/>
-
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_order_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dm_10"
+        android:textColor="@color/blackA"
+        android:textSize="@dimen/t14"/>
+
+    <TextView
+        android:id="@+id/tv_create_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dm_10"
+        android:gravity="right"
+        android:text="2017-05-12 16:05"
+        android:textColor="@color/blackA"
+        android:textSize="@dimen/t14"/>
 </LinearLayout>

@@ -38,6 +38,9 @@ public class RoomInfo implements Serializable
     private int price;//200,
     private String price_type;//wz
     private List<String> picList = new ArrayList<>();
+
+    public RoomInfo(){}
+
     public RoomInfo(JSONObject obj)
     {
         this.id = obj.optString("id");

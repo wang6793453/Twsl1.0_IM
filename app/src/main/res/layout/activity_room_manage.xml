@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/layout_head"/>
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:padding="@dimen/dm_15"
+        android:text="添加客房"
+        android:textColor="@color/white"
+        android:textSize="@dimen/t20"/>
+
+    <com.twlrg.twsl.widget.list.refresh.PullToRefreshRecyclerView
+        android:id="@+id/pullToRefreshRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</LinearLayout>

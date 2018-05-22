@@ -9,14 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.twlrg.twsl.MyApplication;
 import com.twlrg.twsl.R;
 import com.twlrg.twsl.activity.BaseHandler;
 import com.twlrg.twsl.activity.LoginActivity;
-import com.twlrg.twsl.activity.MainActivity;
 import com.twlrg.twsl.activity.OrderDetailActivity;
 import com.twlrg.twsl.adapter.OrderAdapter;
 import com.twlrg.twsl.entity.OrderInfo;
@@ -30,7 +29,6 @@ import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
-import com.twlrg.twsl.widget.AutoFitTextView;
 import com.twlrg.twsl.widget.EmptyDecoration;
 import com.twlrg.twsl.widget.list.refresh.PullToRefreshBase;
 import com.twlrg.twsl.widget.list.refresh.PullToRefreshRecyclerView;
@@ -52,14 +50,12 @@ import butterknife.Unbinder;
 public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener<RecyclerView>, IRequestListener
 {
 
-    @BindView(R.id.topView)
-    View                      topView;
     @BindView(R.id.pullToRefreshRecyclerView)
     PullToRefreshRecyclerView mPullToRefreshRecyclerView;
-    @BindView(R.id.iv_back)
-    ImageView                 ivBack;
-    @BindView(R.id.tv_title)
-    AutoFitTextView           tvTitle;
+    @BindView(R.id.btn_load)
+    Button                    btnLoad;
+    @BindView(R.id.ll_no_data)
+    LinearLayout              llNoData;
     private View rootView = null;
     private Unbinder unbinder;
 
@@ -68,11 +64,13 @@ public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnR
     private int mRefreshStatus;
     private List<OrderInfo> orderInfoList = new ArrayList<>();
     private OrderAdapter mOrderAdapter;
+    private String keyword = "", s_date = "", e_date = "";
+
+
     private static final String GET_ORDER_LIST = "get_order_list";
 
     private static final int REQUEST_SUCCESS = 0x01;
     private static final int REQUEST_FAIL    = 0x02;
-    private static final int INIT_ONRESUME   = 0x04;
 
     @SuppressLint("HandlerLeak")
     private BaseHandler mHandler = new BaseHandler(getActivity())
@@ -87,36 +85,52 @@ public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnR
                     OrderListHandler mOrderListHandler = (OrderListHandler) msg.obj;
                     orderInfoList.addAll(mOrderListHandler.getOrderInfoList());
                     mOrderAdapter.notifyDataSetChanged();
-
+                    if (orderInfoList.isEmpty())
+                    {
+                        mRecyclerView.setVisibility(View.GONE);
+                        llNoData.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        llNoData.setVisibility(View.GONE);
+                    }
                     break;
 
                 case REQUEST_FAIL:
-                    ToastUtil.show(getActivity(), msg.obj.toString());
-
-                    break;
-
-                case INIT_ONRESUME:
-                    if (((MainActivity) getActivity()).getTabIndex() == 2)
+                    //ToastUtil.show(getActivity(), msg.obj.toString());
+                    if (orderInfoList.isEmpty())
                     {
-                        ((MainActivity) getActivity()).changeTabStatusColor(2);
-
-                        if (MyApplication.getInstance().isLogin())
-                        {
-                            orderInfoList.clear();
-                            pn = 1;
-                            mRefreshStatus = 0;
-                            getOrderList();
-                        }
-                        else
-                        {
-                            LoginActivity.start(getActivity(), true);
-                        }
+                        mRecyclerView.setVisibility(View.GONE);
+                        llNoData.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        llNoData.setVisibility(View.GONE);
                     }
                     break;
+
 
             }
         }
     };
+
+    private static OrderFragment instance = null;
+
+    public static OrderFragment newInstance(String keyword, String s_date, String e_date)
+    {
+        if (instance == null)
+        {
+            instance = new OrderFragment();
+        }
+        Bundle b = new Bundle();
+        b.putString("keyword", keyword);
+        b.putString("s_date", s_date);
+        b.putString("e_date", e_date);
+        instance.setArguments(b);
+        return instance;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -143,15 +157,23 @@ public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnR
     public void onResume()
     {
         super.onResume();
-        mHandler.sendEmptyMessageDelayed(INIT_ONRESUME, 200);
-
-
+        if (MyApplication.getInstance().isLogin())
+        {
+            orderInfoList.clear();
+            pn = 1;
+            mRefreshStatus = 0;
+            getOrderList();
+        }
     }
+
+
 
     @Override
     protected void initData()
     {
-
+        keyword = String.valueOf(getArguments().get("keyword"));
+        s_date = String.valueOf(getArguments().get("s_date"));
+        e_date = String.valueOf(getArguments().get("e_date"));
     }
 
     @Override
@@ -163,17 +185,22 @@ public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnR
     @Override
     protected void initEvent()
     {
-
+        btnLoad.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                orderInfoList.clear();
+                pn = 1;
+                mRefreshStatus = 0;
+                getOrderList();
+            }
+        });
     }
 
     @Override
     protected void initViewData()
     {
-        ivBack.setVisibility(View.GONE);
-        tvTitle.setText("我的订单");
-
-        topView.setVisibility(View.VISIBLE);
-        topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(getActivity())));
         mPullToRefreshRecyclerView.setPullLoadEnabled(true);
         mRecyclerView = mPullToRefreshRecyclerView.getRefreshableView();
         mPullToRefreshRecyclerView.setOnRefreshListener(this);
@@ -200,9 +227,12 @@ public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnR
         Map<String, String> valuePairs = new HashMap<>();
         valuePairs.put("uid", ConfigManager.instance().getUserID());
         valuePairs.put("token", ConfigManager.instance().getToken());
-        valuePairs.put("role", "1");
+        valuePairs.put("role", "2");
         valuePairs.put("type", "0");
         valuePairs.put("page", pn + "");
+        valuePairs.put("keyword", keyword);
+        valuePairs.put("s_date", s_date);
+        valuePairs.put("e_date", e_date);
         DataRequest.instance().request(getActivity(), Urls.getOrderListUrl(), this, HttpRequest.POST, GET_ORDER_LIST, valuePairs,
                 new OrderListHandler());
     }
@@ -260,4 +290,6 @@ public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnR
             unbinder = null;
         }
     }
+
+
 }

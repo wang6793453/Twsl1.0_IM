@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/ll_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dm_10"
+    android:paddingTop="@dimen/dm_10"
+    >
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="2018-03-03"
+        android:textColor="@color/blackA"
+        android:textSize="@dimen/t14"/>
+
+
+    <TextView
+        android:id="@+id/tv_rmb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dm_10"
+        android:layout_toRightOf="@+id/tv_date"
+        android:text="RMB"
+        android:textColor="@color/blackA"
+        android:textSize="@dimen/t14"/>
+
+
+    <EditText
+        android:id="@+id/et_price"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dm_20"
+        android:layout_marginRight="@dimen/dm_20"
+        android:layout_toRightOf="@+id/tv_rmb"
+        android:background="@drawable/order_price_selector"
+        android:enabled="true"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="6"
+        android:padding="@dimen/dm_3"
+        android:text="111111"
+        android:textColor="@color/blackA"
+        android:textSize="@dimen/t14"/>
+
+    <TextView
+        android:id="@+id/tv_price_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/et_price"
+        android:text="无早"
+        android:textColor="@color/blackA"
+        android:textSize="@dimen/t14"/>
+
+
+</RelativeLayout>

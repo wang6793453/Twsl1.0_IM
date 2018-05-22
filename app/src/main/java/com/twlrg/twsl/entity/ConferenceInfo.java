@@ -35,7 +35,7 @@ public class ConferenceInfo
     private String status;//0,
     private String isdelete;//0
     private List<String> picList = new ArrayList<>();
-
+    public ConferenceInfo(){}
     public ConferenceInfo(JSONObject obj)
     {
         this.id = obj.optString("id");

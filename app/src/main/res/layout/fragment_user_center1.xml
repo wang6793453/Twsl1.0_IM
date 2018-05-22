@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground"
+    android:orientation="vertical"
+    >
+
+
+    <View
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm_40">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t16"/>
+
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dm_15"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t14"/>
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dm_15"
+            android:layout_marginRight="@dimen/dm_15"
+            android:text="取消"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t14"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_5"
+        android:layout_marginRight="@dimen/dm_5"
+        android:layout_marginTop="@dimen/dm_5"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_ftwh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_ftwh"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="房态维护"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_fjwh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fjwh"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="房价维护"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_jddp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_jddp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="酒店点评"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_5"
+        android:layout_marginRight="@dimen/dm_5"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_zdzf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_zdzf"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="账单支付"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_kfgl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_kfgl"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="客房管理"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_hysgl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dm_15"
+            android:paddingTop="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_hysgl"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="会议室管理"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_5"
+        android:layout_marginRight="@dimen/dm_5"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_ctgl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_ctgl"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="餐厅管理"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_tpgl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tpgl"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="图片管理"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_jdss"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_jdss"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="酒店设施"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_5"
+        android:layout_marginRight="@dimen/dm_5"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_jdxx"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dm_15"
+            android:paddingTop="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_jdxx"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="酒店基本信息"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_jdzz"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_jdzc"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="酒店政策"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_grzc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_5"
+            android:layout_weight="1"
+            android:background="@drawable/common_click_selector"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dm_15">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_jdhy"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_5"
+                android:text="个人中心"
+                android:textSize="@dimen/t16"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

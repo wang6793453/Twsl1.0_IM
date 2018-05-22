@@ -43,4 +43,19 @@
         <item>451元-600元</item>
         <item>600元以上</item>
     </string-array>
+
+    <string-array name="smokelessType">
+        <item>无烟房</item>
+        <item>有烟房</item>
+    </string-array>
+
+    <string-array name="wifiType">
+        <item>无WIFI</item>
+        <item>有WIFI</item>
+    </string-array>
+
+    <string-array name="windowType">
+        <item>无窗</item>
+        <item>有窗</item>
+    </string-array>
 </resources>

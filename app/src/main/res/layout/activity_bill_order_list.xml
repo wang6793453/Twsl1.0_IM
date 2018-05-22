@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/layout_head"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/dm_10">
+
+        <TextView
+            android:id="@+id/tv_total_bill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1111111"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t16"/>
+
+
+        <TextView
+            android:id="@+id/tv_total_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="1111111"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t16"/>
+    </RelativeLayout>
+    <com.twlrg.twsl.widget.list.refresh.PullToRefreshRecyclerView
+        android:id="@+id/pullToRefreshRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_noData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="无数据"
+        android:visibility="gone"/>
+
+</LinearLayout>
