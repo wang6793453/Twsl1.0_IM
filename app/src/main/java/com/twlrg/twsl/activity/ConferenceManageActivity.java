@@ -20,8 +20,10 @@ import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
 import com.twlrg.twsl.json.CommentListHandler;
 import com.twlrg.twsl.json.ConferenceListHandler;
+import com.twlrg.twsl.json.RoomListHandler;
 import com.twlrg.twsl.listener.MyItemClickListener;
 import com.twlrg.twsl.utils.APPUtils;
+import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
@@ -61,10 +63,8 @@ public class ConferenceManageActivity extends BaseActivity implements PullToRefr
     private List<ConferenceInfo> conferenceInfoList = new ArrayList<>();
     private ConferenceManageAdapter mConferenceManageAdapter;
 
-    private String merchant_id;
 
-
-    private static final String GET_COMMENT_LIST = "get_comment_list";
+    private static final String GET_CONFERENCE_LIST = "get_conference_list";
 
     private static final int REQUEST_SUCCESS = 0x01;
     private static final int REQUEST_FAIL    = 0x02;
@@ -98,13 +98,7 @@ public class ConferenceManageActivity extends BaseActivity implements PullToRefr
     @Override
     protected void initData()
     {
-        merchant_id = getIntent().getStringExtra("MERCHANT_ID");
 
-
-        for (int i = 0; i < 10; i++)
-        {
-            conferenceInfoList.add(new ConferenceInfo());
-        }
     }
 
     @Override
@@ -142,13 +136,22 @@ public class ConferenceManageActivity extends BaseActivity implements PullToRefr
             @Override
             public void onItemClick(View view, int position)
             {
-                startActivity(new Intent(ConferenceManageActivity.this, ConferenceDetailActivity.class));
+                startActivity(new Intent(ConferenceManageActivity.this, ConferenceDetailActivity.class).putExtra("CONFERENCE_ID", conferenceInfoList.get
+                        (position).getId()));
             }
         });
         mRecyclerView.setAdapter(mConferenceManageAdapter);
-        // getBillList();
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        conferenceInfoList.clear();
+        pn = 1;
+        mRefreshStatus = 0;
+        getRoomList();
+    }
 
     @Override
     public void onClick(View v)
@@ -181,11 +184,11 @@ public class ConferenceManageActivity extends BaseActivity implements PullToRefr
     private void getRoomList()
     {
         Map<String, String> valuePairs = new HashMap<>();
-        valuePairs.put("merchant_id", merchant_id);
-
-        valuePairs.put("page", pn + "");
-        DataRequest.instance().request(ConferenceManageActivity.this, Urls.getCommentListUrl(), this, HttpRequest.POST, GET_COMMENT_LIST, valuePairs,
-                new CommentListHandler());
+        valuePairs.put("token", ConfigManager.instance().getToken());
+        valuePairs.put("uid", ConfigManager.instance().getUserID());
+        valuePairs.put("city_value", ConfigManager.instance().getCityValue());
+        DataRequest.instance().request(ConferenceManageActivity.this, Urls.getConferenceListUrl(), this, HttpRequest.POST, GET_CONFERENCE_LIST, valuePairs,
+                new ConferenceListHandler());
     }
 
     @Override
@@ -200,7 +203,7 @@ public class ConferenceManageActivity extends BaseActivity implements PullToRefr
             mPullToRefreshRecyclerView.onPullDownRefreshComplete();
         }
 
-        if (GET_COMMENT_LIST.equals(action))
+        if (GET_CONFERENCE_LIST.equals(action))
         {
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {

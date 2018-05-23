@@ -14,9 +14,11 @@ import com.twlrg.twsl.activity.ConferenceManageActivity;
 import com.twlrg.twsl.activity.FacilitiesActivity;
 import com.twlrg.twsl.activity.LocationActivity;
 import com.twlrg.twsl.activity.MainActivity;
+import com.twlrg.twsl.activity.MyCenterActivity;
 import com.twlrg.twsl.activity.RoomManageActivity;
 import com.twlrg.twsl.activity.RoomPriceListActivity;
 import com.twlrg.twsl.activity.RoomStatusListActivity;
+import com.twlrg.twsl.activity.UserCenterActivity;
 import com.twlrg.twsl.utils.APPUtils;
 
 import butterknife.BindView;
@@ -196,6 +198,7 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
         }
         else if (v == llGrzc)
         {
+            gotoActivity(MyCenterActivity.class);
 
         }
     }

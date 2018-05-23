@@ -204,10 +204,46 @@ public class Urls
     {
         return BASE_URL + "room/room_add";
     }
+
     //获取新增客房
     public static String getEditRoomUrl()
     {
         return BASE_URL + "room/room_edit";
     }
+
+
+    //获取客房详情
+    public static String getRoomInfoUrl()
+    {
+        return BASE_URL + "room/room_info";
+    }
+
+    //会议室列表
+    public static String getConferenceListUrl()
+    {
+        return BASE_URL + "room/conference_list";
+    }
+
+
+    //会议室详情
+    public static String getConferenceInfoUrl()
+    {
+        return BASE_URL + "room/conference_info";
+    }
+
+    //编辑会议室详情
+    public static String getEditConferenceInfoUrl()
+    {
+        return BASE_URL + "room/conference_eidt";
+    }
+
+
+    //新增会议室详情
+    public static String getAddConferenceInfoUrl()
+    {
+        return BASE_URL + "room/conference_add";
+    }
+
+
 
 }

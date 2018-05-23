@@ -12,9 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.twlrg.twsl.R;
+import com.twlrg.twsl.entity.RoomInfo;
 import com.twlrg.twsl.http.DataRequest;
 import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
+import com.twlrg.twsl.json.ResultHandler;
+import com.twlrg.twsl.json.RoomInfoHandler;
 import com.twlrg.twsl.json.RoomListHandler;
 import com.twlrg.twsl.listener.MyItemClickListener;
 import com.twlrg.twsl.utils.APPUtils;
@@ -80,13 +83,13 @@ public class RoomDetailActivity extends BaseActivity implements IRequestListener
     private String room_id;
 
 
-    private static final String ADD_ROOM = "add_room";
-
-    private static final int ADD_ROOM_SUCCESS = 0x01;
-    private static final int REQUEST_FAIL     = 0x02;
-
+    private static final String      ADD_ROOM             = "add_room";
+    private static final String      GET_ROOMINFO         = "get_roominfo";
+    private static final int         ADD_ROOM_SUCCESS     = 0x01;
+    private static final int         REQUEST_FAIL         = 0x02;
+    private static final int         GET_ROOMINFO_SUCCESS = 0x03;
     @SuppressLint("HandlerLeak")
-    private final BaseHandler mHandler = new BaseHandler(RoomDetailActivity.this)
+    private final        BaseHandler mHandler             = new BaseHandler(RoomDetailActivity.this)
     {
         @Override
         public void handleMessage(Message msg)
@@ -103,7 +106,54 @@ public class RoomDetailActivity extends BaseActivity implements IRequestListener
                     ToastUtil.show(RoomDetailActivity.this, msg.obj.toString());
 
                     break;
+                case GET_ROOMINFO_SUCCESS:
+                    RoomInfoHandler mRoomInfoHandler = (RoomInfoHandler) msg.obj;
+                    RoomInfo mRoomInfo = mRoomInfoHandler.getRoomInfo();
 
+                    if (null != mRoomInfo)
+                    {
+                        etRoomTitle.setText(mRoomInfo.getTitle());
+                        etArea.setText(mRoomInfo.getArea());
+                        etCheckIn.setText(mRoomInfo.getCheck_in());
+                        etFloor.setText(mRoomInfo.getFloor());
+                        etBedType.setText(mRoomInfo.getBed_type());
+                        etAddBed.setText(mRoomInfo.getAdd_bed());
+
+                        smokeless = Integer.parseInt(mRoomInfo.getSmokeless());
+                        wifi = Integer.parseInt(mRoomInfo.getWifi());
+                        window = Integer.parseInt(mRoomInfo.getWindow());
+
+                        if (smokeless == 0)
+                        {
+                            tvSmokeless.setText("无烟房");
+                        }
+                        else
+                        {
+                            tvSmokeless.setText("有烟房");
+                        }
+
+
+                        if (wifi == 0)
+                        {
+                            tvWifi.setText("无WIFI");
+                        }
+                        else
+                        {
+                            tvWifi.setText("有WIFI");
+                        }
+
+                        if (window == 0)
+                        {
+                            tvWindow.setText("无窗");
+                        }
+                        else
+                        {
+                            tvWifi.setText("有窗");
+                        }
+
+                    }
+
+                    break;
 
             }
         }
@@ -140,6 +190,21 @@ public class RoomDetailActivity extends BaseActivity implements IRequestListener
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvTitle.setText("客房详情");
+
+
+        if (!StringUtils.stringIsEmpty(room_id))
+        {
+            showProgressDialog();
+            Map<String, String> valuePairs = new HashMap<>();
+            valuePairs.put("token", ConfigManager.instance().getToken());
+            valuePairs.put("uid", ConfigManager.instance().getUserID());
+            valuePairs.put("city_value", ConfigManager.instance().getCityValue());
+            valuePairs.put("id", room_id);
+            DataRequest.instance().request(RoomDetailActivity.this, Urls.getRoomInfoUrl(), this, HttpRequest.POST, GET_ROOMINFO, valuePairs,
+                    new RoomInfoHandler());
+        }
+
+
     }
 
 
@@ -261,13 +326,13 @@ public class RoomDetailActivity extends BaseActivity implements IRequestListener
 
 
                 DataRequest.instance().request(RoomDetailActivity.this, Urls.getAddRoomUrl(), this, HttpRequest.POST, ADD_ROOM, valuePairs,
-                        new RoomListHandler());
+                        new ResultHandler());
             }
             else
             {
                 valuePairs.put("id", room_id);
                 DataRequest.instance().request(RoomDetailActivity.this, Urls.getEditRoomUrl(), this, HttpRequest.POST, ADD_ROOM, valuePairs,
-                        new RoomListHandler());
+                        new ResultHandler());
             }
 
 
@@ -284,6 +349,17 @@ public class RoomDetailActivity extends BaseActivity implements IRequestListener
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {
                 mHandler.sendMessage(mHandler.obtainMessage(ADD_ROOM_SUCCESS, obj));
+            }
+            else
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+            }
+        }
+        else if (GET_ROOMINFO.equals(action))
+        {
+            if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(GET_ROOMINFO_SUCCESS, obj));
             }
             else
             {

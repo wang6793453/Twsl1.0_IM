@@ -265,9 +265,16 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
 
-
-
-
+        <activity
+            android:name="com.twlrg.twsl.activity.ConferenceDetailActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name="com.twlrg.twsl.activity.MyCenterActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
 
 
 
@@ -514,6 +521,7 @@
         <activity android:name="com.twlrg.twsl.im.ui.BlackListActivity"></activity>
         <activity android:name="com.twlrg.twsl.im.ui.ImagePreviewActivity"></activity>
         <activity android:name="com.twlrg.twsl.im.ui.MessageNotifySettingActivity"></activity>
+        <activity android:name=".activity.UserCenterActivity"/>
     </application>
 
 </manifest>

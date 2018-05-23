@@ -58,4 +58,9 @@
         <item>无窗</item>
         <item>有窗</item>
     </string-array>
+
+    <string-array name="ledType">
+        <item>无LED显示屏</item>
+        <item>有LED显示屏</item>
+    </string-array>
 </resources>
