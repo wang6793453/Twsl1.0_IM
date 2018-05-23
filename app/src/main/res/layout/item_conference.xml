@@ -50,8 +50,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="起"
                 android:layout_marginLeft="@dimen/dm_3"
+                android:text="起"
                 android:textColor="@color/white"
                 android:textSize="@dimen/t10"
                 />
@@ -88,7 +88,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dm_10"
-                android:layout_marginRight="@dimen/dm_10"
                 android:text="1000平方"
                 android:textColor="@color/blackC"
                 android:textSize="@dimen/t14"/>
@@ -97,9 +96,27 @@
                 android:id="@+id/tv_floor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm_50"
+                android:layout_marginLeft="@dimen/dm_20"
                 android:layout_toRightOf="@+id/tv_area"
                 android:text="3楼"
+                android:textColor="@color/blackC"
+                android:textSize="@dimen/t14"/>
+
+            <TextView
+                android:id="@+id/tv_ckg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dm_20"
+                android:layout_toRightOf="@+id/tv_floor"
+                android:textColor="@color/blackC"
+                android:textSize="@dimen/t14"/>
+
+            <TextView
+                android:id="@+id/tv_led"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dm_20"
+                android:layout_toRightOf="@+id/tv_ckg"
                 android:textColor="@color/blackC"
                 android:textSize="@dimen/t14"/>
         </RelativeLayout>

@@ -193,4 +193,21 @@ public class Urls
     }
 
 
+    //获取客房列表
+    public static String getRoomListUrl()
+    {
+        return BASE_URL + "room/room_list";
+    }
+
+    //获取新增客房
+    public static String getAddRoomUrl()
+    {
+        return BASE_URL + "room/room_add";
+    }
+    //获取新增客房
+    public static String getEditRoomUrl()
+    {
+        return BASE_URL + "room/room_edit";
+    }
+
 }

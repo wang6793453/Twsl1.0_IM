@@ -22,6 +22,7 @@ import com.twlrg.twsl.json.CommentListHandler;
 import com.twlrg.twsl.json.RoomListHandler;
 import com.twlrg.twsl.listener.MyItemClickListener;
 import com.twlrg.twsl.utils.APPUtils;
+import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
@@ -61,10 +62,8 @@ public class RoomManageActivity extends BaseActivity implements PullToRefreshBas
     private List<RoomInfo> roomInfoList = new ArrayList<>();
     private RoomManageAdapter mRoomManageAdapter;
 
-    private String merchant_id;
 
-
-    private static final String GET_COMMENT_LIST = "get_comment_list";
+    private static final String GET_ROOM_LIST = "GET_ROOM_LIST";
 
     private static final int REQUEST_SUCCESS = 0x01;
     private static final int REQUEST_FAIL    = 0x02;
@@ -98,13 +97,6 @@ public class RoomManageActivity extends BaseActivity implements PullToRefreshBas
     @Override
     protected void initData()
     {
-        merchant_id = getIntent().getStringExtra("MERCHANT_ID");
-
-
-        for (int i = 0; i < 10; i++)
-        {
-            roomInfoList.add(new RoomInfo());
-        }
     }
 
     @Override
@@ -118,6 +110,7 @@ public class RoomManageActivity extends BaseActivity implements PullToRefreshBas
     protected void initEvent()
     {
         ivBack.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
     }
 
     @Override
@@ -142,13 +135,22 @@ public class RoomManageActivity extends BaseActivity implements PullToRefreshBas
             @Override
             public void onItemClick(View view, int position)
             {
-                startActivity(new Intent(RoomManageActivity.this, RoomDetailActivity.class));
+                startActivity(new Intent(RoomManageActivity.this, RoomDetailActivity.class).putExtra("ROOM_ID", roomInfoList.get(position).getId()));
             }
         });
         mRecyclerView.setAdapter(mRoomManageAdapter);
-        // getBillList();
     }
 
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        roomInfoList.clear();
+        pn = 1;
+        mRefreshStatus = 0;
+        getRoomList();
+    }
 
     @Override
     public void onClick(View v)
@@ -158,6 +160,10 @@ public class RoomManageActivity extends BaseActivity implements PullToRefreshBas
         if (v == ivBack)
         {
             finish();
+        }
+        else if (v == btnAdd)
+        {
+            startActivity(new Intent(RoomManageActivity.this, RoomDetailActivity.class));
         }
     }
 
@@ -181,11 +187,11 @@ public class RoomManageActivity extends BaseActivity implements PullToRefreshBas
     private void getRoomList()
     {
         Map<String, String> valuePairs = new HashMap<>();
-        valuePairs.put("merchant_id", merchant_id);
-
-        valuePairs.put("page", pn + "");
-        DataRequest.instance().request(RoomManageActivity.this, Urls.getCommentListUrl(), this, HttpRequest.POST, GET_COMMENT_LIST, valuePairs,
-                new CommentListHandler());
+        valuePairs.put("token", ConfigManager.instance().getToken());
+        valuePairs.put("uid", ConfigManager.instance().getUserID());
+        valuePairs.put("city_value", ConfigManager.instance().getCityValue());
+        DataRequest.instance().request(RoomManageActivity.this, Urls.getRoomListUrl(), this, HttpRequest.POST, GET_ROOM_LIST, valuePairs,
+                new RoomListHandler());
     }
 
     @Override
@@ -200,7 +206,7 @@ public class RoomManageActivity extends BaseActivity implements PullToRefreshBas
             mPullToRefreshRecyclerView.onPullDownRefreshComplete();
         }
 
-        if (GET_COMMENT_LIST.equals(action))
+        if (GET_ROOM_LIST.equals(action))
         {
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {

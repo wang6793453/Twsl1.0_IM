@@ -27,31 +27,25 @@ public class ConfigManager
      */
     private static String            CONFIG_NAME        = "config";
 
-    private static final String IS_FRIST_LOGING   = "IS_FRIST_LOGING";
-    private static final String USER_PWD          = "user_pwd";//密码
-    private static final String USER_NAME         = "user_name";// 用户名
-    private static final String USER_ID           = "user_id";
-    private static final String IDENTIFIER           = "identifier";
-    private static final String PREF_UUID         = "miei";
-    private static final String UNIQUE_CODE       = "unique_code";
-    private static final String USER_MOBILE       = "mobile";
-    private static final String IS_SAVE_PWD       = "is_save_pwd";
-    private static final String GUEST_ID          = "guest_id";
-    private static final String USER_NICK_NAME    = "user_nick_name";
-    private static final String USER_EMAIL   = "user_email";
-    private static final String CHEK_IN_DATE      = "chek_in_date";
-    private static final String CHEK_OUT_DATE      = "chek_out_date";
-    private static final String TOKEN             = "TOKEN";
-    private static final String USER_PIC         = "useer_pic";
-    private static final String USER_SEX = "user_sex";
+    private static final String IS_FRIST_LOGING = "IS_FRIST_LOGING";
+    private static final String USER_PWD        = "user_pwd";//密码
+    private static final String USER_NAME       = "user_name";// 用户名
+    private static final String USER_ID         = "user_id";
+    private static final String IDENTIFIER      = "identifier";
+    private static final String PREF_UUID       = "miei";
+    private static final String UNIQUE_CODE     = "unique_code";
+    private static final String USER_MOBILE     = "mobile";
+    private static final String IS_SAVE_PWD     = "is_save_pwd";
+    private static final String GUEST_ID        = "guest_id";
+    private static final String USER_NICK_NAME  = "user_nick_name";
+    private static final String USER_EMAIL      = "user_email";
+    private static final String CHEK_IN_DATE    = "chek_in_date";
+    private static final String CHEK_OUT_DATE   = "chek_out_date";
+    private static final String TOKEN           = "TOKEN";
+    private static final String USER_PIC        = "useer_pic";
+    private static final String USER_SEX        = "user_sex";
 
-
-
-
-
-
-
-
+    private static final String CITY_VALUE = "city_value";
 
 
     /**
@@ -113,11 +107,12 @@ public class ConfigManager
 
     public void setUserId(String userId)
     {
-        mSharedPreferences.edit().putString(IDENTIFIER, TencentCloud.UID_PREFIX+userId).putString(USER_ID, userId).apply();
+        mSharedPreferences.edit().putString(IDENTIFIER, TencentCloud.UID_PREFIX + userId).putString(USER_ID, userId).apply();
     }
 
-    public String getIdentifier(){
-        return mSharedPreferences.getString(IDENTIFIER,"");
+    public String getIdentifier()
+    {
+        return mSharedPreferences.getString(IDENTIFIER, "");
     }
 
     public void setUUID(String uuid)
@@ -218,12 +213,12 @@ public class ConfigManager
         mSharedPreferences.edit().putBoolean(IS_FRIST_LOGING, status).commit();
     }
 
-    public int  getUserSex()
-{
-    return mSharedPreferences.getInt(USER_SEX, 0);
-}
+    public int getUserSex()
+    {
+        return mSharedPreferences.getInt(USER_SEX, 0);
+    }
 
-    public void setUserSex(int  sex)
+    public void setUserSex(int sex)
     {
         mSharedPreferences.edit().putInt(USER_SEX, sex).commit();
     }
@@ -238,7 +233,6 @@ public class ConfigManager
     {
         return mSharedPreferences.getString(USER_EMAIL, "");
     }
-
 
 
     public void setChekInDate(String chek_in_date)
@@ -260,6 +254,17 @@ public class ConfigManager
     public String getChekOutDate()
     {
         return mSharedPreferences.getString(CHEK_OUT_DATE, "");
+    }
+
+
+    public void setCityValue(String city_value)
+    {
+        mSharedPreferences.edit().putString(CITY_VALUE, city_value).commit();
+    }
+
+    public String getCityValue()
+    {
+        return mSharedPreferences.getString(CITY_VALUE, "2158");
     }
 
 }

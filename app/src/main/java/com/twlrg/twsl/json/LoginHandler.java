@@ -26,6 +26,8 @@ public class LoginHandler extends JsonHandler
             ConfigManager.instance().setToken(obj.optString("token"));
             ConfigManager.instance().setUserNickName(obj.optString("nickname"));
             ConfigManager.instance().setMobile(obj.optString("mobile"));
+            ConfigManager.instance().setCityValue(obj.optString("city_value"));
+
 
             String portrait = obj.optString("portrait");
             if (StringUtils.stringIsEmpty(portrait))

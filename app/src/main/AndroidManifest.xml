@@ -244,6 +244,31 @@
             android:windowSoftInputMode="stateHidden"/>
 
 
+        <activity
+            android:name="com.twlrg.twsl.activity.RoomStatusDetailActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name="com.twlrg.twsl.activity.RoomPriceDetailActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name="com.twlrg.twsl.activity.PictureRoomListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name="com.twlrg.twsl.activity.RoomDetailActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+
+
+
+
+
 
 
         <activity

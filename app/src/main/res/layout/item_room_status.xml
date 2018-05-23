@@ -31,7 +31,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dm_25"
             android:layout_toRightOf="@+id/tv_room_title"
-            android:text="2018年5月"
             android:textColor="@color/blackA"
             android:textSize="@dimen/t16"/>
 

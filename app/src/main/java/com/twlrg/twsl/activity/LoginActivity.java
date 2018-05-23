@@ -272,4 +272,5 @@ public class LoginActivity extends BaseActivity implements IRequestListener
         }
 
     }
+
 }

@@ -1,6 +1,8 @@
 package com.twlrg.twsl.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -10,12 +12,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.twlrg.twsl.R;
+import com.twlrg.twsl.http.DataRequest;
+import com.twlrg.twsl.http.HttpRequest;
+import com.twlrg.twsl.http.IRequestListener;
+import com.twlrg.twsl.json.RoomListHandler;
 import com.twlrg.twsl.listener.MyItemClickListener;
 import com.twlrg.twsl.utils.APPUtils;
+import com.twlrg.twsl.utils.ConfigManager;
+import com.twlrg.twsl.utils.ConstantUtil;
 import com.twlrg.twsl.utils.DialogUtils;
+import com.twlrg.twsl.utils.StringUtils;
+import com.twlrg.twsl.utils.ToastUtil;
+import com.twlrg.twsl.utils.Urls;
 import com.twlrg.twsl.widget.AutoFitTextView;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -24,7 +37,7 @@ import butterknife.BindView;
  * 邮箱：wangxianyun1@163.com
  * 描述：一句话简单描述
  */
-public class RoomDetailActivity extends BaseActivity
+public class RoomDetailActivity extends BaseActivity implements IRequestListener
 {
     @BindView(R.id.topView)
     View            topView;
@@ -63,10 +76,44 @@ public class RoomDetailActivity extends BaseActivity
     private int wifi      = 0;//0,//0为无WIFI，1为有WIFI
     private int window    = 0;//1,//0为无窗，1为有窗
 
+
+    private String room_id;
+
+
+    private static final String ADD_ROOM = "add_room";
+
+    private static final int ADD_ROOM_SUCCESS = 0x01;
+    private static final int REQUEST_FAIL     = 0x02;
+
+    @SuppressLint("HandlerLeak")
+    private final BaseHandler mHandler = new BaseHandler(RoomDetailActivity.this)
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            super.handleMessage(msg);
+            switch (msg.what)
+            {
+                case ADD_ROOM_SUCCESS:
+                    ToastUtil.show(RoomDetailActivity.this, "操作成功");
+                    finish();
+                    break;
+
+                case REQUEST_FAIL:
+                    ToastUtil.show(RoomDetailActivity.this, msg.obj.toString());
+
+                    break;
+
+
+            }
+        }
+    };
+
+
     @Override
     protected void initData()
     {
-
+        room_id = getIntent().getStringExtra("ROOM_ID");
     }
 
     @Override
@@ -157,6 +204,91 @@ public class RoomDetailActivity extends BaseActivity
             String mFloor = etFloor.getText().toString();
             String mBedType = etBedType.getText().toString();
             String mAddBed = etAddBed.getText().toString();
+
+            if (StringUtils.stringIsEmpty(mRoomTitle))
+            {
+                ToastUtil.show(RoomDetailActivity.this, "请输入客房名称");
+                return;
+            }
+            if (StringUtils.stringIsEmpty(mAre))
+            {
+                ToastUtil.show(RoomDetailActivity.this, "请输入客房面积");
+                return;
+            }
+            if (StringUtils.stringIsEmpty(mCheckIn))
+            {
+                ToastUtil.show(RoomDetailActivity.this, "请输入入住人数");
+                return;
+            }
+            if (StringUtils.stringIsEmpty(mFloor))
+            {
+                ToastUtil.show(RoomDetailActivity.this, "请输入客房楼层");
+                return;
+            }
+
+            if (StringUtils.stringIsEmpty(mBedType))
+            {
+                ToastUtil.show(RoomDetailActivity.this, "请输入客房床型");
+                return;
+            }
+
+            if (StringUtils.stringIsEmpty(mAddBed))
+            {
+                ToastUtil.show(RoomDetailActivity.this, "请输入加床价格");
+                return;
+            }
+
+
+            showProgressDialog();
+            Map<String, String> valuePairs = new HashMap<>();
+
+
+            valuePairs.put("token", ConfigManager.instance().getToken());
+            valuePairs.put("uid", ConfigManager.instance().getUserID());
+            valuePairs.put("city_value", ConfigManager.instance().getCityValue());
+            valuePairs.put("title", mRoomTitle);
+            valuePairs.put("area", mAre);
+            valuePairs.put("check_in", mCheckIn);
+            valuePairs.put("floor", mFloor);
+            valuePairs.put("add_bed", mAddBed);
+            valuePairs.put("smokeless", smokeless + "");
+            valuePairs.put("wifi", wifi + "");
+            valuePairs.put("window", window + "");
+
+
+            if (StringUtils.stringIsEmpty(room_id))
+            {
+
+
+                DataRequest.instance().request(RoomDetailActivity.this, Urls.getAddRoomUrl(), this, HttpRequest.POST, ADD_ROOM, valuePairs,
+                        new RoomListHandler());
+            }
+            else
+            {
+                valuePairs.put("id", room_id);
+                DataRequest.instance().request(RoomDetailActivity.this, Urls.getEditRoomUrl(), this, HttpRequest.POST, ADD_ROOM, valuePairs,
+                        new RoomListHandler());
+            }
+
+
+        }
+    }
+
+    @Override
+    public void notify(String action, String resultCode, String resultMsg, Object obj)
+    {
+
+        hideProgressDialog();
+        if (ADD_ROOM.equals(action))
+        {
+            if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(ADD_ROOM_SUCCESS, obj));
+            }
+            else
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+            }
         }
     }
 }

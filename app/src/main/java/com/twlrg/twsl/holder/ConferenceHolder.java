@@ -12,6 +12,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.twlrg.twsl.R;
 import com.twlrg.twsl.entity.ConferenceInfo;
 import com.twlrg.twsl.utils.APPUtils;
+import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.Urls;
 import com.twlrg.twsl.widget.AutoFitTextView;
 
@@ -26,14 +27,16 @@ public class ConferenceHolder extends RecyclerView.ViewHolder
 {
     private ImageView mRoomImgIv;
 
-
     private AutoFitTextView mtTitleTv;
     private TextView        mPriceTv;
     private TextView        mAreaTv;
     private TextView        mFloorTv;
-    private TextView        mTheatreTv;
-    private TextView        mDeskTv;
-    private TextView        mBanquetTv;
+    private TextView        mCkgTv;
+    private TextView        mLedTv;
+
+    private TextView mTheatreTv;
+    private TextView mDeskTv;
+    private TextView mBanquetTv;
     private List<String> picList = new ArrayList<>();
     private CustomBanner customBanner;
 
@@ -45,6 +48,8 @@ public class ConferenceHolder extends RecyclerView.ViewHolder
         mPriceTv = (TextView) rootView.findViewById(R.id.tv_price);
         mAreaTv = (TextView) rootView.findViewById(R.id.tv_area);
         mFloorTv = (TextView) rootView.findViewById(R.id.tv_floor);
+        mCkgTv = (TextView) rootView.findViewById(R.id.tv_ckg);
+        mLedTv = (TextView) rootView.findViewById(R.id.tv_led);
         mTheatreTv = (TextView) rootView.findViewById(R.id.tv_theatre);
         mDeskTv = (TextView) rootView.findViewById(R.id.tv_desk);
         mBanquetTv = (TextView) rootView.findViewById(R.id.tv_banquet);
@@ -101,6 +106,16 @@ public class ConferenceHolder extends RecyclerView.ViewHolder
         mTheatreTv.setText("剧院" + mConference.getTheatre() + "人");
         mDeskTv.setText("课桌" + mConference.getDesk() + "人");
         mBanquetTv.setText("宴会" + mConference.getBanquet() + "人");
+        mCkgTv.setText(mConference.getCkg());
+
+        if (StringUtils.stringIsEmpty(mConference.getLed()))
+        {
+            mLedTv.setText("");
+        }
+        else
+        {
+            mLedTv.setText("有LED显示屏");
+        }
     }
 
 }

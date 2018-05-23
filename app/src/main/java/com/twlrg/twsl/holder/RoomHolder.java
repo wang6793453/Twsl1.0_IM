@@ -128,8 +128,17 @@ public class RoomHolder extends RecyclerView.ViewHolder
             zc = "双早餐";
         }
 
-        mAreaTv.setText(mRoomInfo.getArea() + "㎡/" + floor + "/" + mWindow + "/" + mSmokeless);
-        mBedTypeTv.setText(mRoomInfo.getBed_type() + "  " + zc + "  " + mWifi);
+        if("无烟房".equals(mSmokeless))
+        {
+            mAreaTv.setText(mRoomInfo.getArea() + "㎡/" + floor + "/" + mWindow + "/" + mSmokeless);
+        }
+        else
+        {
+            mAreaTv.setText(mRoomInfo.getArea() + "㎡/" + floor + "/" + mWindow );
+        }
+
+
+        mBedTypeTv.setText(mRoomInfo.getBed_type() + "/" + zc + "/" + mWifi);
 
         mReserveTv.setOnClickListener(new View.OnClickListener()
         {
