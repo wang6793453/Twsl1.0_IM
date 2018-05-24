@@ -25,6 +25,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.release
+            minifyEnabled false
         }
         release {
             minifyEnabled false
@@ -60,5 +61,4 @@ dependencies {
     }
     compile project(':tencentcloudlib')
     compile 'com.meizu.flyme.internet:push-internal:3.6.3@aar'
-
 }
