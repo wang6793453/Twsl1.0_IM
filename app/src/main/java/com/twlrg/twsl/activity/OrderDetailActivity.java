@@ -97,6 +97,14 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
     Button          btnRefuse;
     @BindView(R.id.btn_already)
     Button          btnAlready;
+    @BindView(R.id.ll_phone)
+    LinearLayout    llPhone;
+    @BindView(R.id.tv_total_fee)
+    TextView        tvTotalFee;
+    @BindView(R.id.tv_price_detail)
+    TextView        tvPriceDetail;
+    @BindView(R.id.ll_bottom)
+    LinearLayout    llBottom;
 
 
     private String    order_id;
@@ -154,8 +162,17 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
 
                         }
 
-                        tvPayStatus.setText(payStatus + ",共计RMB: " + mOrderInfo.getTotal_fee() + "(包含服务费)");
+                        tvPayStatus.setText(payStatus);
+                        tvTotalFee.setText("总额:￥" + mOrderInfo.getTotal_fee());
 
+                        if("1".equals(mOrderInfo.getShow_mobile()))
+                        {
+                            llPhone.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            llPhone.setVisibility(View.GONE);
+                        }
                         tvCancelPolicy.setText(mOrderInfo.getCancel_policy());
                         tvInvoice.setText(mOrderInfo.getInvoice());
                         tvRequirement.setText(mOrderInfo.getRemark());
@@ -286,6 +303,7 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
         btnRefuse.setOnClickListener(this);
         btnAlready.setOnClickListener(this);
         btnContactCustomer.setOnClickListener(this);
+        tvPriceDetail.setOnClickListener(this);
     }
 
     @Override
@@ -452,6 +470,10 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
             //TODO 聊天
             ChatActivity.navToChat(OrderDetailActivity.this, "slbl_client_" + mUserId, TIMConversationType.C2C);
         }
+        else if(v == tvPriceDetail)
+        {
+            DialogUtils.showPriceDetailDialog(OrderDetailActivity.this, mOrderInfoList);
+        }
     }
 
 
@@ -527,6 +549,7 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
             }
         }
     }
+
 
 
 }

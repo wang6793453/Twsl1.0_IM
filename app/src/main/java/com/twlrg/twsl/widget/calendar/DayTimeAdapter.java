@@ -57,8 +57,6 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder>
             holder.select_txt_day.setText(dayTimeEntity.getDay() + "");
 
 
-
-
         }
         else
         {
@@ -264,15 +262,25 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder>
             holder.select_ly_day.setBackgroundResource(R.color.white);
             holder.select_txt_day.setTextColor(context.getResources().getColor(R.color.blackD));
         }
-        if (StringUtils.compare_date(str2, str1) >= 0)
+
+        if ("1".equals(dayTimeEntity.getType()))
         {
             holder.select_ly_day.setEnabled(true);
             holder.select_txt_day.setTextColor(ContextCompat.getColor(context, R.color.black));
         }
         else
         {
-            holder.select_ly_day.setEnabled(false);
-            holder.select_txt_day.setTextColor(ContextCompat.getColor(context, R.color.grayA));
+
+            if (StringUtils.compare_date(str2, str1) >= 0)
+            {
+                holder.select_ly_day.setEnabled(true);
+                holder.select_txt_day.setTextColor(ContextCompat.getColor(context, R.color.black));
+            }
+            else
+            {
+                holder.select_ly_day.setEnabled(false);
+                holder.select_txt_day.setTextColor(ContextCompat.getColor(context, R.color.grayA));
+            }
         }
     }
 

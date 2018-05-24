@@ -44,13 +44,16 @@
 
                 <TextView
                     android:id="@+id/tv_modify_price"
-                    android:layout_width="@dimen/dm_70"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/common_green_5dp"
                     android:gravity="center"
-                    android:padding="@dimen/dm_5"
+                    android:paddingRight="@dimen/dm_10"
+                    android:paddingBottom="@dimen/dm_5"
+                    android:paddingTop="@dimen/dm_5"
+                    android:paddingLeft="@dimen/dm_10"
                     android:text="修改价格"
 
                     android:textColor="@color/white"
@@ -75,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="客人信息"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
                 <TextView
                     android:id="@+id/tv_name"
@@ -101,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="预订客房"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
                 <TextView
                     android:id="@+id/tv_room"
@@ -134,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="入住时间"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
                 <TextView
                     android:id="@+id/tv_time"
@@ -155,6 +158,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dm_15"
@@ -163,12 +167,12 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="@dimen/dm_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="手机号"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/t14"/>
+                    android:textColor="@color/blackC" android:textSize="@dimen/t14"/>
                 <TextView
                     android:id="@+id/tv_mobile"
                     android:layout_width="@dimen/dm_0"
@@ -198,7 +202,7 @@
                     android:layout_marginTop="@dimen/dm_10"
                     android:layout_weight="2.5"
                     android:text="每日房价"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"
@@ -221,21 +225,60 @@
                 android:paddingBottom="@dimen/dm_10">
 
                 <TextView
+                    android:id="@+id/textView3"
                     android:layout_width="@dimen/dm_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="付款方式"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/t14"/>
+                    android:textColor="@color/blackC" android:textSize="@dimen/t14"/>
 
-                <TextView
-                    android:id="@+id/tv_pay_status"
-                    android:layout_width="@dimen/dm_0"
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7.5"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/t14"/>
+                    android:layout_weight="7.5">
+                    <TextView
+                        android:id="@+id/tv_pay_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="已支付"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/t14"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_fwf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="(含服务费)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/t10"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_total_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/tv_fwf"
+                        android:text="0"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/t14"/>
+
+                </RelativeLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/tv_price_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/dm_15"
+                android:layout_marginTop="@dimen/dm_15"
+                android:layout_marginBottom="@dimen/dm_5"
+                android:text="费用明细"
+                android:textColor="@color/green"
+                android:textSize="@dimen/t14"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm_1"
@@ -243,22 +286,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm_15"
-                android:layout_marginRight="@dimen/dm_15"
-                android:layout_marginTop="@dimen/dm_10"
+                android:layout_margin="@dimen/dm_15"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/dm_10">
+               >
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="取消政策"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
 
                 <TextView
                     android:id="@+id/tv_cancel_policy"
                     android:layout_width="0dp"
+                    android:maxLines="3"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:textColor="@color/black"
@@ -271,17 +313,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm_15"
-                android:layout_marginRight="@dimen/dm_15"
-                android:layout_marginTop="@dimen/dm_10"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/dm_10">
+                android:layout_margin="@dimen/dm_15">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="特殊要求"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
 
                 <TextView
@@ -300,24 +339,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dm_10"
-                android:layout_marginLeft="@dimen/dm_15"
-                android:layout_marginRight="@dimen/dm_15"
-                android:layout_marginTop="@dimen/dm_10"
+                android:layout_margin="@dimen/dm_15"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="@dimen/dm_0"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="2.5"
                     android:text="发票要求"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
                 <TextView
                     android:id="@+id/tv_invoice"
                     android:layout_width="@dimen/dm_0"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
+                    android:layout_weight="7.5"
+                    android:gravity="left"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t14"/>
 
@@ -339,14 +376,15 @@
                 <TextView
                     android:layout_width="@dimen/dm_0"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="2.5"
                     android:text="温馨提示"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
                 <TextView
                     android:layout_width="@dimen/dm_0"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
+                    android:layout_weight="7.5"
+                    android:gravity="left"
                     android:text="@string/wxts"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t14"/>
@@ -434,7 +472,6 @@
             android:layout_weight="6.6"
             android:orientation="horizontal">
             <Button
-                android:visibility="gone"
                 android:id="@+id/btn_accept"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -442,9 +479,9 @@
                 android:background="@drawable/order_btn_selector"
                 android:text="接受预定"
                 android:textColor="@color/white"
-                android:textSize="@dimen/t16"/>
+                android:textSize="@dimen/t16"
+                android:visibility="gone"/>
             <Button
-                android:visibility="gone"
                 android:id="@+id/btn_refuse"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -453,7 +490,8 @@
                 android:background="@drawable/order_btn_selector"
                 android:text="满房拒单"
                 android:textColor="@color/white"
-                android:textSize="@dimen/t16"/>
+                android:textSize="@dimen/t16"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btn_already"

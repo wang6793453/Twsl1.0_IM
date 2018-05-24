@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -26,10 +27,10 @@ import java.util.List;
 public class FilterPopupWindow extends PopupWindow implements PopupWindow.OnDismissListener
 {
     View rootView;
-    private NoScrollListView mListView;
-    private Activity         mContext;
-    private FilterAdapter    mAdapter;
-
+    private NoScrollListView    mListView;
+    private Activity            mContext;
+    private FilterAdapter       mAdapter;
+    private LinearLayout        mViewlayout;
     private MyItemClickListener listener;
     private int                 mHeight;
     List<FilterInfo> mFilterList = new ArrayList<>();
@@ -65,7 +66,7 @@ public class FilterPopupWindow extends PopupWindow implements PopupWindow.OnDism
     private void initView()
     {
         mListView = (NoScrollListView) rootView.findViewById(R.id.lv_choice);
-
+        mViewlayout = (LinearLayout)rootView.findViewById(R.id.ll_pop_list);
     }
 
     private void initEvent()
@@ -89,6 +90,14 @@ public class FilterPopupWindow extends PopupWindow implements PopupWindow.OnDism
                     }
                 }
                 mAdapter.notifyDataSetChanged();
+            }
+        });
+
+        mViewlayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                dismiss();
             }
         });
 

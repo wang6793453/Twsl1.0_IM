@@ -11,6 +11,7 @@
         android:background="@color/white"
         android:visibility="gone"/>
     <LinearLayout
+        android:layout_marginTop="@dimen/dm_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
@@ -26,10 +27,14 @@
 
             <LinearLayout
                 android:id="@+id/ll_date"
+                android:paddingLeft="@dimen/dm_5"
+                android:paddingTop="@dimen/dm_3"
+                android:paddingBottom="@dimen/dm_3"
+                android:paddingRight="@dimen/dm_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
+                android:orientation="vertical" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
                 <TextView
                     android:id="@+id/tv_check"
                     android:layout_width="wrap_content"

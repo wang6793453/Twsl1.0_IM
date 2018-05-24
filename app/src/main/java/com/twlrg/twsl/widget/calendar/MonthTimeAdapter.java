@@ -58,7 +58,7 @@ public class MonthTimeAdapter extends RecyclerView.Adapter<MonthTimeViewHolder>
         calendar.add(Calendar.DATE, -1);// 减去一天，变为当月最后一天
         for (int i = 1; i <= calendar.get(Calendar.DAY_OF_MONTH); i++)
         {     //添加 该月份的天数   一号 到 该月的最后一天
-            days.add(new DayTimeEntity(i, monthTimeEntity.getMonth(), monthTimeEntity.getYear(), position));
+            days.add(new DayTimeEntity(i, monthTimeEntity.getMonth(), monthTimeEntity.getYear(), position, monthTimeEntity.getType()));
         }
 
         DayTimeAdapter adapter = new DayTimeAdapter(days, context);

@@ -62,6 +62,10 @@ public class OrderInfo
     private String nickname;
     private String sale_mobile;
     private  boolean priceModify;
+
+
+    private String  show_mobile;
+
     public OrderInfo(){}
     public OrderInfo(JSONObject obj)
     {
@@ -75,6 +79,8 @@ public class OrderInfo
         this.date = obj.optString("date");
         this.invoice = obj.optString("invoice");
         this.remark = obj.optString("remark");
+        this.show_mobile = obj.optString("show_mobile");
+
 
         this.occupant = obj.optString("occupant");
         this.order_id = obj.optString("order_id");
@@ -118,6 +124,16 @@ public class OrderInfo
         this.notify_time = obj.optString("notify_time");
         this.cancel_policy = obj.optString("cancel_policy");
 
+    }
+
+    public String getShow_mobile()
+    {
+        return show_mobile;
+    }
+
+    public void setShow_mobile(String show_mobile)
+    {
+        this.show_mobile = show_mobile;
     }
 
     public String getCancel_policy()

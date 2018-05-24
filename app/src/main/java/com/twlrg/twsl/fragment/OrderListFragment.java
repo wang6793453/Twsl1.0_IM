@@ -202,7 +202,7 @@ public class OrderListFragment extends BaseFragment implements View.OnClickListe
     {
         if (v == llDate)
         {
-            startActivityForResult(new Intent(getActivity(), HotelTimeActivity.class), GET_DATE_CODE);
+            startActivityForResult(new Intent(getActivity(), HotelTimeActivity.class).putExtra("TYPE", "1"), GET_DATE_CODE);
         }
     }
 
