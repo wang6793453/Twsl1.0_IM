@@ -1,7 +1,6 @@
 package com.twlrg.twsl.json;
 
 
-
 import org.json.JSONObject;
 
 
@@ -13,10 +12,12 @@ import org.json.JSONObject;
 public class ResultHandler extends JsonHandler
 {
     private String content;
+
     public String getContent()
     {
         return content;
     }
+
     private String data;
 
     public String getData()
@@ -27,8 +28,12 @@ public class ResultHandler extends JsonHandler
     @Override
     protected void parseJson(JSONObject obj) throws Exception
     {
-        content = obj.optString("content");
 
-        data= obj.optString("data");
+        if (null != obj)
+        {
+            content = obj.optString("content");
+
+            data = obj.optString("data");
+        }
     }
 }

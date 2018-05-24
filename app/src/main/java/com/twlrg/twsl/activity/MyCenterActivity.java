@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kevin.crop.UCrop;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.twlrg.twsl.MyApplication;
 import com.twlrg.twsl.R;
 import com.twlrg.twsl.entity.UserInfo;
@@ -34,11 +35,9 @@ import com.twlrg.twsl.http.IRequestListener;
 import com.twlrg.twsl.im.TencentCloud;
 import com.twlrg.twsl.json.ResultHandler;
 import com.twlrg.twsl.json.UserInfoHandler;
-import com.twlrg.twsl.listener.MyItemClickListener;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
-import com.twlrg.twsl.utils.DialogUtils;
 import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
@@ -47,12 +46,12 @@ import com.twlrg.twsl.widget.SelectPicturePopupWindow;
 
 import java.io.File;
 import java.net.URI;
-import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 作者：王先云 on 2018/5/23 15:17
@@ -62,30 +61,25 @@ import butterknife.ButterKnife;
 public class MyCenterActivity extends BaseActivity implements IRequestListener
 {
 
+
     @BindView(R.id.topView)
     View            topView;
     @BindView(R.id.iv_back)
     ImageView       ivBack;
     @BindView(R.id.tv_edit)
     TextView        tvEdit;
-    @BindView(R.id.tv_cancel)
-    TextView        tvCancel;
     @BindView(R.id.iv_user_head)
     CircleImageView ivUserHead;
     @BindView(R.id.tv_change_head)
     TextView        tvChangeHead;
     @BindView(R.id.tv_hotel)
     TextView        tvHotel;
-    @BindView(R.id.tv_user_name)
+    @BindView(R.id.tv_userName)
     TextView        tvUserName;
-    @BindView(R.id.tv_position)
-    TextView        tvPosition;
     @BindView(R.id.et_position)
     EditText        etPosition;
     @BindView(R.id.tv_userPhone)
     TextView        tvUserPhone;
-    @BindView(R.id.tv_user_pwd)
-    TextView        tvUserPwd;
     @BindView(R.id.tv_modify_pwd)
     TextView        tvModifyPwd;
     @BindView(R.id.tv_role_type1)
@@ -100,11 +94,15 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
     Button          btnLogout;
     private int mEditStatus;
 
-    private static final int REQUEST_SUCCESS    = 0x01;
-    public static final  int REQUEST_FAIL       = 0x02;
-    private static final int UPLOAD_PIC_SUCCESS = 0x03;
-    private static final int INIT_ONRESUME      = 0x04;
 
+    private List<TextView> mTextViewList = new ArrayList<>();
+
+
+    private static final int REQUEST_SUCCESS          = 0x01;
+    public static final  int REQUEST_FAIL             = 0x02;
+    private static final int UPLOAD_PIC_SUCCESS       = 0x03;
+    private static final int INIT_ONRESUME            = 0x04;
+    private static final int UPDATE_USER_INFO_SUCCESS = 0x05;
 
     private static final String GET_USER_INFO    = "get_user_info";
     private static final String UPLOAD_USER_PIC  = "upload_user_pic";
@@ -141,32 +139,45 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
                     {
                         tvHotel.setText(mUserInfo.getHotel());
                         tvUserName.setText(mUserInfo.getName());
-                        tvPosition.setText(mUserInfo.getPosition());
+                        etPosition.setText(mUserInfo.getPosition());
                         tvUserPhone.setText(mUserInfo.getMobile());
-                    }
+                        ImageLoader.getInstance().displayImage(Urls.getImgUrl(mUserInfo.getPortrait()), ivUserHead);
 
+                        String role_type = mUserInfo.getRole_type();
+
+                        if (!StringUtils.stringIsEmpty(role_type))
+                        {
+                            String[] type = role_type.split(",");
+
+
+                            for (int i = 0; i < type.length; i++)
+                            {
+                                if (StringUtils.isNumber(type[i]))
+                                {
+                                    setRoleType(Integer.parseInt(type[i]));
+                                }
+
+                            }
+                        }
+
+
+                    }
 
                     break;
 
 
                 case REQUEST_FAIL:
+                    ToastUtil.show(MyCenterActivity.this, msg.obj.toString());
                     break;
 
                 case UPLOAD_PIC_SUCCESS:
-                    ToastUtil.show(MyApplication.getInstance().getBaseContext(), "保存成功");
-
-                    ResultHandler mResultHandler = (ResultHandler) msg.obj;
-
-                    String data = mResultHandler.getData();
-                    if (!StringUtils.stringIsEmpty(data))
-                    {
-                        //ImageLoader.getInstance().displayImage(Urls.getImgUrl(data), ivUserHead);
-                        ConfigManager.instance().setUserPic(data);
-                    }
+                    ToastUtil.show(MyCenterActivity.this, "保存成功");
+                    loadData();
                     break;
 
-                case INIT_ONRESUME:
-
+                case UPDATE_USER_INFO_SUCCESS:
+                    ToastUtil.show(MyCenterActivity.this, "保存成功");
+                    showEditStatus(false);
                     break;
             }
         }
@@ -190,16 +201,21 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
     {
         ivBack.setOnClickListener(this);
         tvEdit.setOnClickListener(this);
-        tvCancel.setOnClickListener(this);
         tvModifyPwd.setOnClickListener(this);
+        tvChangeHead.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
         ivUserHead.setOnClickListener(this);
+        tvRoleType1.setOnClickListener(this);
+        tvRoleType2.setOnClickListener(this);
+        tvRoleType3.setOnClickListener(this);
+        tvRoleType4.setOnClickListener(this);
     }
 
     @Override
     protected void initViewData()
     {
         showEditStatus(false);
+        topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(MyCenterActivity.this)));
 
         mSelectPicturePopupWindow = new SelectPicturePopupWindow(MyCenterActivity.this);
@@ -229,26 +245,73 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
         mDestinationUri = Uri.fromFile(new File(getCacheDir(), "cropImage.jpeg"));
         mTempPhotoPath = Environment.getExternalStorageDirectory() + File.separator + "photo.jpeg";
 
+
+        mTextViewList.add(tvRoleType1);
+        mTextViewList.add(tvRoleType2);
+        mTextViewList.add(tvRoleType3);
+        mTextViewList.add(tvRoleType4);
+
+        tvRoleType1.setEnabled(false);
+        tvRoleType2.setEnabled(false);
+        tvRoleType3.setEnabled(false);
+        tvRoleType4.setEnabled(false);
+        loadData();
+
+    }
+
+
+    private void setRoleType(int p)
+    {
+        for (int i = 0; i < mTextViewList.size(); i++)
+        {
+            if (i == p - 1)
+            {
+                mTextViewList.get(i).setSelected(true);
+            }
+        }
+    }
+
+
+    private void changeRoleTypeSelected(int p)
+    {
+        if (mTextViewList.get(p).isSelected())
+        {
+            mTextViewList.get(p).setSelected(false);
+        }
+        else
+        {
+            mTextViewList.get(p).setSelected(true);
+        }
+    }
+
+    private void loadData()
+    {
         Map<String, String> valuePairs = new HashMap<>();
         valuePairs.put("uid", ConfigManager.instance().getUserID());
         valuePairs.put("token", ConfigManager.instance().getToken());
         DataRequest.instance().request(MyCenterActivity.this, Urls.getUserInfoUrl(), this, HttpRequest.POST, GET_USER_INFO, valuePairs,
                 new UserInfoHandler());
-
-
     }
 
     private void showEditStatus(boolean isEdit)
     {
         if (isEdit)
         {
-            tvCancel.setVisibility(View.VISIBLE);
             tvEdit.setText("保存");
+            etPosition.setEnabled(true);
+            tvRoleType1.setEnabled(true);
+            tvRoleType2.setEnabled(true);
+            tvRoleType3.setEnabled(true);
+            tvRoleType4.setEnabled(true);
             mEditStatus = 1;
         }
         else
         {
-            tvCancel.setVisibility(View.GONE);
+            etPosition.setEnabled(false);
+            tvRoleType1.setEnabled(false);
+            tvRoleType2.setEnabled(false);
+            tvRoleType3.setEnabled(false);
+            tvRoleType4.setEnabled(false);
             tvEdit.setText("编辑");
             mEditStatus = 0;
         }
@@ -259,9 +322,9 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
     public void onClick(View v)
     {
         super.onClick(v);
-        if (v == tvCancel)
+        if (v == ivBack)
         {
-            showEditStatus(false);
+            finish();
         }
         else if (v == tvEdit)
         {
@@ -271,16 +334,41 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
             }
             else
             {
+                String mPosition = etPosition.getText().toString();
+
+                if (StringUtils.stringIsEmpty(mPosition))
+                {
+                    ToastUtil.show(this, "职位不能为空");
+                    return;
+                }
+
+
+                StringBuffer sb = new StringBuffer();
+                for (int i = 0; i < mTextViewList.size(); i++)
+                {
+
+                    if (mTextViewList.get(i).isSelected())
+                    {
+                        sb.append(i + 1);
+                        sb.append(",");
+                    }
+
+                }
+
+                if (StringUtils.stringIsEmpty(sb.toString()))
+                {
+                    ToastUtil.show(this, "请选择业务范围");
+                    return;
+                }
+
                 //TODO 执行保存操作  保存成功后 调用  showEditStatus(false);
-
-
                 showProgressDialog();
                 Map<String, String> valuePairs = new HashMap<>();
                 valuePairs.put("uid", ConfigManager.instance().getUserID());
                 valuePairs.put("token", ConfigManager.instance().getToken());
                 valuePairs.put("role", "2");
-                valuePairs.put("position", "2");
-                valuePairs.put("role_typ", "2");
+                valuePairs.put("position", mPosition);
+                valuePairs.put("role_type", sb.toString().substring(0, sb.toString().length() - 1));
                 DataRequest.instance().request(MyCenterActivity.this, Urls.getUpdateUserInfoUrl(), this, HttpRequest.POST, UPDATE_USER_INFO, valuePairs,
                         new ResultHandler());
 
@@ -297,9 +385,25 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
         {
             startActivity(new Intent(MyCenterActivity.this, ModifyPwdActivity.class));
         }
-        else if (v == ivUserHead)
+        else if (v == ivUserHead || v == tvChangeHead)
         {
             mSelectPicturePopupWindow.showPopupWindow(MyCenterActivity.this);
+        }
+        else if (v == tvRoleType1)
+        {
+            changeRoleTypeSelected(0);
+        }
+        else if (v == tvRoleType2)
+        {
+            changeRoleTypeSelected(1);
+        }
+        else if (v == tvRoleType3)
+        {
+            changeRoleTypeSelected(2);
+        }
+        else if (v == tvRoleType4)
+        {
+            changeRoleTypeSelected(3);
         }
     }
 
@@ -311,7 +415,7 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
             hideProgressDialog();
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {
-                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_SUCCESS, obj));
+                mHandler.sendMessage(mHandler.obtainMessage(UPDATE_USER_INFO_SUCCESS, obj));
             }
 
             else
@@ -324,6 +428,18 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {
                 mHandler.sendMessage(mHandler.obtainMessage(UPLOAD_PIC_SUCCESS, obj));
+            }
+
+            else
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+            }
+        }
+        else if (GET_USER_INFO.equals(action))
+        {
+            if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_SUCCESS, obj));
             }
 
             else
@@ -430,16 +546,6 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
         final Uri resultUri = UCrop.getOutput(result);
         if (null != resultUri)
         {
-            //            try
-            //            {
-            //               bitmap = MediaStore.Images.Media.getBitmap(((MainActivity) MyCenterActivity.this).getContentResolver(), resultUri);
-            //            } catch (FileNotFoundException e)
-            //            {
-            //                e.printStackTrace();
-            //            } catch (IOException e)
-            //            {
-            //                e.printStackTrace();
-            //            }
             //TODO 这个地方处理图片上传操作
             try
             {
@@ -448,7 +554,7 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
                 Map<String, String> valuePairs = new HashMap<>();
                 valuePairs.put("uid", ConfigManager.instance().getUserID());
                 valuePairs.put("token", ConfigManager.instance().getToken());
-                valuePairs.put("role", "1");
+                valuePairs.put("role", "2");
                 valuePairs.put("submit", "Submit");
                 DataRequest.instance().request(MyCenterActivity.this, Urls.getUploadPicUrl(), this, HttpRequest.UPLOAD, UPLOAD_USER_PIC, valuePairs, mFile,
                         new ResultHandler());
@@ -545,11 +651,5 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

@@ -45,17 +45,6 @@
             android:text="编辑"
             android:textColor="@color/black"
             android:textSize="@dimen/t14"/>
-        <TextView
-            android:id="@+id/tv_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dm_15"
-            android:layout_marginRight="@dimen/dm_15"
-            android:text="取消"
-            android:textColor="@color/black"
-            android:textSize="@dimen/t14"
-            android:visibility="gone"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"

@@ -31,7 +31,6 @@ public class UserInfo
     private String hotel;//维也纳横岗翠湖山庄店
 
 
-
     public UserInfo(JSONObject object)
     {
         this.id = object.optString("id");
@@ -45,6 +44,8 @@ public class UserInfo
         this.nickname = object.optString("nickname");
         this.position = object.optString("position");
         this.verify_status = object.optString("verify_status");
+        this.mobile = object.optString("mobile");
+        this.hotel = object.optString("hotel");
     }
 
     public String getId()

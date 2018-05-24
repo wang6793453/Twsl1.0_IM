@@ -29,6 +29,8 @@ import com.twlrg.twsl.http.DataRequest;
 import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
 import com.twlrg.twsl.json.HotelDetailHandler;
+import com.twlrg.twsl.json.HotelRoomListHandler;
+import com.twlrg.twsl.json.RoomListHandler;
 import com.twlrg.twsl.listener.MyItemClickListener;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConstantUtil;
@@ -55,37 +57,37 @@ import butterknife.BindView;
 public class HotelDetailActivity extends BaseActivity implements IRequestListener
 {
     @BindView(R.id.iv_back)
-    ImageView            ivBack;
+    ImageView       ivBack;
     @BindView(R.id.tv_title)
-    AutoFitTextView      tvTitle;
+    AutoFitTextView tvTitle;
     @BindView(R.id.iv_hotel_img)
-    ImageView            ivHotelImg;
+    ImageView       ivHotelImg;
     @BindView(R.id.rb_star)
-    RatingBar            rbStar;
+    RatingBar       rbStar;
     @BindView(R.id.tv_address)
-    TextView             tvAddress;
+    TextView        tvAddress;
     @BindView(R.id.tv_distance)
-    TextView             tvDistance;
+    TextView        tvDistance;
     @BindView(R.id.iv_location)
-    ImageView            ivLocation;
+    ImageView       ivLocation;
     @BindView(R.id.tv_reviews_label)
-    TextView             tvReviewsLabe;
+    TextView        tvReviewsLabe;
     @BindView(R.id.tv_comment_count)
-    TextView             tvCommentCount;
+    TextView        tvCommentCount;
     @BindView(R.id.tv_start_date)
-    TextView             tvStartDate;
+    TextView        tvStartDate;
     @BindView(R.id.tv_end_date)
-    TextView             tvEndDate;
+    TextView        tvEndDate;
     @BindView(R.id.tv_breakfast_type1)
-    TextView             tvBreakfastType1;
+    TextView        tvBreakfastType1;
     @BindView(R.id.tv_breakfast_type2)
-    TextView             tvBreakfastType2;
+    TextView        tvBreakfastType2;
     @BindView(R.id.tv_breakfast_type3)
-    TextView             tvBreakfastType3;
+    TextView        tvBreakfastType3;
     @BindView(R.id.tv_breakfast_type4)
-    TextView             tvBreakfastType4;
+    TextView        tvBreakfastType4;
     @BindView(R.id.ll_breakfast)
-    LinearLayout         mBreakfastLayout;
+    LinearLayout    mBreakfastLayout;
 
     @BindView(R.id.ll_time)
     LinearLayout         mTimeLayout;
@@ -137,7 +139,7 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
 
     private String id, city_value, s_date, e_date, lng, lat, title;
     private boolean summary_is_open;
-    private static final int    GET_DATE_CODE   = 0x99;
+    private static final int GET_DATE_CODE = 0x99;
 
     private RoomAdapter       mRoomAdapter;
     private ConferenceAdapter mConferenceAdapter;
@@ -148,18 +150,18 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
     private List<RoomInfo>       roomInfoList       = new ArrayList<>();
     private List<ConferenceInfo> conferenceInfoList = new ArrayList<>();
 
-    private List<RoomInfo> roomInfoListBreakfast = new ArrayList<>();
-
     private List<String> picList = new ArrayList<>();
 
 
     private String  mBreakfastType; //wz dz sz
     private boolean isShowMoreRoom, isShowMoreConference;
     private HotelInfo mHotelInfo;
-    private static final int    REQUEST_SUCCESS  = 0x01;
-    private static final int    REQUEST_FAIL     = 0x02;
-    private static final String GET_HOTEL_DETAIL = "GET_HOTEL_DETAIL";
+    private static final int REQUEST_SUCCESS = 0x01;
+    private static final int REQUEST_FAIL    = 0x02;
 
+    private static final int    GET_ROOM_LIST_SUCCESS = 0x03;
+    private static final String GET_HOTEL_DETAIL      = "GET_HOTEL_DETAIL";
+    private static final String GET_ROOM_LIST         = "GET_ROOM_LIST";
 
     @SuppressLint("HandlerLeak")
     private BaseHandler mHandler = new BaseHandler(this)
@@ -231,6 +233,15 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
 
                 case REQUEST_FAIL:
                     ToastUtil.show(HotelDetailActivity.this, msg.obj.toString());
+
+                    break;
+
+                case GET_ROOM_LIST_SUCCESS:
+
+                    HotelRoomListHandler mRoomListHandler = (HotelRoomListHandler) msg.obj;
+                    roomInfoListAll.clear();
+                    roomInfoListAll.addAll(mRoomListHandler.getRoomInfoList());
+                    updateRoom();
 
                     break;
 
@@ -311,7 +322,6 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
             }
         });
     }
-
 
 
     @Override
@@ -457,9 +467,8 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
         //不限早餐
         else if (v == tvBreakfastType1 || v == tvBreakfastType11)
         {
-            mBreakfastType = "bx";
+            mBreakfastType = "";
             isShowMoreRoom = false;
-            updateRoom();
             tvBreakfastType1.setSelected(true);
             tvBreakfastType11.setSelected(true);
             tvBreakfastType2.setSelected(false);
@@ -468,13 +477,13 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
             tvBreakfastType33.setSelected(false);
             tvBreakfastType4.setSelected(false);
             tvBreakfastType44.setSelected(false);
+            getRoomPrice();
         }
         //无早餐
         else if (v == tvBreakfastType2 || v == tvBreakfastType22)
         {
             mBreakfastType = "wz";
             isShowMoreRoom = false;
-            updateRoom();
             tvBreakfastType1.setSelected(false);
             tvBreakfastType11.setSelected(false);
             tvBreakfastType2.setSelected(true);
@@ -483,13 +492,13 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
             tvBreakfastType33.setSelected(false);
             tvBreakfastType4.setSelected(false);
             tvBreakfastType44.setSelected(false);
+            getRoomPrice();
         }
         //单早餐
         else if (v == tvBreakfastType3 || v == tvBreakfastType33)
         {
             mBreakfastType = "dz";
             isShowMoreRoom = false;
-            updateRoom();
             tvBreakfastType1.setSelected(false);
             tvBreakfastType11.setSelected(false);
             tvBreakfastType2.setSelected(false);
@@ -498,13 +507,13 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
             tvBreakfastType33.setSelected(true);
             tvBreakfastType4.setSelected(false);
             tvBreakfastType44.setSelected(false);
+            getRoomPrice();
         }
         //双早餐
         else if (v == tvBreakfastType4 || v == tvBreakfastType44)
         {
             mBreakfastType = "sz";
             isShowMoreRoom = false;
-            updateRoom();
             tvBreakfastType1.setSelected(false);
             tvBreakfastType11.setSelected(false);
             tvBreakfastType2.setSelected(false);
@@ -513,8 +522,9 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
             tvBreakfastType33.setSelected(false);
             tvBreakfastType4.setSelected(true);
             tvBreakfastType44.setSelected(true);
+            getRoomPrice();
         }
-        else if(v == mTimeLayout)
+        else if (v == mTimeLayout)
         {
             startActivityForResult(new Intent(HotelDetailActivity.this, HotelTimeActivity.class), GET_DATE_CODE);
         }
@@ -522,61 +532,26 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
     }
 
 
-    private List<RoomInfo> getBreakfastRoomList()
+    private void getRoomPrice()
     {
-        List<RoomInfo> list = new ArrayList<>();
-
-        if ("wz".equals(mBreakfastType))
-        {
-            for (int i = 0; i < roomInfoListAll.size(); i++)
-            {
-                if ("wz".equals(roomInfoListAll.get(i).getPrice_type()))
-
-                {
-                    list.add(roomInfoListAll.get(i));
-                }
-            }
-        }
-        else if ("dz".equals(mBreakfastType))
-        {
-            for (int i = 0; i < roomInfoListAll.size(); i++)
-            {
-                if ("dz".equals(roomInfoListAll.get(i).getPrice_type()))
-
-                {
-                    list.add(roomInfoListAll.get(i));
-                }
-            }
-        }
-        else if ("sz".equals(mBreakfastType))
-        {
-            for (int i = 0; i < roomInfoListAll.size(); i++)
-            {
-                if ("sz".equals(roomInfoListAll.get(i).getPrice_type()))
-
-                {
-                    list.add(roomInfoListAll.get(i));
-                }
-            }
-        }
-        else
-        {
-            list.addAll(roomInfoListAll);
-        }
-
-        return list;
+        showProgressDialog();
+        Map<String, String> valuePairs = new HashMap<>();
+        valuePairs.put("id", id);
+        valuePairs.put("price_type", mBreakfastType);
+        valuePairs.put("city_value", city_value);
+        valuePairs.put("s_date", s_date);
+        valuePairs.put("e_date", e_date);
+        DataRequest.instance().request(HotelDetailActivity.this, Urls.getRoom_priceUrl(), this, HttpRequest.POST, GET_ROOM_LIST, valuePairs,
+                new HotelRoomListHandler());
     }
-
 
     private void updateRoom()
     {
-        roomInfoListBreakfast.clear();
-        roomInfoListBreakfast.addAll(getBreakfastRoomList());
         if (isShowMoreRoom)
         {
             isShowMoreRoom = false;
             roomInfoList.clear();
-            roomInfoList.addAll(roomInfoListBreakfast);
+            roomInfoList.addAll(roomInfoListAll);
             ivRoomMore.setImageResource(R.drawable.ic_arrow_up_64);
         }
         else
@@ -584,12 +559,12 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
 
             ivRoomMore.setImageResource(R.drawable.ic_arrow_down_64);
             roomInfoList.clear();
-            if (roomInfoListBreakfast.size() > 2)
+            if (roomInfoListAll.size() > 2)
             {
                 isShowMoreRoom = true;
                 for (int i = 0; i < 2; i++)
                 {
-                    roomInfoList.add(roomInfoListBreakfast.get(i));
+                    roomInfoList.add(roomInfoListAll.get(i));
                 }
 
                 llRoomMore.setVisibility(View.VISIBLE);
@@ -597,7 +572,7 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
             }
             else
             {
-                roomInfoList.addAll(roomInfoListBreakfast);
+                roomInfoList.addAll(roomInfoListAll);
                 llRoomMore.setVisibility(View.GONE);
             }
 
@@ -668,6 +643,17 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
                 mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
             }
         }
+        else if (GET_ROOM_LIST.equals(action))
+        {
+            if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(GET_ROOM_LIST_SUCCESS, obj));
+            }
+            else
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+            }
+        }
     }
 
 
@@ -695,4 +681,4 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
     }
 
 
-    }
+}

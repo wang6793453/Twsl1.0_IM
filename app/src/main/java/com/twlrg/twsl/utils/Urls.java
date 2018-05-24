@@ -221,29 +221,34 @@ public class Urls
     //会议室列表
     public static String getConferenceListUrl()
     {
-        return BASE_URL + "room/conference_list";
+        return BASE_URL + "conference/conference_list";
     }
 
 
     //会议室详情
     public static String getConferenceInfoUrl()
     {
-        return BASE_URL + "room/conference_info";
+        return BASE_URL + "conference/conference_info";
     }
 
     //编辑会议室详情
     public static String getEditConferenceInfoUrl()
     {
-        return BASE_URL + "room/conference_eidt";
+        return BASE_URL + "conference/conference_eidt";
     }
 
 
     //新增会议室详情
     public static String getAddConferenceInfoUrl()
     {
-        return BASE_URL + "room/conference_add";
+        return BASE_URL + "conference/conference_add";
     }
 
 
 
+    //客房价格接口（无早，单早，双早）
+    public static String getRoom_priceUrl()
+    {
+        return BASE_URL + "merchant/room_price";
+    }
 }

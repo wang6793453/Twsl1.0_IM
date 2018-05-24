@@ -153,7 +153,7 @@ public class ModifyPwdActivity extends BaseActivity implements IRequestListener
             Map<String, String> valuePairs = new HashMap<>();
             valuePairs.put("uid", ConfigManager.instance().getUserID());
             valuePairs.put("pwd", newPwd);
-            valuePairs.put("role", "1");
+            valuePairs.put("role", "2");
             valuePairs.put("token", ConfigManager.instance().getToken());
 
             DataRequest.instance().request(ModifyPwdActivity.this, Urls.getUpdatePwdUrl(), this, HttpRequest.POST, USER_LOGIN, valuePairs,
