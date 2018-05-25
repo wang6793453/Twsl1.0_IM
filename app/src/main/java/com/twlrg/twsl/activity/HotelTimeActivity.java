@@ -51,10 +51,12 @@ public class HotelTimeActivity extends BaseActivity
 
     private String chek_in, chek_out;
 
+    private String type=""; //1:从订单管理进入
+
     @Override
     protected void initData()
     {
-
+        type = getIntent().getStringExtra("TYPE");
     }
 
     @Override
@@ -110,15 +112,35 @@ public class HotelTimeActivity extends BaseActivity
         //        datas.add(new MonthTimeEntity(nextYear, nextMonth));        //下个月
         //        datas.add(new MonthTimeEntity(nextYear, nextMonth + 1));
 
+        if ("1".equals(type))
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                String[] time = StringUtils.getMonthAndYear(i - 12);
+                datas.add(new MonthTimeEntity(Integer.parseInt(time[0]), Integer.parseInt(time[1]),type));
+            }
+        }
+
 
         for (int i = 0; i < 12; i++)
         {
             String[] time = StringUtils.getMonthAndYear(i);
-            datas.add(new MonthTimeEntity(Integer.parseInt(time[0]), Integer.parseInt(time[1])));
+            datas.add(new MonthTimeEntity(Integer.parseInt(time[0]), Integer.parseInt(time[1]),type));
         }
 
         adapter = new MonthTimeAdapter(datas, HotelTimeActivity.this);
         mReycycler.setAdapter(adapter);
+
+        if (datas.size() > 12)
+        {
+            moveToPosition(layoutManager, 12);
+        }
+    }
+
+    public static void moveToPosition(LinearLayoutManager manager, int n)
+    {
+        manager.scrollToPositionWithOffset(n, 0);
+        manager.setStackFromEnd(true);
     }
 
     public void onEventMainThread(UpdataCalendar event)

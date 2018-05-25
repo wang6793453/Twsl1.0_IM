@@ -10,7 +10,7 @@ public class DayTimeEntity
     private int day;           //日期，几号
     private int month;           //属于的月份
     private int year;           //属于的年份
-
+    private String type;
     private int monthPosition;    //属于的月份位置，注意是该日期属于的月份在外层列表中的position，不是月份
     private int dayPosition;      //属于的日期位置，注意是该日期在每个月（内层列表）中的位置
 
@@ -21,7 +21,24 @@ public class DayTimeEntity
         this.year = year;
         this.monthPosition = monthPosition;
     }
+    public DayTimeEntity(int day, int month, int year, int monthPosition,String type)
+    {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.monthPosition = monthPosition;
+        this.type = type;
+    }
 
+    public String getType()
+    {
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
+    }
 
     public int getDay()
     {
