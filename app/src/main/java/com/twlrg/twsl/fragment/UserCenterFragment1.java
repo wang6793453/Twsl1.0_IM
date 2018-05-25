@@ -10,8 +10,10 @@ import android.widget.LinearLayout;
 import com.twlrg.twsl.MyApplication;
 import com.twlrg.twsl.R;
 import com.twlrg.twsl.activity.BillListActivity;
+import com.twlrg.twsl.activity.CommentListActivity;
 import com.twlrg.twsl.activity.ConferenceManageActivity;
 import com.twlrg.twsl.activity.FacilitiesActivity;
+import com.twlrg.twsl.activity.HotelDetailActivity;
 import com.twlrg.twsl.activity.LocationActivity;
 import com.twlrg.twsl.activity.MainActivity;
 import com.twlrg.twsl.activity.MyCenterActivity;
@@ -20,6 +22,7 @@ import com.twlrg.twsl.activity.RoomPriceListActivity;
 import com.twlrg.twsl.activity.RoomStatusListActivity;
 import com.twlrg.twsl.activity.UserCenterActivity;
 import com.twlrg.twsl.utils.APPUtils;
+import com.twlrg.twsl.utils.ConfigManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -160,6 +163,14 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
 
         else if (v == llJddp)
         {
+            if (MyApplication.getInstance().isLogin())
+            {
+                startActivity(new Intent(getActivity(), CommentListActivity.class).putExtra("MERCHANT_ID", ConfigManager.instance().getMerchantId()));
+            }
+            else
+            {
+                startActivity(new Intent(getActivity(), LocationActivity.class));
+            }
 
         }
         else if (v == llZdzf)

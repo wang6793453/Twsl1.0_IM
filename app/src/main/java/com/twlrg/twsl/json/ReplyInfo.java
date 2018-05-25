@@ -1,19 +1,14 @@
-package com.twlrg.twsl.entity;
-
-import com.twlrg.twsl.json.ReplyInfo;
+package com.twlrg.twsl.json;
 
 import org.json.JSONObject;
 
-import java.util.List;
-
 /**
- * 作者：王先云 on 2018/4/23 21:00
+ * 作者：王先云 on 2018/5/25 10:55
  * 邮箱：wangxianyun1@163.com
  * 描述：一句话简单描述
  */
-public class CommentInfo
+public class ReplyInfo
 {
-
     private String merchant_id;// 29
     private String nickname;//13421303923
     private String portrait;//\/Uploads\/portrait\/1523938668_545631468
@@ -21,9 +16,8 @@ public class CommentInfo
     private String create_time;//2018-04-23 20:44:54、
     private String id;
 
-    private List<ReplyInfo> replyInfoList;
 
-    public CommentInfo(JSONObject obj)
+    public ReplyInfo(JSONObject obj)
     {
         this.id = obj.optString("id");
         this.content = obj.optString("content");
@@ -91,15 +85,5 @@ public class CommentInfo
     public void setCreate_time(String create_time)
     {
         this.create_time = create_time;
-    }
-
-    public List<ReplyInfo> getReplyInfoList()
-    {
-        return replyInfoList;
-    }
-
-    public void setReplyInfoList(List<ReplyInfo> replyInfoList)
-    {
-        this.replyInfoList = replyInfoList;
     }
 }

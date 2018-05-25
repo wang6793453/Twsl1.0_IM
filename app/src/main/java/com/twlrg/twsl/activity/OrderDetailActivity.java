@@ -89,8 +89,8 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
     TextView        tvSalesperson;
     @BindView(R.id.tv_modify_price)
     TextView        tvModifyPrice;
-    @BindView(R.id.btn_contact_customer)
-    Button          btnContactCustomer;
+    @BindView(R.id.rl_contact_customer)
+    LinearLayout    mContactCustomerLayout;
     @BindView(R.id.btn_accept)
     Button          btnAccept;
     @BindView(R.id.btn_refuse)
@@ -165,7 +165,7 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
                         tvPayStatus.setText(payStatus);
                         tvTotalFee.setText("总额:￥" + mOrderInfo.getTotal_fee());
 
-                        if("1".equals(mOrderInfo.getShow_mobile()))
+                        if ("1".equals(mOrderInfo.getShow_mobile()))
                         {
                             llPhone.setVisibility(View.VISIBLE);
                         }
@@ -302,7 +302,7 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
         btnAccept.setOnClickListener(this);
         btnRefuse.setOnClickListener(this);
         btnAlready.setOnClickListener(this);
-        btnContactCustomer.setOnClickListener(this);
+        mContactCustomerLayout.setOnClickListener(this);
         tvPriceDetail.setOnClickListener(this);
     }
 
@@ -465,12 +465,12 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
 
 
         }
-        else if (v == btnAlready || v == btnContactCustomer)
+        else if (v == btnAlready || v == mContactCustomerLayout)
         {
             //TODO 聊天
             ChatActivity.navToChat(OrderDetailActivity.this, "slbl_client_" + mUserId, TIMConversationType.C2C);
         }
-        else if(v == tvPriceDetail)
+        else if (v == tvPriceDetail)
         {
             DialogUtils.showPriceDetailDialog(OrderDetailActivity.this, mOrderInfoList);
         }
@@ -549,7 +549,6 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
             }
         }
     }
-
 
 
 }

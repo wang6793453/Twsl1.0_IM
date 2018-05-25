@@ -12,10 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.twlrg.twsl.R;
+import com.twlrg.twsl.entity.ConferenceInfo;
 import com.twlrg.twsl.entity.RoomInfo;
 import com.twlrg.twsl.http.DataRequest;
 import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
+import com.twlrg.twsl.json.ConferenceInfoHandler;
+import com.twlrg.twsl.json.ConferenceListHandler;
 import com.twlrg.twsl.json.ResultHandler;
 import com.twlrg.twsl.json.RoomInfoHandler;
 import com.twlrg.twsl.json.RoomListHandler;
@@ -102,10 +105,24 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
 
                     break;
                 case GET_CONFERENCE_INFO_SUCCESS:
-                    RoomInfoHandler mRoomInfoHandler = (RoomInfoHandler) msg.obj;
-                    RoomInfo mRoomInfo = mRoomInfoHandler.getRoomInfo();
+                    ConferenceInfoHandler mConferenceInfoHandler = (ConferenceInfoHandler) msg.obj;
+                    ConferenceInfo mConferenceInfo = mConferenceInfoHandler.getConferenceInfo();
 
+                    if (null != mConferenceInfo)
+                    {
+                        etTitle.setText(mConferenceInfo.getTitle());
+                        etArea.setText(mConferenceInfo.getArea());
+                        etCkg.setText(mConferenceInfo.getCkg());
+                        etFloor.setText(mConferenceInfo.getFloor());
+                        etTheatre.setText(mConferenceInfo.getTheatre());
+                        etDesk.setText(mConferenceInfo.getDesk());
+                        etBanquet.setText(mConferenceInfo.getBanquet());
+                        etFishbone.setText(mConferenceInfo.getFishbone());
+                        etPrice.setText(mConferenceInfo.getPrice() + "");
 
+                        tvLed.setText("1".equals(mConferenceInfo.getLed()) ? "有LED显示屏" : "无LED显示屏");
+
+                    }
                     break;
 
             }
@@ -151,7 +168,7 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
             valuePairs.put("city_value", ConfigManager.instance().getCityValue());
             valuePairs.put("id", conference_id);
             DataRequest.instance().request(ConferenceDetailActivity.this, Urls.getConferenceInfoUrl(), this, HttpRequest.POST, GET_CONFERENCE_INFO, valuePairs,
-                    new RoomInfoHandler());
+                    new ConferenceInfoHandler());
         }
     }
 
@@ -202,11 +219,11 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
                 ToastUtil.show(ConferenceDetailActivity.this, "请输入会议室面积");
                 return;
             }
-            //            if (StringUtils.stringIsEmpty(mCkg))
-            //            {
-            //                ToastUtil.show(ConferenceDetailActivity.this, "请输入会议室长宽高");
-            //                return;
-            //            }
+            if (StringUtils.stringIsEmpty(mCkg))
+            {
+                ToastUtil.show(ConferenceDetailActivity.this, "请输入会议室长宽高");
+                return;
+            }
             if (StringUtils.stringIsEmpty(mFloor))
             {
                 ToastUtil.show(ConferenceDetailActivity.this, "请输入会议室楼层");
@@ -219,16 +236,39 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
                 return;
             }
 
+
+            if(Integer.parseInt(mTheatre)<=0)
+            {
+                ToastUtil.show(ConferenceDetailActivity.this, "请输入剧院容纳的人数大于0");
+                return;
+            }
+
             if (StringUtils.stringIsEmpty(mDesk))
             {
                 ToastUtil.show(ConferenceDetailActivity.this, "请输入课桌人数");
                 return;
             }
+
+
+            if(Integer.parseInt(mDesk)<=0)
+            {
+                ToastUtil.show(ConferenceDetailActivity.this, "请输入课桌的人数大于0");
+                return;
+            }
+
+
             if (StringUtils.stringIsEmpty(mBanquet))
             {
                 ToastUtil.show(ConferenceDetailActivity.this, "请输入宴会人数");
                 return;
             }
+
+            if(Integer.parseInt(mBanquet)<=0)
+            {
+                ToastUtil.show(ConferenceDetailActivity.this, "请输入宴会的人数大于0");
+                return;
+            }
+
             if (StringUtils.stringIsEmpty(mPrice))
             {
                 ToastUtil.show(ConferenceDetailActivity.this, "请输入价格");

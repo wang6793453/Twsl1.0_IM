@@ -234,7 +234,7 @@ public class Urls
     //编辑会议室详情
     public static String getEditConferenceInfoUrl()
     {
-        return BASE_URL + "conference/conference_eidt";
+        return BASE_URL + "conference/conference_edit";
     }
 
 
@@ -251,4 +251,15 @@ public class Urls
     {
         return BASE_URL + "merchant/room_price";
     }
+
+
+    //回复评论
+    public static String getCommentReplyUrl()
+    {
+        return BASE_URL + "comment/reply";
+    }
+
+
+
+
 }

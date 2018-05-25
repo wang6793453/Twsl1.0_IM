@@ -46,6 +46,7 @@ public class ConfigManager
     private static final String USER_SEX        = "user_sex";
 
     private static final String CITY_VALUE = "city_value";
+    private static final String MERCHANT_ID = "merchant_id";
 
 
     /**
@@ -267,5 +268,14 @@ public class ConfigManager
         return mSharedPreferences.getString(CITY_VALUE, "2158");
     }
 
+    public void setMerchantId(String merchantId)
+    {
+        mSharedPreferences.edit().putString(MERCHANT_ID, merchantId).commit();
+    }
+
+    public String getMerchantId()
+    {
+        return mSharedPreferences.getString(MERCHANT_ID, "");
+    }
 }
 

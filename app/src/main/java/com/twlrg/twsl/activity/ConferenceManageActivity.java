@@ -112,6 +112,7 @@ public class ConferenceManageActivity extends BaseActivity implements PullToRefr
     protected void initEvent()
     {
         ivBack.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
     }
 
     @Override
@@ -161,6 +162,10 @@ public class ConferenceManageActivity extends BaseActivity implements PullToRefr
         if (v == ivBack)
         {
             finish();
+        }
+        else if (v == btnAdd)
+        {
+            startActivity(new Intent(ConferenceManageActivity.this, ConferenceDetailActivity.class));
         }
     }
 

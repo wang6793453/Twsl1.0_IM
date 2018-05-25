@@ -981,7 +981,8 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                 locationService.unregisterListener(mListener); //注销掉监听
                 locationService.stop(); //停止定位服务
 
-
+                if (null == tvCity)
+                    tvCity = (TextView) rootView.findViewById(R.id.tv_city);
                 int index = getCityIndex(currentCity);
 
                 String title = "";
@@ -1038,8 +1039,8 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                 {
                     e.printStackTrace();
                     title = "定位失败,已为您自动切换到深圳市";
-                    tvCity.setText("深圳市");
                     city_value = "2158";
+                    tvCity.setText("深圳市");
                 }
 
                 DialogUtils.showPromptDialog(getActivity(), title, new MyItemClickListener()

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm_120"
+        android:layout_margin="@dimen/dm_15"
+        android:background="@drawable/black_frame_0dp"
+        android:gravity="left"
+        android:hint="请输入回复内容"
+        android:maxLength="120"
+        android:padding="@dimen/dm_5"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t14"/>
+
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dm_10"
+        android:background="@color/green"
+        android:text="回复"
+        android:textColor="@color/white"
+        android:textSize="@dimen/t18"/>
+
+</LinearLayout>

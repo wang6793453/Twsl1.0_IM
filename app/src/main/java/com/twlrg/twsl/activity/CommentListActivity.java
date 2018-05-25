@@ -1,5 +1,6 @@
 package com.twlrg.twsl.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,12 +18,19 @@ import com.twlrg.twsl.http.DataRequest;
 import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
 import com.twlrg.twsl.json.CommentListHandler;
+import com.twlrg.twsl.json.ResultHandler;
+import com.twlrg.twsl.listener.MyItemClickListener;
+import com.twlrg.twsl.listener.MyOnClickListener;
 import com.twlrg.twsl.utils.APPUtils;
+import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
+import com.twlrg.twsl.utils.DialogUtils;
+import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
 import com.twlrg.twsl.widget.AutoFitTextView;
 import com.twlrg.twsl.widget.DividerDecoration;
+import com.twlrg.twsl.widget.EmptyDecoration;
 import com.twlrg.twsl.widget.list.refresh.PullToRefreshBase;
 import com.twlrg.twsl.widget.list.refresh.PullToRefreshRecyclerView;
 
@@ -61,10 +69,13 @@ public class CommentListActivity extends BaseActivity implements PullToRefreshBa
 
 
     private static final String GET_COMMENT_LIST = "get_comment_list";
-
+    private static final String REPLY_COMMENT = "reply_comment";
     private static final int REQUEST_SUCCESS = 0x01;
     private static final int REQUEST_FAIL    = 0x02;
+    private static final int  REPLY_COMMENT_SUCCESS = 0x03;
 
+
+    @SuppressLint("HandlerLeak")
     private BaseHandler mHandler = new BaseHandler(CommentListActivity.this)
     {
         @Override
@@ -95,7 +106,13 @@ public class CommentListActivity extends BaseActivity implements PullToRefreshBa
                     ToastUtil.show(CommentListActivity.this, msg.obj.toString());
 
                     break;
-
+                case REPLY_COMMENT_SUCCESS:
+                    ToastUtil.show(CommentListActivity.this, "操作成功");
+                    commentInfoList.clear();
+                    pn = 1;
+                    mRefreshStatus = 0;
+                    getCommentList();
+                    break;
 
             }
         }
@@ -134,10 +151,32 @@ public class CommentListActivity extends BaseActivity implements PullToRefreshBa
         mPullToRefreshRecyclerView.setOnRefreshListener(this);
         mPullToRefreshRecyclerView.setPullRefreshEnabled(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(CommentListActivity.this, LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.addItemDecoration(new DividerDecoration(CommentListActivity.this));
+        mRecyclerView.addItemDecoration(new EmptyDecoration(CommentListActivity.this,""));
 
 
-        mCommentAdapter = new CommentAdapter(commentInfoList);
+        mCommentAdapter = new CommentAdapter(commentInfoList, new MyItemClickListener()
+        {
+            @Override
+            public void onItemClick(View view, final int position)
+            {
+                DialogUtils.showReplyDialog(CommentListActivity.this, new MyOnClickListener.OnSubmitListener()
+                {
+                    @Override
+                    public void onSubmit(String content)
+                    {
+                        showProgressDialog();
+                        Map<String, String> valuePairs = new HashMap<>();
+                        valuePairs.put("merchant_id", merchant_id);
+                        valuePairs.put("user_id", ConfigManager.instance().getUserID());
+                        valuePairs.put("pid", commentInfoList.get(position).getId());
+                        valuePairs.put("content", content);
+                        valuePairs.put("create_time", StringUtils.getCurrentTime());
+                        DataRequest.instance().request(CommentListActivity.this, Urls.getCommentReplyUrl(), CommentListActivity.this, HttpRequest.POST, REPLY_COMMENT, valuePairs,
+                                new ResultHandler());
+                    }
+                });
+            }
+        });
         mRecyclerView.setAdapter(mCommentAdapter);
         getCommentList();
     }
@@ -175,7 +214,6 @@ public class CommentListActivity extends BaseActivity implements PullToRefreshBa
     {
         Map<String, String> valuePairs = new HashMap<>();
         valuePairs.put("merchant_id", merchant_id);
-
         valuePairs.put("page", pn + "");
         DataRequest.instance().request(CommentListActivity.this, Urls.getCommentListUrl(), this, HttpRequest.POST, GET_COMMENT_LIST, valuePairs,
                 new CommentListHandler());
@@ -184,6 +222,7 @@ public class CommentListActivity extends BaseActivity implements PullToRefreshBa
     @Override
     public void notify(String action, String resultCode, String resultMsg, Object obj)
     {
+        hideProgressDialog();
         if (mRefreshStatus == 1)
         {
             mPullToRefreshRecyclerView.onPullUpRefreshComplete();
@@ -198,6 +237,17 @@ public class CommentListActivity extends BaseActivity implements PullToRefreshBa
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {
                 mHandler.sendMessage(mHandler.obtainMessage(REQUEST_SUCCESS, obj));
+            }
+            else
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+            }
+        }
+        else if(REPLY_COMMENT.equals(action))
+        {
+            if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REPLY_COMMENT_SUCCESS, obj));
             }
             else
             {

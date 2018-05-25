@@ -537,8 +537,6 @@ public class DialogUtils
         }
 
 
-
-
         v.findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -558,5 +556,50 @@ public class DialogUtils
         mWindow.setAttributes(lp);
         dialog.show();
     }
+
+
+    /**
+     * 价格
+     *
+     * @return
+     */
+    public static void showReplyDialog(final Context mContext, final MyOnClickListener.OnSubmitListener listener)
+    {
+        final Dialog dialog = new Dialog(mContext);
+        dialog.setCancelable(true);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_reply, null);
+        dialog.setContentView(v);
+
+        final EditText mContentEt = (EditText) v.findViewById(R.id.et_content);
+
+        v.findViewById(R.id.btn_submit).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String content = mContentEt.getText().toString();
+
+                if (StringUtils.stringIsEmpty(content))
+                {
+                    ToastUtil.show(mContext, "请输入回复内容");
+                    return;
+                }
+
+                listener.onSubmit(content);
+                dialog.dismiss();
+            }
+        });
+
+
+        //Dialog部分
+        Window mWindow = dialog.getWindow();
+        WindowManager.LayoutParams lp = mWindow.getAttributes();
+        lp.gravity = Gravity.BOTTOM;
+        mWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mWindow.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mWindow.setAttributes(lp);
+        dialog.show();
+    }
+
 
 }
