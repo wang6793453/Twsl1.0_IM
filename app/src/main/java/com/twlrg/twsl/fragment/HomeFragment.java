@@ -709,10 +709,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
         else if (v == llDateLayout)
         {
-            startActivityForResult(new Intent(getActivity(), HotelTimeActivity.class).putExtra("TYPE", "1")
-
-
-                    , GET_DATE_CODE);
+            startActivityForResult(new Intent(getActivity(), HotelTimeActivity.class) , GET_DATE_CODE);
         }
         else if (v == rlCity)
         {

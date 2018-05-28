@@ -150,6 +150,8 @@ public class LoginActivity extends BaseActivity implements IRequestListener
             @Override
             public void onError(int i, String s)
             {
+                ToastUtil.show(LoginActivity.this, "登录成功!");
+                finish();
 
             }
 
@@ -157,8 +159,9 @@ public class LoginActivity extends BaseActivity implements IRequestListener
             public void onSuccess()
             {
                 LogUtil.e("login", "modifyUserProfile onSuccess");
-                finish();
                 ToastUtil.show(LoginActivity.this, "登录成功!");
+                finish();
+
             }
         });
     }

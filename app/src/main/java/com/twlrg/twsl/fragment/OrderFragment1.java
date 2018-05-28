@@ -1,5 +1,6 @@
 package com.twlrg.twsl.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -65,6 +66,7 @@ public class OrderFragment1 extends BaseFragment implements PullToRefreshBase.On
     private static final int    REQUEST_FAIL    = 0x02;
     private              String keyword         = "", s_date = "", e_date = "";
 
+    @SuppressLint("HandlerLeak")
     private BaseHandler mHandler = new BaseHandler(getActivity())
     {
         @Override

@@ -18,7 +18,7 @@ android {
         release {
             keyAlias 'twsl'
             keyPassword 'twsl2018'
-            storeFile file('F:/otherPro/Twsl1.0_IM/app/twsl.jks')
+            storeFile file('F:/pro/sztw/Twsl1.0/app/twsl.jks')
             storePassword 'twsl2018'
         }
     }

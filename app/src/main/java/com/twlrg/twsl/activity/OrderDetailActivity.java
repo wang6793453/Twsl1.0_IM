@@ -365,7 +365,6 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
         valuePairs.put("uid", ConfigManager.instance().getUserID());
         valuePairs.put("order_id", order_id);
         valuePairs.put("is_used", String.valueOf(is_used));
-
         DataRequest.instance().request(OrderDetailActivity.this, Urls.getChangeOrderStatusUrl(), this, HttpRequest.POST, CHANGE_ORDER_STATUS, valuePairs,
                 new ResultHandler());
     }

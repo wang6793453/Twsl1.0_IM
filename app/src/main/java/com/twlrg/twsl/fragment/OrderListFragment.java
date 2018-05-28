@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -126,7 +128,6 @@ public class OrderListFragment extends BaseFragment implements View.OnClickListe
                 {
 
                     keyword = mEtKeyword.getText().toString();
-
                     mOrderFragment.searchOrder(keyword, s_date, e_date);
                     mOrderFragment1.searchOrder(keyword, s_date, e_date);
                     mOrderFragment2.searchOrder(keyword, s_date, e_date);
@@ -138,6 +139,32 @@ public class OrderListFragment extends BaseFragment implements View.OnClickListe
         });
 
 
+        mEtKeyword.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (s.length() == 0)
+                {
+                    keyword = "";
+                    mOrderFragment.searchOrder(keyword, s_date, e_date);
+                    mOrderFragment1.searchOrder(keyword, s_date, e_date);
+                    mOrderFragment2.searchOrder(keyword, s_date, e_date);
+                }
+            }
+        });
     }
 
     @Override

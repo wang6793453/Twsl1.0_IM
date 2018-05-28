@@ -14,7 +14,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical">
 
 
@@ -68,13 +67,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm_15"
-                android:layout_marginRight="@dimen/dm_15"
-                android:layout_marginTop="@dimen/dm_10"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dm_10"
+                android:paddingLeft="@dimen/dm_15"
+                android:paddingRight="@dimen/dm_15"
+                android:paddingTop="@dimen/dm_10">
 
                 <TextView
-                    android:layout_width="@dimen/dm_0"
+                    android:layout_width="92dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="客人信息"
@@ -85,7 +85,7 @@
                     android:layout_width="@dimen/dm_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
 
             </LinearLayout>
@@ -94,10 +94,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm_15"
-                android:layout_marginRight="@dimen/dm_15"
-                android:layout_marginTop="@dimen/dm_10"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dm_10"
+                android:paddingLeft="@dimen/dm_15"
+                android:paddingRight="@dimen/dm_15"
+                android:paddingTop="@dimen/dm_10">
 
                 <TextView
                     android:layout_width="@dimen/dm_0"
@@ -111,7 +112,7 @@
                     android:layout_width="@dimen/dm_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="6.5"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
 
                 <TextView
@@ -120,17 +121,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="1晚"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm_15"
-                android:layout_marginRight="@dimen/dm_15"
-                android:layout_marginTop="@dimen/dm_10"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dm_10"
+                android:paddingLeft="@dimen/dm_15"
+                android:paddingRight="@dimen/dm_15"
+                android:paddingTop="@dimen/dm_10">
 
                 <TextView
                     android:layout_width="@dimen/dm_0"
@@ -144,7 +146,7 @@
                     android:layout_width="@dimen/dm_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="6.5"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
 
                 <TextView
@@ -153,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="1晚"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
 
             </LinearLayout>
@@ -161,10 +163,11 @@
                 android:id="@+id/ll_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm_15"
-                android:layout_marginRight="@dimen/dm_15"
-                android:layout_marginTop="@dimen/dm_10"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dm_10"
+                android:paddingLeft="@dimen/dm_15"
+                android:paddingRight="@dimen/dm_15"
+                android:paddingTop="@dimen/dm_10">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -178,22 +181,22 @@
                     android:layout_width="@dimen/dm_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
 
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm_1"
-                android:layout_marginTop="@dimen/dm_10"
                 android:background="@color/line"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm_15"
-                android:layout_marginRight="@dimen/dm_15"
-
                 android:orientation="horizontal"
+                android:paddingBottom="@dimen/dm_10"
+                android:paddingLeft="@dimen/dm_15"
+                android:paddingRight="@dimen/dm_15"
+                android:paddingTop="@dimen/dm_10"
                 >
 
                 <TextView
@@ -213,7 +216,10 @@
 
 
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="@color/line"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -222,7 +228,7 @@
                 android:layout_marginRight="@dimen/dm_15"
                 android:layout_marginTop="@dimen/dm_10"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/dm_10">
+               >
 
                 <TextView
                     android:id="@+id/textView3"
@@ -273,9 +279,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginBottom="@dimen/dm_5"
+                android:layout_marginBottom="@dimen/dm_10"
                 android:layout_marginRight="@dimen/dm_15"
-                android:layout_marginTop="@dimen/dm_15"
+                android:layout_marginTop="@dimen/dm_10"
                 android:text="费用明细"
                 android:textColor="@color/green"
                 android:textSize="@dimen/t14"/>
@@ -303,7 +309,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:maxLines="3"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
             </LinearLayout>
             <View
@@ -329,7 +335,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:maxLines="3"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
             </LinearLayout>
             <View
@@ -357,7 +363,7 @@
                     android:layout_weight="7.5"
                     android:gravity="left"
                     android:maxLines="3"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
 
             </LinearLayout>
@@ -373,6 +379,7 @@
                 android:layout_marginLeft="@dimen/dm_15"
                 android:layout_marginRight="@dimen/dm_15"
                 android:layout_marginTop="@dimen/dm_10"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -380,6 +387,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="温馨提示"
+
                     android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
                 <TextView
@@ -388,7 +396,7 @@
                     android:layout_weight="7.5"
                     android:gravity="left"
                     android:text="@string/wxts"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t14"/>
 
             </LinearLayout>
@@ -452,7 +460,7 @@
     <LinearLayout
         android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="@color/windowBackground"
         android:orientation="horizontal">
@@ -460,33 +468,33 @@
         <LinearLayout
             android:id="@+id/rl_contact_customer"
             android:layout_width="0dp"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginRight="@dimen/dm_1"
             android:layout_weight="3.3"
+            android:background="@color/green"
             android:gravity="center"
-            android:background="@color/green">
+            android:orientation="horizontal">
 
             <ImageView
-                android:src="@drawable/ic_message_off"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/dm_1"
+                android:src="@drawable/ic_message_white"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dm_5"
                 android:background="@color/green"
                 android:text="联系客户"
                 android:textColor="@color/white"
                 android:textSize="@dimen/t16"
-                android:visibility="visible"/>
+                />
 
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="6.6"
             android:orientation="horizontal">
             <Button
