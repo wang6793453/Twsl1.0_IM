@@ -216,18 +216,26 @@ public class HttpRequest implements Runnable
         OkHttpClient client = new OkHttpClient();
 
         RequestBody fileBody = RequestBody.create(MediaType.parse("image/jpeg"), mFile);
-        RequestBody multipartBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("uid", valuePair.get("uid"))
-                .addFormDataPart("role", valuePair.get("role"))
-                .addFormDataPart("token", valuePair.get("token"))
-                .addFormDataPart("submit", "Submit")
-                .addFormDataPart("file", mFile.getName(), fileBody).build();
+        //        RequestBody multipartBody = new MultipartBody.Builder()
+        //                .setType(MultipartBody.FORM)
+        //                .addFormDataPart("uid", valuePair.get("uid"))
+        //                .addFormDataPart("role", valuePair.get("role"))
+        //                .addFormDataPart("token", valuePair.get("token"))
+        //                .addFormDataPart("submit", "Submit")
+        //                .addFormDataPart("file", mFile.getName(), fileBody).build();
+        MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        requestBody.addFormDataPart("file", mFile.getName(), fileBody);
+        for (String key : valuePair.keySet())
+        {
+            String value = valuePair.get(key);
+            requestBody.addFormDataPart(key, value);
+
+        }
 
         Request request = new Request.Builder().url(urlRequest)
                 .addHeader("User-Agent", "android")
                 .header("Content-Type", "text/html; charset=utf-8;")
-                .post(multipartBody)//传参数、文件或者混合，改一下就行请求体就行
+                .post(requestBody.build())//传参数、文件或者混合，改一下就行请求体就行
                 .build();
 
         Response response = client.newCall(request).execute();// execute

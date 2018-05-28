@@ -32,6 +32,7 @@ public class RoomManageHolder extends RecyclerView.ViewHolder
 
     public void setRoomInfo(RoomInfo mRoomInfo, final int p)
     {
+        mRoomTitleTv.setText(mRoomInfo.getTitle());
         mItemLayout.setOnClickListener(new View.OnClickListener()
         {
             @Override

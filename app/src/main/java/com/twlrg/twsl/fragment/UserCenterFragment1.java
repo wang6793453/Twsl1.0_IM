@@ -17,10 +17,10 @@ import com.twlrg.twsl.activity.HotelDetailActivity;
 import com.twlrg.twsl.activity.LocationActivity;
 import com.twlrg.twsl.activity.MainActivity;
 import com.twlrg.twsl.activity.MyCenterActivity;
+import com.twlrg.twsl.activity.PictureManageActivity;
 import com.twlrg.twsl.activity.RoomManageActivity;
 import com.twlrg.twsl.activity.RoomPriceListActivity;
 import com.twlrg.twsl.activity.RoomStatusListActivity;
-import com.twlrg.twsl.activity.UserCenterActivity;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
 
@@ -192,7 +192,7 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
         }
         else if (v == llTpgl)
         {
-
+            gotoActivity(PictureManageActivity.class);
         }
         else if (v == llJdss)
         {

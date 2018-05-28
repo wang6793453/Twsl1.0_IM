@@ -77,7 +77,7 @@ public class PictureManageActivity extends BaseActivity
         }
         else if (v == rlRoom)
         {
-            startActivity(new Intent(PictureManageActivity.this, PictureRoomListActivity.class));
+            startActivity(new Intent(PictureManageActivity.this, RoomManageActivity.class).putExtra("TYPE","PIC"));
         }
         else if (v == rlHotel)
         {
@@ -85,7 +85,7 @@ public class PictureManageActivity extends BaseActivity
         }
         else if (v == rlConference)
         {
-            startActivity(new Intent(PictureManageActivity.this, PicConferenceListActivity.class));
+            startActivity(new Intent(PictureManageActivity.this, ConferenceManageActivity.class).putExtra("TYPE","PIC"));
 
         }
     }

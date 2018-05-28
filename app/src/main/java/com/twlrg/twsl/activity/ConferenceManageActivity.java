@@ -63,7 +63,7 @@ public class ConferenceManageActivity extends BaseActivity implements PullToRefr
     private List<ConferenceInfo> conferenceInfoList = new ArrayList<>();
     private ConferenceManageAdapter mConferenceManageAdapter;
 
-
+    private String type;
     private static final String GET_CONFERENCE_LIST = "get_conference_list";
 
     private static final int REQUEST_SUCCESS = 0x01;
@@ -98,7 +98,7 @@ public class ConferenceManageActivity extends BaseActivity implements PullToRefr
     @Override
     protected void initData()
     {
-
+        type = getIntent().getStringExtra("TYPE");
     }
 
     @Override
@@ -137,8 +137,19 @@ public class ConferenceManageActivity extends BaseActivity implements PullToRefr
             @Override
             public void onItemClick(View view, int position)
             {
-                startActivity(new Intent(ConferenceManageActivity.this, ConferenceDetailActivity.class).putExtra("CONFERENCE_ID", conferenceInfoList.get
-                        (position).getId()));
+                if ("PIC".equals(type))
+                {
+                    startActivity(new Intent(ConferenceManageActivity.this, EditPicActivity.class)
+                            .putExtra("ID", conferenceInfoList.get(position).getId())
+                            .putExtra("TYPE", "conference")
+                    );
+                }
+                else
+                {
+                    startActivity(new Intent(ConferenceManageActivity.this, ConferenceDetailActivity.class).putExtra("CONFERENCE_ID", conferenceInfoList.get
+                            (position).getId()));
+                }
+
             }
         });
         mRecyclerView.setAdapter(mConferenceManageAdapter);

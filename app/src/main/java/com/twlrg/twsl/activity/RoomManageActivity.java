@@ -62,6 +62,7 @@ public class RoomManageActivity extends BaseActivity implements PullToRefreshBas
     private List<RoomInfo> roomInfoList = new ArrayList<>();
     private RoomManageAdapter mRoomManageAdapter;
 
+    private String type;
 
     private static final String GET_ROOM_LIST = "GET_ROOM_LIST";
 
@@ -97,6 +98,7 @@ public class RoomManageActivity extends BaseActivity implements PullToRefreshBas
     @Override
     protected void initData()
     {
+        type = getIntent().getStringExtra("TYPE");
     }
 
     @Override
@@ -135,7 +137,18 @@ public class RoomManageActivity extends BaseActivity implements PullToRefreshBas
             @Override
             public void onItemClick(View view, int position)
             {
-                startActivity(new Intent(RoomManageActivity.this, RoomDetailActivity.class).putExtra("ROOM_ID", roomInfoList.get(position).getId()));
+                if ("PIC".equals(type))
+                {
+
+                    startActivity(new Intent(RoomManageActivity.this, EditPicActivity.class)
+                            .putExtra("ID", roomInfoList.get(position).getId())
+                            .putExtra("TYPE", "room")
+                    );
+                }
+                else
+                {
+                    startActivity(new Intent(RoomManageActivity.this, RoomDetailActivity.class).putExtra("ROOM_ID", roomInfoList.get(position).getId()));
+                }
             }
         });
         mRecyclerView.setAdapter(mRoomManageAdapter);

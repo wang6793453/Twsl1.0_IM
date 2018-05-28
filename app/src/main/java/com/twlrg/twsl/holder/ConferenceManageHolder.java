@@ -32,6 +32,7 @@ public class ConferenceManageHolder extends RecyclerView.ViewHolder
 
     public void setConferenceInfo(ConferenceInfo mConferenceInfo, final int p)
     {
+        mRoomTitleTv.setText(mConferenceInfo.getTitle());
         mItemLayout.setOnClickListener(new View.OnClickListener()
         {
             @Override
