@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="客房名称"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
 
@@ -45,25 +45,27 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:background="@drawable/black_frame_0dp"
+                    android:background="@color/transparent"
                     android:hint="请输入"
                     android:padding="@dimen/dm_5"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="right"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="#e3e3e3"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dm_0.5"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:padding="@dimen/dm_10">
@@ -73,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="面积"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
 
@@ -82,11 +84,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:background="@drawable/black_frame_0dp"
+                    android:background="@color/transparent"
                     android:hint="请输入"
                     android:inputType="number"
                     android:padding="@dimen/dm_5"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <TextView
@@ -94,12 +96,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="right"
-                    android:text="平方"
-                    android:textColor="@color/black"
+                    android:text="㎡"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="#e3e3e3"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="入住人数"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
 
@@ -122,11 +127,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:background="@drawable/black_frame_0dp"
+                    android:background="@color/transparent"
                     android:hint="请输入"
                     android:inputType="number"
                     android:padding="@dimen/dm_5"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <TextView
@@ -135,11 +140,14 @@
                     android:layout_weight="2"
                     android:gravity="right"
                     android:text="人"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="#e3e3e3"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="楼层"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
 
@@ -162,10 +170,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:background="@drawable/black_frame_0dp"
+                    android:background="@color/transparent"
                     android:hint="请输入"
                     android:padding="@dimen/dm_5"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <TextView
@@ -174,10 +182,14 @@
                     android:layout_weight="2"
                     android:gravity="right"
                     android:text="层"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="#e3e3e3"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -191,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="床型"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
 
@@ -200,10 +212,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:background="@drawable/black_frame_0dp"
+                    android:background="@color/transparent"
                     android:hint="请输入"
                     android:padding="@dimen/dm_5"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <TextView
@@ -211,10 +223,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="right"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="#e3e3e3"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -228,7 +244,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="加床"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
 
@@ -237,11 +253,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:background="@drawable/black_frame_0dp"
+                    android:background="@color/transparent"
                     android:hint="请输入"
                     android:inputType="number"
                     android:padding="@dimen/dm_5"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <TextView
@@ -250,11 +266,14 @@
                     android:layout_weight="2"
                     android:gravity="right"
                     android:text="元"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="#e3e3e3"/>
             <LinearLayout
                 android:id="@+id/ll_smokeless"
                 android:layout_width="match_parent"
@@ -269,7 +288,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="烟房"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
 
@@ -280,7 +299,7 @@
                     android:layout_weight="5"
                     android:padding="@dimen/dm_5"
                     android:text="无烟房"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <LinearLayout
@@ -292,11 +311,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:src="@drawable/ic_arrow_right_48"
+                        android:src="@drawable/ic_arrow_down_48"
                         />
                 </LinearLayout>
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="#e3e3e3"/>
             <LinearLayout
                 android:id="@+id/ll_wifi"
                 android:layout_width="match_parent"
@@ -311,7 +333,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="网络"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
 
@@ -322,7 +344,7 @@
                     android:layout_weight="5"
                     android:padding="@dimen/dm_5"
                     android:text="无WIFI"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <LinearLayout
@@ -334,11 +356,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:src="@drawable/ic_arrow_right_48"
+                        android:src="@drawable/ic_arrow_down_48"
                         />
                 </LinearLayout>
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="#e3e3e3"/>
             <LinearLayout
                 android:id="@+id/ll_window"
                 android:layout_width="match_parent"
@@ -353,7 +378,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="窗型"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
 
@@ -364,7 +389,7 @@
                     android:layout_weight="5"
                     android:padding="@dimen/dm_5"
                     android:text="无窗"
-                    android:textColor="@color/black"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <LinearLayout
@@ -376,10 +401,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:src="@drawable/ic_arrow_right_48"
+                        android:src="@drawable/ic_arrow_down_48"
                         />
                 </LinearLayout>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dm_1"
+                android:background="#e3e3e3"/>
         </LinearLayout>
     </ScrollView>
     <Button

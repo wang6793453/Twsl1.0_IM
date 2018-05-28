@@ -6,13 +6,11 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="@dimen/dm_0.5"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/yellow"
         android:orientation="vertical"
         android:paddingBottom="@dimen/dm_3">
 
@@ -23,7 +21,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="21"
-            android:textColor="@color/black"
+            android:textColor="@color/blackC"
             android:textSize="@dimen/t16"/>
 
         <TextView
@@ -33,7 +31,7 @@
             android:layout_marginLeft="@dimen/dm_2"
             android:maxLines="1"
             android:text="无 188"
-            android:textColor="@color/black"
+            android:textColor="@color/blackC"
             android:textSize="@dimen/t14"/>
 
         <TextView
@@ -43,7 +41,7 @@
             android:layout_marginLeft="@dimen/dm_2"
             android:maxLines="1"
             android:text="单 188"
-            android:textColor="@color/black"
+            android:textColor="@color/blackC"
             android:textSize="@dimen/t14"/>
 
         <TextView
@@ -53,7 +51,7 @@
             android:layout_marginLeft="@dimen/dm_2"
             android:maxLines="1"
             android:text="双 188"
-            android:textColor="@color/black"
+            android:textColor="@color/blackC"
             android:textSize="@dimen/t14"/>
     </LinearLayout>
 

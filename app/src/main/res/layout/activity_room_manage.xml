@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/green"
-        android:padding="@dimen/dm_15"
+        android:padding="@dimen/dm_10"
         android:text="添加客房"
         android:textColor="@color/white"
         android:textSize="@dimen/t20"/>
@@ -22,7 +22,8 @@
     <com.twlrg.twsl.widget.list.refresh.PullToRefreshRecyclerView
         android:id="@+id/pullToRefreshRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        />
 
 
 </LinearLayout>

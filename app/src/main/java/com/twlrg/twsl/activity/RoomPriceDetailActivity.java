@@ -159,7 +159,13 @@ public class RoomPriceDetailActivity extends BaseActivity
                 RoomDayInfo mRoomDayInfo = monthInfoList.get(p).getRoomDayInfoList().get(n);
 
                 String day = mRoomDayInfo.getYear() + "-" + mRoomDayInfo.getMonth() + "-" + mRoomDayInfo.getDay();
-                showModifyPriceDialog(day, day);
+                //  showModifyPriceDialog(day, day);
+
+                startActivity(new Intent(RoomPriceDetailActivity.this, SettingRoomPriceActivity.class)
+                        .putExtra("S_DATE", day)
+                        .putExtra("E_DATE", day)
+
+                );
             }
         });
 
@@ -192,7 +198,7 @@ public class RoomPriceDetailActivity extends BaseActivity
         }
         else if (v == tvSubmit)
         {
-            startActivityForResult(new Intent(RoomPriceDetailActivity.this, HotelTimeActivity.class), GET_DATE_CODE);
+            startActivity(new Intent(RoomPriceDetailActivity.this, SettingRoomPriceActivity.class));
         }
     }
 

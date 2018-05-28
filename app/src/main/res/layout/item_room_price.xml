@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/windowBackground"
+    android:layout_marginTop="@dimen/dm_10"
+    android:background="@color/white"
     android:orientation="vertical"
     >
 
@@ -32,6 +33,7 @@
             android:layout_marginLeft="@dimen/dm_25"
             android:layout_toRightOf="@+id/tv_room_title"
             android:text="2018年5月"
+            android:visibility="gone"
             android:textColor="@color/blackA"
             android:textSize="@dimen/t16"/>
 

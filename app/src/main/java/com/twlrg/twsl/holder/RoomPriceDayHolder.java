@@ -18,10 +18,10 @@ public class RoomPriceDayHolder extends RecyclerView.ViewHolder
 
 
     private LinearLayout mItemLayout;
-    private TextView mDayTv;
-    private TextView mWzPriceTv;
-    private TextView mDzPriceTv;
-    private TextView mSzPriceTv;
+    private TextView     mDayTv;
+    private TextView     mWzPriceTv;
+    private TextView     mDzPriceTv;
+    private TextView     mSzPriceTv;
 
     private MyItemClickListener myItemClickListener;
 
@@ -51,9 +51,9 @@ public class RoomPriceDayHolder extends RecyclerView.ViewHolder
         else
         {
             mDayTv.setText(mRoomDayInfo.getDay() + "");
-            mWzPriceTv.setText("无早  "+mRoomDayInfo.getWz_price());
-            mDzPriceTv.setText("单早  "+mRoomDayInfo.getDz_price() + "");
-            mSzPriceTv.setText("双早  "+mRoomDayInfo.getSz_price() + "");
+            mWzPriceTv.setText("无  " + mRoomDayInfo.getWz_price());
+            mDzPriceTv.setText("单  " + mRoomDayInfo.getDz_price() + "");
+            mSzPriceTv.setText("双  " + mRoomDayInfo.getSz_price() + "");
             if (mRoomDayInfo.getStatus() == 1)
             {
                 mDayTv.setSelected(true);

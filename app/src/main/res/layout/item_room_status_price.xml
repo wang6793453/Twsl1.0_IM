@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:background="@color/blueB"
         android:orientation="horizontal"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         >
         <TextView
             android:layout_width="0dp"
@@ -90,7 +90,7 @@
         android:id="@+id/day_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blueC"
+        android:background="@color/white"
         />
 
 
