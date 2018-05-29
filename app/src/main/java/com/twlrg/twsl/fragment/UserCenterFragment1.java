@@ -18,6 +18,7 @@ import com.twlrg.twsl.activity.LocationActivity;
 import com.twlrg.twsl.activity.MainActivity;
 import com.twlrg.twsl.activity.MyCenterActivity;
 import com.twlrg.twsl.activity.PictureManageActivity;
+import com.twlrg.twsl.activity.PolicyActivity;
 import com.twlrg.twsl.activity.RoomManageActivity;
 import com.twlrg.twsl.activity.RoomPriceListActivity;
 import com.twlrg.twsl.activity.RoomStatusListActivity;
@@ -205,7 +206,7 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
         }
         else if (v == llJdzz)
         {
-
+            gotoActivity(PolicyActivity.class);
         }
         else if (v == llGrzc)
         {

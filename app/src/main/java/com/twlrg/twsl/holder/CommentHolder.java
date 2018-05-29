@@ -25,7 +25,7 @@ public class CommentHolder extends RecyclerView.ViewHolder
 {
     private TextView mReplyTv;
 
-
+    private ImageView           mUserPicIv;
     private RecyclerView        mRecyclerView;
     private TextView            mUserNameTv;
     private TextView            mContentTv;
@@ -40,7 +40,7 @@ public class CommentHolder extends RecyclerView.ViewHolder
         mContentTv = (TextView) rootView.findViewById(R.id.tv_content);
         mTimeTv = (TextView) rootView.findViewById(R.id.tv_time);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_reply);
-
+        mUserPicIv = (ImageView) rootView.findViewById(R.id.iv_user_head);
         mRecyclerView.setLayoutManager(new FullyLinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.addItemDecoration(new DividerDecoration(mContext));
         this.listener = listener;
@@ -50,6 +50,7 @@ public class CommentHolder extends RecyclerView.ViewHolder
 
     public void setCommentInfo(CommentInfo mCommentInfo, final int p)
     {
+        ImageLoader.getInstance().displayImage(Urls.getImgUrl(mCommentInfo.getPortrait()), mUserPicIv);
         mUserNameTv.setText(mCommentInfo.getNickname());
         mContentTv.setText(mCommentInfo.getContent());
         mTimeTv.setText(mCommentInfo.getCreate_time());
@@ -62,6 +63,15 @@ public class CommentHolder extends RecyclerView.ViewHolder
                 listener.onItemClick(v, p);
             }
         });
+
+        if (mCommentInfo.getReplyInfoList().isEmpty())
+        {
+            mReplyTv.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            mReplyTv.setVisibility(View.GONE);
+        }
         mRecyclerView.setAdapter(new ReplyAdapter(mCommentInfo.getReplyInfoList()));
     }
 

@@ -42,6 +42,7 @@ public class Urls
     {
         return BASE_URL + "picture/upload_img";
     }
+
     //首页酒店列表
     public static String getHotelListUrl()
     {
@@ -249,7 +250,6 @@ public class Urls
     }
 
 
-
     //客房价格接口（无早，单早，双早）
     public static String getRoom_priceUrl()
     {
@@ -263,7 +263,29 @@ public class Urls
         return BASE_URL + "comment/reply";
     }
 
+    //商户设施信息列表
+    public static String getFacilitiesListUrl()
+    {
+        return BASE_URL + "merchant/facilities_list";
+    }
 
+    //修改设施
+    public static String getEditFacilitiesUrl()
+    {
+        return BASE_URL + "merchant/facilities_edit";
+    }
+
+    //酒店详情
+    public static String getHotelInfoUrl()
+    {
+        return BASE_URL + "merchant/hotel_info";
+    }
+
+    //修改酒店信息
+    public static String getEditHotelInfoUrl()
+    {
+        return BASE_URL + "merchant/hotel_edit";
+    }
 
 
 }

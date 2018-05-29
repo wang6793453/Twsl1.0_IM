@@ -6,11 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.twlrg.twsl.R;
-import com.twlrg.twsl.entity.CommentInfo;
-import com.twlrg.twsl.holder.CommentHolder;
 import com.twlrg.twsl.holder.ReplyHolder;
-import com.twlrg.twsl.json.ReplyInfo;
-import com.twlrg.twsl.listener.MyItemClickListener;
+import com.twlrg.twsl.entity.ReplyInfo;
 
 import java.util.List;
 

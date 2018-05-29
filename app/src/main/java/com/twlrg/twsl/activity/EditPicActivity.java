@@ -500,6 +500,9 @@ public class EditPicActivity extends BaseActivity implements IRequestListener
 
                 File mFile = new File(new URI(resultUri.toString()));
                 Map<String, String> valuePairs = new HashMap<>();
+                valuePairs.put("uid", ConfigManager.instance().getUserID());
+                valuePairs.put("token", ConfigManager.instance().getToken());
+                valuePairs.put("role", "2");
                 valuePairs.put("id", id);
                 valuePairs.put("type", type);
                 valuePairs.put("pic", pic);

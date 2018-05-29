@@ -30,6 +30,7 @@ import com.tencent.qcloud.presentation.viewfeatures.ConversationView;
 import com.tencent.qcloud.presentation.viewfeatures.FriendshipMessageView;
 import com.tencent.qcloud.presentation.viewfeatures.GroupManageMessageView;
 import com.twlrg.twsl.R;
+import com.twlrg.twsl.activity.LoginActivity;
 import com.twlrg.twsl.im.adapters.ConversationAdapter;
 import com.twlrg.twsl.im.model.Conversation;
 import com.twlrg.twsl.im.model.CustomMessage;
@@ -123,7 +124,16 @@ public class ConversationFragment extends Fragment implements ConversationView, 
         {
             presenter = new ConversationPresenter(this);
         }
-        presenter.getConversation();
+        try
+        {
+            presenter.getConversation();
+        }
+        catch (Exception e)
+        {
+            LoginActivity.start(getActivity(),true);
+        }
+
+
     }
 
     /**

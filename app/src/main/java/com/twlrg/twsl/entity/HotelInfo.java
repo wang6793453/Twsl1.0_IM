@@ -54,10 +54,13 @@ public class HotelInfo implements Serializable
     private String sort;// 0
     private String isdelete;// 0
     private String count;// 2 //评论总数
-
-
+    private String   cancel_policy;
+    private String      invoice;
     public HotelInfo(JSONObject obj)
     {
+        this.cancel_policy = obj.optString("cancel_policy");
+        this.invoice = obj.optString("invoice");
+
         this.id = obj.optString("id");
         this.title = obj.optString("title");
         this.jl = obj.optString("jl");
@@ -515,4 +518,24 @@ public class HotelInfo implements Serializable
         this.reviews_label = reviews_label;
     }
 
+
+    public String getCancel_policy()
+    {
+        return cancel_policy;
+    }
+
+    public void setCancel_policy(String cancel_policy)
+    {
+        this.cancel_policy = cancel_policy;
+    }
+
+    public String getInvoice()
+    {
+        return invoice;
+    }
+
+    public void setInvoice(String invoice)
+    {
+        this.invoice = invoice;
+    }
 }

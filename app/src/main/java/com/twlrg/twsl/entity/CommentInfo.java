@@ -1,7 +1,5 @@
 package com.twlrg.twsl.entity;
 
-import com.twlrg.twsl.json.ReplyInfo;
-
 import org.json.JSONObject;
 
 import java.util.List;

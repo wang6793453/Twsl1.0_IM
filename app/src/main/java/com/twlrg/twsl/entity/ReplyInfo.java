@@ -1,4 +1,4 @@
-package com.twlrg.twsl.json;
+package com.twlrg.twsl.entity;
 
 import org.json.JSONObject;
 

@@ -2,6 +2,7 @@ package com.twlrg.twsl.json;
 
 
 import com.twlrg.twsl.entity.CommentInfo;
+import com.twlrg.twsl.entity.ReplyInfo;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,7 +44,7 @@ public class CommentListHandler extends JsonHandler
                     {
                         for (int j = 0; j < subArr.length(); j++)
                         {
-                            ReplyInfo mReplyInfo = new ReplyInfo(subArr.getJSONObject(i));
+                            ReplyInfo mReplyInfo = new ReplyInfo(subArr.getJSONObject(j));
                             replyInfoList.add(mReplyInfo);
                         }
                     }
