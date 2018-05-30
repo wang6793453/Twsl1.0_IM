@@ -100,6 +100,7 @@ public class PolicyActivity extends BaseActivity implements IRequestListener
 
                 case EDIT_HOTEL_SUCCESS:
                     ToastUtil.show(PolicyActivity.this, "操作成功");
+                    finish();
                     break;
             }
         }
@@ -196,7 +197,7 @@ public class PolicyActivity extends BaseActivity implements IRequestListener
             valuePairs.put("uid", ConfigManager.instance().getUserID());
             valuePairs.put("token", ConfigManager.instance().getToken());
             valuePairs.put("merchant_id", ConfigManager.instance().getMerchantId());
-            valuePairs.put("uid", mHotelInfo.getRegion());
+            valuePairs.put("region", mHotelInfo.getRegion());
             valuePairs.put("address", mHotelInfo.getAddress());
             valuePairs.put("phone", mHotelInfo.getPhone());
             valuePairs.put("fax", mHotelInfo.getFax());
@@ -214,6 +215,11 @@ public class PolicyActivity extends BaseActivity implements IRequestListener
             valuePairs.put("position_label", mHotelInfo.getPosition_label());
             valuePairs.put("service_label", mHotelInfo.getService_label());
             valuePairs.put("reviews_label", mHotelInfo.getReviews_label());
+            valuePairs.put("restaurant", mHotelInfo.getRestaurant());
+            valuePairs.put("shopping", mHotelInfo.getShopping());
+            valuePairs.put("entertainment", mHotelInfo.getEntertainment());
+            valuePairs.put("metro_station", mHotelInfo.getMetro_station());
+            valuePairs.put("scenic_spot", mHotelInfo.getScenic_spot());
 
 
             DataRequest.instance().request(this, Urls.getEditHotelInfoUrl(), this, HttpRequest.POST, EDIT_HOTEL_INFO, valuePairs,

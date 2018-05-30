@@ -63,4 +63,13 @@
         <item>无LED显示屏</item>
         <item>有LED显示屏</item>
     </string-array>
+
+
+    <string-array name="hotel_star">
+        <item>经济型</item>
+        <item>三星实惠</item>
+        <item>四星豪华</item>
+        <item>五星奢华</item>
+    </string-array>
+
 </resources>

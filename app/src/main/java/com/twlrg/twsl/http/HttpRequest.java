@@ -185,6 +185,9 @@ public class HttpRequest implements Runnable
             /**
              * 把key和value添加到formbody中
              */
+
+
+            LogUtil.e("TAG", key + "->" + value);
             builder.add(key, value);
         }
         RequestBody requestBody = builder.build();

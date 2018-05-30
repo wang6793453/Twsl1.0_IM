@@ -158,7 +158,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private List<HotelInfo>  hotelInfoList  = new ArrayList<>();
     private List<CityInfo>   cityInfoList   = new ArrayList<>();
     private List<RegionInfo> regionInfoList = new ArrayList<>();
-    ;
 
     private HotelAdapter    mHotelAdapter;
     private LocationService locationService;

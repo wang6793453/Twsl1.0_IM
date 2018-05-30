@@ -12,6 +12,7 @@ import com.twlrg.twsl.R;
 import com.twlrg.twsl.activity.BillListActivity;
 import com.twlrg.twsl.activity.CommentListActivity;
 import com.twlrg.twsl.activity.ConferenceManageActivity;
+import com.twlrg.twsl.activity.EditHotelActivity;
 import com.twlrg.twsl.activity.FacilitiesActivity;
 import com.twlrg.twsl.activity.HotelDetailActivity;
 import com.twlrg.twsl.activity.LocationActivity;
@@ -202,7 +203,7 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
         }
         else if (v == llJdxx)
         {
-
+            gotoActivity(EditHotelActivity.class);
         }
         else if (v == llJdzz)
         {
