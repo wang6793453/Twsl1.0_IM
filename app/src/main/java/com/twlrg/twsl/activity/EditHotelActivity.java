@@ -242,7 +242,7 @@ public class EditHotelActivity extends BaseActivity implements IRequestListener
         setStatusBarTextDeep(true);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
-        tvTitle.setText("酒店政策");
+        tvTitle.setText("酒店基本信息");
         showProgressDialog();
         Map<String, String> valuePairs = new HashMap<>();
         valuePairs.put("merchant_id", ConfigManager.instance().getMerchantId());
