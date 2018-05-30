@@ -288,4 +288,15 @@ public class Urls
     }
 
 
+    //酒店图片
+    public static String getHotelImgUrl()
+    {
+        return BASE_URL + "picture/hotel_img_list";
+    }
+    //酒店图片
+    public static String getDelHotelImgUrl()
+    {
+        return BASE_URL + "picture/hotel_img_del";
+    }
+
 }

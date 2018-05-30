@@ -56,8 +56,18 @@ public class HotelInfo implements Serializable
     private String count;// 2 //评论总数
     private String   cancel_policy;
     private String      invoice;
+
+    private String  province_name;//广东省",
+    private String  city_name;//深圳市",
+    private String  region_name;//龙岗区"
+
     public HotelInfo(JSONObject obj)
     {
+
+        this.province_name = obj.optString("province_name");
+        this.city_name = obj.optString("city_name");
+        this.region_name = obj.optString("region_name");
+
         this.cancel_policy = obj.optString("cancel_policy");
         this.invoice = obj.optString("invoice");
 
@@ -537,5 +547,35 @@ public class HotelInfo implements Serializable
     public void setInvoice(String invoice)
     {
         this.invoice = invoice;
+    }
+
+    public String getProvince_name()
+    {
+        return province_name;
+    }
+
+    public void setProvince_name(String province_name)
+    {
+        this.province_name = province_name;
+    }
+
+    public String getCity_name()
+    {
+        return city_name;
+    }
+
+    public void setCity_name(String city_name)
+    {
+        this.city_name = city_name;
+    }
+
+    public String getRegion_name()
+    {
+        return region_name;
+    }
+
+    public void setRegion_name(String region_name)
+    {
+        this.region_name = region_name;
     }
 }

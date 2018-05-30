@@ -118,7 +118,6 @@ public class EditHotelActivity extends BaseActivity implements IRequestListener
     public static final  int    REQUEST_FAIL       = 0x02;
     private static final int    EDIT_HOTEL_SUCCESS = 0x03;
     private static final int    GET_REGION_SUCCESS = 0x04;
-    private static final int    GET_REGION_REQUEST = 0X05;
     private static final String GET_HOTEL_INFO     = "get_hotel_info";
     private static final String EDIT_HOTEL_INFO    = "edit_hotel_info";
 
@@ -140,9 +139,9 @@ public class EditHotelActivity extends BaseActivity implements IRequestListener
                     {
 
                         tvHotelName.setText(mHotelInfo.getTitle());
-                        tvProvince.setText(mHotelInfo.getProvince());
-                        tvCity.setText(mHotelInfo.getCity());
-                        tvRegion.setText(mHotelInfo.getRegion());
+                        tvProvince.setText(mHotelInfo.getProvince_name());
+                        tvCity.setText(mHotelInfo.getCity_name());
+                        tvRegion.setText(mHotelInfo.getRegion_name());
 
                         int star = (int) mHotelInfo.getStar();
                         if (star == 3)
@@ -198,7 +197,7 @@ public class EditHotelActivity extends BaseActivity implements IRequestListener
                     mMoreFilterPopupWindow = null;
                     regionInfoList.clear();
                     regionInfoList.addAll(mRegionListHandler.getRegionInfoList());
-                    if(!regionInfoList.isEmpty())
+                    if (!regionInfoList.isEmpty())
                     {
                         regionInfoList.remove(0);
                     }
@@ -400,7 +399,6 @@ public class EditHotelActivity extends BaseActivity implements IRequestListener
             }
         }
     }
-
 
 
 }
