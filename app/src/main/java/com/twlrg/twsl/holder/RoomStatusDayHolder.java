@@ -40,11 +40,12 @@ public class RoomStatusDayHolder extends RecyclerView.ViewHolder
             mDayTv.setText(mRoomDayInfo.getDay() + "");
             if (mRoomDayInfo.getStatus() == 1)
             {
-                mDayTv.setSelected(true);
+                mDayTv.setSelected(false);
             }
             else
             {
-                mDayTv.setSelected(false);
+                mDayTv.setSelected(true);
+
             }
 
             mDayTv.setOnClickListener(new View.OnClickListener()

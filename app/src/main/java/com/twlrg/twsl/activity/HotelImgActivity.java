@@ -164,7 +164,7 @@ public class HotelImgActivity extends BaseActivity implements IRequestListener
                     @Override
                     public void onClick(View v)
                     {
-                        delImg(hotelImgInfoList.get(position - 1).getId());
+                        delImg(hotelImgInfoList.get(position).getId());
                     }
                 });
             }

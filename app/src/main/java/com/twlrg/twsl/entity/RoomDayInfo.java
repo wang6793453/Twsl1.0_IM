@@ -22,6 +22,7 @@ public class RoomDayInfo
     private String wz_price;
     private String dz_price;
     private String sz_price;
+    private String date;
 
     public RoomDayInfo() {}
 
@@ -33,7 +34,8 @@ public class RoomDayInfo
         this.sz_price = obj.optString("sz");
         this.room_id = obj.optString("room_id");
         this.merchant_id = obj.optString("merchant_id");
-        String date = obj.optString("date");
+        this.status = obj.optInt("status");
+        date = obj.optString("date");
 
         if (!TextUtils.isEmpty(date))
         {
@@ -43,6 +45,36 @@ public class RoomDayInfo
             this.day = Integer.parseInt(time[2]);
         }
 
+    }
+
+    public String getDate()
+    {
+        return date;
+    }
+
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
+
+    public String getRoom_id()
+    {
+        return room_id;
+    }
+
+    public void setRoom_id(String room_id)
+    {
+        this.room_id = room_id;
+    }
+
+    public String getMerchant_id()
+    {
+        return merchant_id;
+    }
+
+    public void setMerchant_id(String merchant_id)
+    {
+        this.merchant_id = merchant_id;
     }
 
     public int getStatus()

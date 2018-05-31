@@ -293,6 +293,7 @@ public class Urls
     {
         return BASE_URL + "picture/hotel_img_list";
     }
+
     //酒店图片
     public static String getDelHotelImgUrl()
     {
@@ -317,8 +318,11 @@ public class Urls
         return BASE_URL + "room/room_status_price";
     }
 
-
-
+    //房价房态
+    public static String getEditRoomStatusUrl()
+    {
+        return BASE_URL + "room/room_status_edit";
+    }
 
 
 }

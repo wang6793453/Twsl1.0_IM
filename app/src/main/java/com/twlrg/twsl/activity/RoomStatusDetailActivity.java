@@ -17,12 +17,14 @@ import com.twlrg.twsl.entity.RoomMonthInfo;
 import com.twlrg.twsl.http.DataRequest;
 import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
+import com.twlrg.twsl.json.ResultHandler;
 import com.twlrg.twsl.json.RoomListHandler;
 import com.twlrg.twsl.json.RoomMonthListHandler;
 import com.twlrg.twsl.listener.MyOnClickListener;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
+import com.twlrg.twsl.utils.DialogUtils;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
 import com.twlrg.twsl.widget.AutoFitTextView;
@@ -58,9 +60,10 @@ public class RoomStatusDetailActivity extends BaseActivity implements IRequestLi
 
     private static final int REQUEST_SUCCESS = 0x01;
     public static final  int REQUEST_FAIL    = 0x02;
+    public static final  int EDIT_ROOM_SUCCESS    = 0x03;
 
     private static final String GET_ROOM_lIST = "get_room_list";
-
+    private static final String EDIT_ROOM_STATUS = "edit_room_status";
     @SuppressLint("HandlerLeak")
     private BaseHandler mHandler = new BaseHandler(this)
     {
@@ -83,6 +86,9 @@ public class RoomStatusDetailActivity extends BaseActivity implements IRequestLi
 
                     break;
 
+                case EDIT_ROOM_SUCCESS:
+                    loadData();
+                    break;
 
             }
         }
@@ -189,17 +195,57 @@ public class RoomStatusDetailActivity extends BaseActivity implements IRequestLi
             @Override
             public void onSubmit(int p, int n)
             {
+                //                if (monthInfoList.get(p).getRoomDayInfoList().get(n).getStatus() == 1)
+                //                {
+                //                    monthInfoList.get(p).getRoomDayInfoList().get(n).setStatus(0);
+                //                }
+                //                else
+                //                {
+                //                    monthInfoList.get(p).getRoomDayInfoList().get(n).setStatus(1);
+                //                }
+                // mRoomStatusMonthAdapter.notifyDataSetChanged();
 
-
-                if (monthInfoList.get(p).getRoomDayInfoList().get(n).getStatus() == 1)
+                final int status = monthInfoList.get(p).getRoomDayInfoList().get(n).getStatus();
+                final String id = monthInfoList.get(p).getRoomDayInfoList().get(n).getId();
+                final String date = monthInfoList.get(p).getRoomDayInfoList().get(n).getDate();
+                String statusTitle;
+                if (status == 1)
                 {
-                    monthInfoList.get(p).getRoomDayInfoList().get(n).setStatus(0);
+                    statusTitle = "是否执行满房操作";
                 }
                 else
                 {
-                    monthInfoList.get(p).getRoomDayInfoList().get(n).setStatus(1);
+                    statusTitle = "是否执行房间可预订操作";
                 }
-                mRoomStatusMonthAdapter.notifyDataSetChanged();
+
+                DialogUtils.showToastDialog2Button(RoomStatusDetailActivity.this, statusTitle, new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        showProgressDialog();
+                        Map<String, String> valuePairs = new HashMap<>();
+                        valuePairs.put("token", ConfigManager.instance().getToken());
+                        valuePairs.put("uid", ConfigManager.instance().getUserID());
+                        valuePairs.put("id", id);
+                        valuePairs.put("date", date);
+                        valuePairs.put("city_value", ConfigManager.instance().getCityValue());
+
+                        if (status == 1)
+                        {
+                            valuePairs.put("status", "0");
+                        }
+                        else
+                        {
+                            valuePairs.put("status", "1");
+                        }
+
+                        DataRequest.instance().request(RoomStatusDetailActivity.this, Urls.getRoomStatusAndPriceUrl(), RoomStatusDetailActivity.this,
+                                HttpRequest.POST, EDIT_ROOM_STATUS,
+                                valuePairs,
+                                new ResultHandler());
+                    }
+                });
             }
         });
 
@@ -243,6 +289,17 @@ public class RoomStatusDetailActivity extends BaseActivity implements IRequestLi
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {
                 mHandler.sendMessage(mHandler.obtainMessage(REQUEST_SUCCESS, obj));
+            }
+            else
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+            }
+        }
+        else if(EDIT_ROOM_STATUS.equals(action))
+        {
+            if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(EDIT_ROOM_SUCCESS, obj));
             }
             else
             {
