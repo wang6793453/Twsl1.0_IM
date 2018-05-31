@@ -92,12 +92,16 @@ public class HotelImgActivity extends BaseActivity implements IRequestListener
                 case REQUEST_SUCCESS:
                     HotelImgListHandler mHotelImgListHandler = (HotelImgListHandler) msg.obj;
                     hotelImgInfoList.clear();
+                    hotelImgInfoList.add(0, new HotelImgInfo());
                     hotelImgInfoList.addAll(mHotelImgListHandler.getHotelImgInfoList());
                     mHotelImgAdapter.notifyDataSetChanged();
                     break;
 
 
                 case REQUEST_FAIL:
+                    hotelImgInfoList.clear();
+                    hotelImgInfoList.add(0, new HotelImgInfo());
+                    mHotelImgAdapter.notifyDataSetChanged();
                     ToastUtil.show(HotelImgActivity.this, msg.obj.toString());
                     break;
                 case UPLOAD_PIC_SUCCESS:
@@ -129,7 +133,8 @@ public class HotelImgActivity extends BaseActivity implements IRequestListener
     @Override
     protected void initEvent()
     {
-        ivBack.setOnClickListener(new View.OnClickListener() {
+        ivBack.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {

@@ -32,7 +32,6 @@ public class HotelImgListHandler extends JsonHandler
 
             if (null != arr)
             {
-                hotelImgInfoList.add(new HotelImgInfo());
                 for (int i = 0; i < arr.length(); i++)
                 {
                     HotelImgInfo mHotelImgInfo = new HotelImgInfo(arr.optJSONObject(i));
