@@ -37,6 +37,26 @@ public class BillOrderHolder extends RecyclerView.ViewHolder
 
     public void setOrderInfo(OrderInfo mOrderInfo, final int p)
     {
+        String price_type = mOrderInfo.getPrice_type();
+        String zc = "无早";
+        if ("wz".equals(price_type))
+        {
+            zc = "无早";
+        }
+        else if ("dz".equals(price_type))
+        {
+            zc = "单早";
+        }
+        else if ("sz".equals(price_type))
+        {
+            zc = "双早";
+        }
+
+        mRoomTitleTv.setText(mOrderInfo.getTitle() + "[" + zc + "]");
+        mTotalPriceTv.setText("¥ " + mOrderInfo.getTotal_fee());
+        mTimeTv.setText(mOrderInfo.getCheck_in() +"  至  "+mOrderInfo.getCheck_out());
+        mNameTv.setText("入住人:"+mOrderInfo.getName());
+
         mItemLayout.setOnClickListener(new View.OnClickListener()
         {
             @Override

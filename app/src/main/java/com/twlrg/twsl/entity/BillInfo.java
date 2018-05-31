@@ -14,10 +14,53 @@ public class BillInfo
     private String totalIncome;
     private String status;
 
-    public BillInfo(){}
+    public BillInfo() {}
+
     public BillInfo(JSONObject obj)
     {
-
+        this.startDate = obj.optString("s_date");
+        this.endDate = obj.optString("e_date");
+        this.totalIncome = obj.optString("total");
     }
 
+
+    public String getStartDate()
+    {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate)
+    {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate()
+    {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate)
+    {
+        this.endDate = endDate;
+    }
+
+    public String getTotalIncome()
+    {
+        return totalIncome;
+    }
+
+    public void setTotalIncome(String totalIncome)
+    {
+        this.totalIncome = totalIncome;
+    }
+
+    public String getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
 }

@@ -299,4 +299,26 @@ public class Urls
         return BASE_URL + "picture/hotel_img_del";
     }
 
+    //账单列表
+    public static String getBillListUrl()
+    {
+        return BASE_URL + "order/bill_list";
+    }
+
+    //账单列表
+    public static String getBillDetailUrl()
+    {
+        return BASE_URL + "order/bill_detail";
+    }
+
+    //房价房态
+    public static String getRoomStatusAndPriceUrl()
+    {
+        return BASE_URL + "room/room_status_price";
+    }
+
+
+
+
+
 }

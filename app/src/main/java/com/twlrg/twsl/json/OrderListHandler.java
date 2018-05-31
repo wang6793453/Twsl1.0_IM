@@ -21,13 +21,23 @@ public class OrderListHandler extends JsonHandler
         return orderInfoList;
     }
 
+    public String getCount()
+    {
+        return count;
+    }
+
+    private String count;
+
     @Override
     protected void parseJson(JSONObject jsonObj) throws Exception
     {
         try
         {
-            JSONArray arr = jsonObj.optJSONArray("data");
 
+
+            JSONObject obj = jsonObj.optJSONObject("data");
+            count = obj.optString("count");
+            JSONArray arr = obj.optJSONArray("list");
 
             if (null != arr)
             {

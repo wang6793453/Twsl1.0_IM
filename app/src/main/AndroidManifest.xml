@@ -213,7 +213,6 @@
             android:windowSoftInputMode="stateHidden"/>
 
 
-
         <activity
             android:name="com.twlrg.twsl.activity.RoomStatusListActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -316,8 +315,16 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
-
-
+        <activity
+            android:name="com.twlrg.twsl.activity.BillOrderListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity
+            android:name="com.twlrg.twsl.activity.BillDetailActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
 
 
         <activity

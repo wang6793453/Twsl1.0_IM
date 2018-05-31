@@ -32,8 +32,8 @@ public class BillListHandler extends JsonHandler
             {
                 for (int i = 0; i < arr.length(); i++)
                 {
-                    BillInfo mCommentInfo = new BillInfo(arr.optJSONObject(i));
-                    billInfoList.add(mCommentInfo);
+                    BillInfo mBillInfo = new BillInfo(arr.optJSONObject(i));
+                    billInfoList.add(mBillInfo);
                 }
             }
 

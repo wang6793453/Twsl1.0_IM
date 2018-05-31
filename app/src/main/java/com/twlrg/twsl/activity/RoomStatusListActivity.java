@@ -150,7 +150,7 @@ public class RoomStatusListActivity extends BaseActivity implements IRequestList
             @Override
             public void onItemClick(View view, int position)
             {
-                startActivity(new Intent(RoomStatusListActivity.this, RoomStatusDetailActivity.class));
+                startActivity(new Intent(RoomStatusListActivity.this, RoomStatusDetailActivity.class).putExtra("ROOM_ID", roomInfoList.get(position).getId()));
             }
         });
 

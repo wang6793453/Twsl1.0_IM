@@ -19,16 +19,14 @@ import com.twlrg.twsl.http.DataRequest;
 import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
 import com.twlrg.twsl.json.BillListHandler;
-import com.twlrg.twsl.json.CommentListHandler;
 import com.twlrg.twsl.listener.MyItemClickListener;
 import com.twlrg.twsl.utils.APPUtils;
+import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
 import com.twlrg.twsl.widget.AutoFitTextView;
 import com.twlrg.twsl.widget.DividerDecoration;
-import com.twlrg.twsl.widget.list.refresh.PullToRefreshBase;
-import com.twlrg.twsl.widget.list.refresh.PullToRefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,35 +34,34 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * 作者：王先云 on 2018/5/23 20:46
  * 邮箱：wangxianyun1@163.com
  * 描述：账单支付
  */
-public class BillListActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener<RecyclerView>, IRequestListener
+public class BillListActivity extends BaseActivity implements IRequestListener
 {
     @BindView(R.id.topView)
-    View                      topView;
+    View            topView;
     @BindView(R.id.iv_back)
-    ImageView                 ivBack;
+    ImageView       ivBack;
     @BindView(R.id.tv_title)
-    AutoFitTextView           tvTitle;
-    @BindView(R.id.pullToRefreshRecyclerView)
-    PullToRefreshRecyclerView mPullToRefreshRecyclerView;
+    AutoFitTextView tvTitle;
     @BindView(R.id.tv_noData)
-    TextView                  tvNoData;
+    TextView        tvNoData;
+    @BindView(R.id.recyclerView)
+    RecyclerView    recyclerView;
 
-    private RecyclerView mRecyclerView;
+
     private int pn = 1;
     private int mRefreshStatus;
     private List<BillInfo> billInfoList = new ArrayList<>();
     private BillAdapter mBillAdapter;
 
-    private String merchant_id;
 
-
-    private static final String GET_COMMENT_LIST = "get_comment_list";
+    private static final String GET_BILL_LIST = "get_bill_list";
 
     private static final int REQUEST_SUCCESS = 0x01;
     private static final int REQUEST_FAIL    = 0x02;
@@ -86,12 +83,12 @@ public class BillListActivity extends BaseActivity implements PullToRefreshBase.
                     if (billInfoList.isEmpty())
                     {
                         tvNoData.setVisibility(View.VISIBLE);
-                        mPullToRefreshRecyclerView.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.GONE);
                     }
                     else
                     {
                         tvNoData.setVisibility(View.GONE);
-                        mPullToRefreshRecyclerView.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.VISIBLE);
                     }
 
                     break;
@@ -109,13 +106,8 @@ public class BillListActivity extends BaseActivity implements PullToRefreshBase.
     @Override
     protected void initData()
     {
-        merchant_id = getIntent().getStringExtra("MERCHANT_ID");
 
 
-        for (int i = 0; i < 10; i++)
-        {
-            billInfoList.add(new BillInfo());
-        }
     }
 
     @Override
@@ -140,12 +132,12 @@ public class BillListActivity extends BaseActivity implements PullToRefreshBase.
         tvTitle.setText("账单支付");
 
 
-        mPullToRefreshRecyclerView.setPullLoadEnabled(true);
-        mRecyclerView = mPullToRefreshRecyclerView.getRefreshableView();
-        mPullToRefreshRecyclerView.setOnRefreshListener(this);
-        mPullToRefreshRecyclerView.setPullRefreshEnabled(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(BillListActivity.this, LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.addItemDecoration(new DividerDecoration(BillListActivity.this));
+        //        mPullToRefreshRecyclerView.setPullLoadEnabled(true);
+        //        mRecyclerView = mPullToRefreshRecyclerView.getRefreshableView();
+        //   mPullToRefreshRecyclerView.setOnRefreshListener(this);
+        // mPullToRefreshRecyclerView.setPullRefreshEnabled(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(BillListActivity.this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.addItemDecoration(new DividerDecoration(BillListActivity.this));
 
 
         mBillAdapter = new BillAdapter(billInfoList, new MyItemClickListener()
@@ -153,11 +145,15 @@ public class BillListActivity extends BaseActivity implements PullToRefreshBase.
             @Override
             public void onItemClick(View view, int position)
             {
-                startActivity(new Intent(BillListActivity.this, BillOrderListActivity.class));
+                startActivity(new Intent(BillListActivity.this, BillOrderListActivity.class)
+                        .putExtra("s_date", billInfoList.get(position).getStartDate())
+                        .putExtra("e_date", billInfoList.get(position).getEndDate())
+                        .putExtra("total", billInfoList.get(position).getTotalIncome())
+                );
             }
         });
-        mRecyclerView.setAdapter(mBillAdapter);
-        // getBillList();
+        recyclerView.setAdapter(mBillAdapter);
+        getBillList();
     }
 
 
@@ -172,46 +168,45 @@ public class BillListActivity extends BaseActivity implements PullToRefreshBase.
         }
     }
 
-    @Override
-    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView)
-    {
-        billInfoList.clear();
-        pn = 1;
-        mRefreshStatus = 0;
-        getBillList();
-    }
-
-    @Override
-    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView)
-    {
-        pn += 1;
-        mRefreshStatus = 1;
-        getBillList();
-    }
+    //    @Override
+    //    public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView)
+    //    {
+    //        billInfoList.clear();
+    //        pn = 1;
+    //        mRefreshStatus = 0;
+    //        getBillList();
+    //    }
+    //
+    //    @Override
+    //    public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView)
+    //    {
+    //        pn += 1;
+    //        mRefreshStatus = 1;
+    //        getBillList();
+    //    }
 
     private void getBillList()
     {
         Map<String, String> valuePairs = new HashMap<>();
-        valuePairs.put("merchant_id", merchant_id);
-
-        valuePairs.put("page", pn + "");
-        DataRequest.instance().request(BillListActivity.this, Urls.getCommentListUrl(), this, HttpRequest.POST, GET_COMMENT_LIST, valuePairs,
-                new CommentListHandler());
+        valuePairs.put("uid", ConfigManager.instance().getUserID());
+        valuePairs.put("token", ConfigManager.instance().getToken());
+        DataRequest.instance().request(BillListActivity.this, Urls.getBillListUrl(), this, HttpRequest.POST, GET_BILL_LIST, valuePairs,
+                new BillListHandler());
     }
 
     @Override
     public void notify(String action, String resultCode, String resultMsg, Object obj)
     {
-        if (mRefreshStatus == 1)
-        {
-            mPullToRefreshRecyclerView.onPullUpRefreshComplete();
-        }
-        else
-        {
-            mPullToRefreshRecyclerView.onPullDownRefreshComplete();
-        }
+        //        if (mRefreshStatus == 1)
+        //        {
+        //            mPullToRefreshRecyclerView.onPullUpRefreshComplete();
+        //        }
+        //        else
+        //        {
+        //            mPullToRefreshRecyclerView.onPullDownRefreshComplete();
+        //        }
 
-        if (GET_COMMENT_LIST.equals(action))
+        if (GET_BILL_LIST.equals(action))
         {
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {
@@ -223,4 +218,6 @@ public class BillListActivity extends BaseActivity implements PullToRefreshBase.
             }
         }
     }
+
+
 }

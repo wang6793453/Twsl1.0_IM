@@ -4,55 +4,50 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_margin="@dimen/dm_0.5"
+    android:background="@drawable/room_status_selector"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/dm_3"
     >
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/tv_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/dm_3">
+        android:gravity="center_horizontal"
+        android:text="21"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t16"/>
 
+    <TextView
+        android:id="@+id/tv_wz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_2"
+        android:maxLines="1"
+        android:text="无 188"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t14"/>
 
-        <TextView
-            android:id="@+id/tv_day"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="21"
-            android:textColor="@color/blackC"
-            android:textSize="@dimen/t16"/>
+    <TextView
+        android:id="@+id/tv_dz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_2"
+        android:maxLines="1"
+        android:text="单 188"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t14"/>
 
-        <TextView
-            android:id="@+id/tv_wz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dm_2"
-            android:maxLines="1"
-            android:text="无 188"
-            android:textColor="@color/blackC"
-            android:textSize="@dimen/t14"/>
-
-        <TextView
-            android:id="@+id/tv_dz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dm_2"
-            android:maxLines="1"
-            android:text="单 188"
-            android:textColor="@color/blackC"
-            android:textSize="@dimen/t14"/>
-
-        <TextView
-            android:id="@+id/tv_sz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dm_2"
-            android:maxLines="1"
-            android:text="双 188"
-            android:textColor="@color/blackC"
-            android:textSize="@dimen/t14"/>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_sz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_2"
+        android:maxLines="1"
+        android:text="双 188"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t14"/>
 
 </LinearLayout>

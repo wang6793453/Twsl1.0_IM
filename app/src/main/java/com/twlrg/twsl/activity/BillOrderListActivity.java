@@ -22,6 +22,7 @@ import com.twlrg.twsl.json.CommentListHandler;
 import com.twlrg.twsl.json.OrderListHandler;
 import com.twlrg.twsl.listener.MyItemClickListener;
 import com.twlrg.twsl.utils.APPUtils;
+import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
@@ -66,10 +67,7 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
     private List<OrderInfo> orderInfoList = new ArrayList<>();
     private BillOrderAdapter mBillOrderAdapter;
 
-    private String merchant_id;
-
-
-    private static final String GET_COMMENT_LIST = "get_comment_list";
+    private static final String GET_BILL_OREDER = "get_bill_oreder";
 
     private static final int REQUEST_SUCCESS = 0x01;
     private static final int REQUEST_FAIL    = 0x02;
@@ -87,6 +85,8 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
                     OrderListHandler mOrderListHandler = (OrderListHandler) msg.obj;
                     orderInfoList.addAll(mOrderListHandler.getOrderInfoList());
                     mBillOrderAdapter.notifyDataSetChanged();
+
+                    tvTotalOrder.setText("订单数：" + mOrderListHandler.getCount());
 
                     if (orderInfoList.isEmpty())
                     {
@@ -114,13 +114,8 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
     @Override
     protected void initData()
     {
-        merchant_id = getIntent().getStringExtra("MERCHANT_ID");
 
 
-        for (int i = 0; i < 10; i++)
-        {
-            orderInfoList.add(new OrderInfo());
-        }
     }
 
     @Override
@@ -143,7 +138,7 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvTitle.setText("账单详情");
-
+        tvTotalBill.setText("账单总额：¥ " + getIntent().getStringExtra("total"));
 
         mPullToRefreshRecyclerView.setPullLoadEnabled(true);
         mRecyclerView = mPullToRefreshRecyclerView.getRefreshableView();
@@ -158,11 +153,13 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
             @Override
             public void onItemClick(View view, int position)
             {
-                startActivity(new Intent(BillOrderListActivity.this, BillDetailActivity.class));
+                Bundle b = new Bundle();
+                b.putSerializable("ORDER_INFO", orderInfoList.get(position));
+                startActivity(new Intent(BillOrderListActivity.this, BillDetailActivity.class).putExtras(b));
             }
         });
         mRecyclerView.setAdapter(mBillOrderAdapter);
-        // getBillList();
+        getBillList();
     }
 
 
@@ -197,11 +194,13 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
     private void getBillList()
     {
         Map<String, String> valuePairs = new HashMap<>();
-        valuePairs.put("merchant_id", merchant_id);
-
+        valuePairs.put("uid", ConfigManager.instance().getUserID());
+        valuePairs.put("token", ConfigManager.instance().getToken());
+        valuePairs.put("s_date", getIntent().getStringExtra("s_date"));
+        valuePairs.put("e_date", getIntent().getStringExtra("e_date"));
         valuePairs.put("page", pn + "");
-        DataRequest.instance().request(BillOrderListActivity.this, Urls.getCommentListUrl(), this, HttpRequest.POST, GET_COMMENT_LIST, valuePairs,
-                new CommentListHandler());
+        DataRequest.instance().request(BillOrderListActivity.this, Urls.getBillDetailUrl(), this, HttpRequest.POST, GET_BILL_OREDER, valuePairs,
+                new OrderListHandler());
     }
 
     @Override
@@ -216,7 +215,7 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
             mPullToRefreshRecyclerView.onPullDownRefreshComplete();
         }
 
-        if (GET_COMMENT_LIST.equals(action))
+        if (GET_BILL_OREDER.equals(action))
         {
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {
@@ -229,11 +228,5 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

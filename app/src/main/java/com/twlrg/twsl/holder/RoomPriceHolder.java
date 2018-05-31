@@ -36,7 +36,7 @@ public class RoomPriceHolder extends RecyclerView.ViewHolder
 
     public void setData(RoomInfo mRoomInfo, final int p)
     {
-        mRoomTitleTv.setText("111111111111");
+        mRoomTitleTv.setText(mRoomInfo.getTitle());
         mDateTv.setText(StringUtils.getCurrentTime());
         mItemLayout.setOnClickListener(new View.OnClickListener()
         {

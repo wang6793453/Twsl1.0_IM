@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.twlrg.twsl.R;
+import com.twlrg.twsl.entity.OrderInfo;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.widget.AutoFitTextView;
 
@@ -46,17 +47,19 @@ public class BillDetailActivity extends BaseActivity
     @BindView(R.id.tv_total_price)
     TextView        tvTotalPrice;
 
+    private OrderInfo mOrderInfo;
+
     @Override
     protected void initData()
     {
-
+        mOrderInfo = (OrderInfo) getIntent().getSerializableExtra("ORDER_INFO");
     }
 
     @Override
     protected void initViews(Bundle savedInstanceState)
     {
         setContentView(R.layout.activity_bill_detail);
-        setStatusColor(ContextCompat.getColor(this, R.color.windowBackground));
+        setTranslucentStatus();
     }
 
     @Override
@@ -72,6 +75,20 @@ public class BillDetailActivity extends BaseActivity
         setStatusBarTextDeep(true);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
+
+        if (null != mOrderInfo)
+        {
+            tvHotelName.setText("");
+            tvRoomTitle.setText(mOrderInfo.getTitle());
+            tvOrderCode.setText(mOrderInfo.getOrdcode());
+            tvCheckIn.setText(mOrderInfo.getCheck_in());
+            tvDays.setText(mOrderInfo.getBuynum() + "间   " + mOrderInfo.getDays() + "晚");
+            tvName.setText(mOrderInfo.getName());
+            tvRoomPrice.setText("¥ " + mOrderInfo.getTotal_fee());
+            tvServicePrice.setText("¥ 0");
+            tvTotalPrice.setText("¥ " + mOrderInfo.getTotal_fee());
+        }
+
     }
 
 
@@ -79,7 +96,7 @@ public class BillDetailActivity extends BaseActivity
     public void onClick(View v)
     {
         super.onClick(v);
-        if(v ==ivBack)
+        if (v == ivBack)
         {
             finish();
         }

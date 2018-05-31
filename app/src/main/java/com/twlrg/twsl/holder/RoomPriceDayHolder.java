@@ -43,6 +43,7 @@ public class RoomPriceDayHolder extends RecyclerView.ViewHolder
         if (mRoomDayInfo.getDay() == 0)
         {
             mDayTv.setEnabled(false);
+            mItemLayout.setEnabled(false);
             mDayTv.setText("");
             mWzPriceTv.setText("");
             mDzPriceTv.setText("");
@@ -52,15 +53,17 @@ public class RoomPriceDayHolder extends RecyclerView.ViewHolder
         {
             mDayTv.setText(mRoomDayInfo.getDay() + "");
             mWzPriceTv.setText("无  " + mRoomDayInfo.getWz_price());
-            mDzPriceTv.setText("单  " + mRoomDayInfo.getDz_price() + "");
-            mSzPriceTv.setText("双  " + mRoomDayInfo.getSz_price() + "");
+            mDzPriceTv.setText("单  " + mRoomDayInfo.getDz_price());
+            mSzPriceTv.setText("双  " + mRoomDayInfo.getSz_price());
             if (mRoomDayInfo.getStatus() == 1)
             {
                 mDayTv.setSelected(true);
+                mItemLayout.setSelected(true);
             }
             else
             {
                 mDayTv.setSelected(false);
+                mItemLayout.setSelected(false);
             }
 
             mItemLayout.setOnClickListener(new View.OnClickListener()

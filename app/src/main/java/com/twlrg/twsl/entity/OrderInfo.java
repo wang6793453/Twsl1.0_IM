@@ -2,12 +2,14 @@ package com.twlrg.twsl.entity;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * 作者：王先云 on 2018/4/13 11:21
  * 邮箱：wangxianyun1@163.com
  * 描述：一句话简单描述
  */
-public class OrderInfo
+public class OrderInfo implements Serializable
 {
     private String order_id;
     private String merchant;//某某酒店1
