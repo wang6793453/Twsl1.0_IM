@@ -310,7 +310,7 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
     protected void initViewData()
     {
         tvTitle.setText("我的订单");
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         mRecyclerView.setLayoutManager(new FullyLinearLayoutManager(this));

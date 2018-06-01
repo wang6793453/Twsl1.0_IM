@@ -324,5 +324,10 @@ public class Urls
         return BASE_URL + "room/room_status_edit";
     }
 
+    //房价房态
+    public static String getEditRoomPriceUrl()
+    {
+        return BASE_URL + "room/room_price_edit";
+    }
 
 }

@@ -124,7 +124,7 @@ public class EditFacilitesActivity extends BaseActivity implements IRequestListe
     {
         tvSubmit.setText("保存");
         tvSubmit.setTextColor(ContextCompat.getColor(this, R.color.green));
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
 

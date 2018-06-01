@@ -106,7 +106,7 @@ public class ModifyPwdActivity extends BaseActivity implements IRequestListener
     protected void initViewData()
     {
         tvTitle.setText("修改密码");
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
     }

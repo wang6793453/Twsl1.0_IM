@@ -217,6 +217,7 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
         showEditStatus(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(MyCenterActivity.this)));
+        setStatusBarTextDeep(false);
 
         mSelectPicturePopupWindow = new SelectPicturePopupWindow(MyCenterActivity.this);
         mSelectPicturePopupWindow.setOnSelectedListener(new SelectPicturePopupWindow.OnSelectedListener()

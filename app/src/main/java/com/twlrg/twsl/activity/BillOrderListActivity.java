@@ -18,6 +18,7 @@ import com.twlrg.twsl.entity.OrderInfo;
 import com.twlrg.twsl.http.DataRequest;
 import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
+import com.twlrg.twsl.json.BillOrderListHandler;
 import com.twlrg.twsl.json.CommentListHandler;
 import com.twlrg.twsl.json.OrderListHandler;
 import com.twlrg.twsl.listener.MyItemClickListener;
@@ -82,7 +83,7 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
             switch (msg.what)
             {
                 case REQUEST_SUCCESS:
-                    OrderListHandler mOrderListHandler = (OrderListHandler) msg.obj;
+                    BillOrderListHandler mOrderListHandler = (BillOrderListHandler) msg.obj;
                     orderInfoList.addAll(mOrderListHandler.getOrderInfoList());
                     mBillOrderAdapter.notifyDataSetChanged();
 
@@ -134,7 +135,7 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
     @Override
     protected void initViewData()
     {
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvTitle.setText("账单详情");
@@ -200,7 +201,7 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
         valuePairs.put("e_date", getIntent().getStringExtra("e_date"));
         valuePairs.put("page", pn + "");
         DataRequest.instance().request(BillOrderListActivity.this, Urls.getBillDetailUrl(), this, HttpRequest.POST, GET_BILL_OREDER, valuePairs,
-                new OrderListHandler());
+                new BillOrderListHandler());
     }
 
     @Override

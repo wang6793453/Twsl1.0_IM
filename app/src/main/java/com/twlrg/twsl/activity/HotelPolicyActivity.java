@@ -61,7 +61,7 @@ public class HotelPolicyActivity extends BaseActivity
     protected void initViewData()
     {
         tvTitle.setText("酒店政策");
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
 

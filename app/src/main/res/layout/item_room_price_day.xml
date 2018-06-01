@@ -28,7 +28,7 @@
         android:maxLines="1"
         android:text="无 188"
         android:textColor="@color/black"
-        android:textSize="@dimen/t14"/>
+        android:textSize="@dimen/t12"/>
 
     <TextView
         android:id="@+id/tv_dz"
@@ -38,7 +38,7 @@
         android:maxLines="1"
         android:text="单 188"
         android:textColor="@color/black"
-        android:textSize="@dimen/t14"/>
+        android:textSize="@dimen/t12"/>
 
     <TextView
         android:id="@+id/tv_sz"
@@ -48,6 +48,6 @@
         android:maxLines="1"
         android:text="双 188"
         android:textColor="@color/black"
-        android:textSize="@dimen/t14"/>
+        android:textSize="@dimen/t12"/>
 
 </LinearLayout>

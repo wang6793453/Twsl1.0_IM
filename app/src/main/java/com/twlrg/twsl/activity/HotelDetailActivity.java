@@ -329,7 +329,7 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
     {
         tvTitle.setText(title);
 
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvBreakfastType1.setSelected(true);

@@ -309,7 +309,7 @@ public class BookRoomActivity extends BaseActivity implements IRequestListener
         etNameList.add(etName10);
 
 
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
 

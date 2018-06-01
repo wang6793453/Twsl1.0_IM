@@ -1,8 +1,11 @@
 package com.twlrg.twsl.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,12 +15,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.twlrg.twsl.R;
+import com.twlrg.twsl.http.DataRequest;
+import com.twlrg.twsl.http.HttpRequest;
+import com.twlrg.twsl.http.IRequestListener;
+import com.twlrg.twsl.json.RoomMonthListHandler;
 import com.twlrg.twsl.utils.APPUtils;
+import com.twlrg.twsl.utils.ConfigManager;
+import com.twlrg.twsl.utils.ConstantUtil;
 import com.twlrg.twsl.utils.StringUtils;
+import com.twlrg.twsl.utils.ToastUtil;
+import com.twlrg.twsl.utils.Urls;
 import com.twlrg.twsl.widget.AutoFitTextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -26,7 +39,7 @@ import butterknife.BindView;
  * 邮箱：wangxianyun1@163.com
  * 描述：一句话简单描述
  */
-public class SettingRoomPriceActivity extends BaseActivity
+public class SettingRoomPriceActivity extends BaseActivity implements IRequestListener
 {
     @BindView(R.id.topView)
     View            topView;
@@ -34,7 +47,7 @@ public class SettingRoomPriceActivity extends BaseActivity
     ImageView       ivBack;
     @BindView(R.id.tv_title)
     AutoFitTextView tvTitle;
-    @BindView(R.id.tv_date)
+    @BindView(R.id.tv_selected_date)
     TextView        tvDate;
     @BindView(R.id.tv_start_date)
     TextView        tvStartDate;
@@ -64,21 +77,47 @@ public class SettingRoomPriceActivity extends BaseActivity
     EditText        etSz;
     @BindView(R.id.btn_save)
     Button          btnSave;
-    private String s_date, e_date;
+    private String s_date, e_date, id;
     private              List<TextView> mWeekViewList = new ArrayList<>();
     private static final int            GET_DATE_CODE = 0x99;
+
+
+    private static final int REQUEST_SUCCESS = 0x01;
+    public static final  int REQUEST_FAIL    = 0x02;
+
+    private static final String      EDIT_ROOM_PRICE = "edit_room_status";
+    @SuppressLint("HandlerLeak")
+    private              BaseHandler mHandler        = new BaseHandler(this)
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            super.handleMessage(msg);
+            switch (msg.what)
+            {
+                case REQUEST_SUCCESS:
+                    ToastUtil.show(SettingRoomPriceActivity.this, "修改成功");
+                    finish();
+                    break;
+
+
+                case REQUEST_FAIL:
+                    ToastUtil.show(SettingRoomPriceActivity.this, msg.obj.toString());
+
+                    break;
+
+
+            }
+        }
+    };
+
 
     @Override
     protected void initData()
     {
         s_date = getIntent().getStringExtra("S_DATE");
         e_date = getIntent().getStringExtra("E_DATE");
-
-        if (StringUtils.stringIsEmpty(e_date) || StringUtils.stringIsEmpty(e_date))
-        {
-            s_date = StringUtils.getCurrentTime();
-            e_date = StringUtils.getNextMonth();
-        }
+        id = getIntent().getStringExtra("ID");
 
     }
 
@@ -95,15 +134,26 @@ public class SettingRoomPriceActivity extends BaseActivity
     {
         ivBack.setOnClickListener(this);
         tvDate.setOnClickListener(this);
+        btnSave.setOnClickListener(this);
     }
 
     @Override
     protected void initViewData()
     {
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvTitle.setText("房价维护");
+        if (StringUtils.stringIsEmpty(e_date) || StringUtils.stringIsEmpty(e_date))
+        {
+            s_date = StringUtils.getCurrentTime();
+            e_date = StringUtils.getNextMonth();
+            tvDate.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            tvDate.setVisibility(View.GONE);
+        }
 
         tvStartDate.setText(s_date);
         tvEndDate.setText(e_date);
@@ -151,6 +201,53 @@ public class SettingRoomPriceActivity extends BaseActivity
         {
             startActivityForResult(new Intent(SettingRoomPriceActivity.this, HotelTimeActivity.class), GET_DATE_CODE);
         }
+        else if (v == btnSave)
+        {
+
+            String wz = etWz.getText().toString();
+            String dz = etDz.getText().toString();
+            String sz = etSz.getText().toString();
+
+
+            if (StringUtils.stringIsEmpty(wz))
+            {
+                ToastUtil.show(this, "请输入无早的价格");
+                return;
+            }
+            if (StringUtils.stringIsEmpty(dz))
+            {
+                ToastUtil.show(this, "请输入单早的价格");
+                return;
+            }
+            if (StringUtils.stringIsEmpty(sz))
+            {
+                ToastUtil.show(this, "请输入双早的价格");
+                return;
+            }
+
+            //单修改
+            if (s_date.equals(e_date))
+            {
+                showProgressDialog();
+                Map<String, String> valuePairs = new HashMap<>();
+                valuePairs.put("token", ConfigManager.instance().getToken());
+                valuePairs.put("uid", ConfigManager.instance().getUserID());
+                valuePairs.put("id", id);
+                valuePairs.put("city_value", ConfigManager.instance().getCityValue());
+                valuePairs.put("date", s_date);
+                valuePairs.put("wz", wz);
+                valuePairs.put("dz", dz);
+                valuePairs.put("sz", sz);
+                DataRequest.instance().request(SettingRoomPriceActivity.this, Urls.getEditRoomPriceUrl(), this, HttpRequest.POST, EDIT_ROOM_PRICE, valuePairs,
+                        new RoomMonthListHandler());
+            }
+        }
+        else
+        {
+
+        }
+
+
     }
 
 
@@ -188,6 +285,23 @@ public class SettingRoomPriceActivity extends BaseActivity
         else
         {
             llWeek.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void notify(String action, String resultCode, String resultMsg, Object obj)
+    {
+        hideProgressDialog();
+        if (EDIT_ROOM_PRICE.equals(action))
+        {
+            if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_SUCCESS, obj));
+            }
+            else
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+            }
         }
     }
 }

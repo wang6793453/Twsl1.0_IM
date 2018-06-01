@@ -5,21 +5,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/windowBackground"
     android:orientation="vertical"
     >
     <View
         android:id="@+id/topView"
+        android:background="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/windowBackground"
+        android:background="@color/black"
         android:padding="@dimen/dm_5"
         >
-
 
         <ImageView
             android:id="@+id/iv_back"
@@ -27,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="@dimen/dm_8"
-            android:src="@drawable/ic_black_back"
+            android:src="@drawable/ic_back_white"
             />
 
         <com.twlrg.twsl.widget.AutoFitTextView
@@ -38,7 +37,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/dm_8"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/t16"
             />
 
@@ -49,16 +48,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dm_10"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/t14"
             />
 
 
     </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dm_1"
-        android:background="@color/line"/>
-
 
 </LinearLayout>

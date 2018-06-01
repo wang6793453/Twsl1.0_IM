@@ -184,7 +184,7 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
     @Override
     protected void initViewData()
     {
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvTitle.setText("房价维护");
@@ -203,10 +203,11 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
 
                 String day = mRoomDayInfo.getYear() + "-" + mRoomDayInfo.getMonth() + "-" + mRoomDayInfo.getDay();
                 //  showModifyPriceDialog(day, day);
-
+                String id = mRoomDayInfo.getId();
                 startActivity(new Intent(RoomPriceDetailActivity.this, SettingRoomPriceActivity.class)
                         .putExtra("S_DATE", day)
                         .putExtra("E_DATE", day)
+                        .putExtra("ID", id)
 
                 );
             }

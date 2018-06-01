@@ -124,7 +124,7 @@ public class MainActivity extends BaseActivity
         }
         else
         {
-            setStatusBarTextDeep(true);
+            setStatusBarTextDeep(false);
         }
     }
 

@@ -1,16 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
     >
     <View
         android:id="@+id/topView"
+        android:background="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
     <RelativeLayout
+        android:background="@color/black"
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <TextView
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="会话"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="16sp"/>
 
     </RelativeLayout>

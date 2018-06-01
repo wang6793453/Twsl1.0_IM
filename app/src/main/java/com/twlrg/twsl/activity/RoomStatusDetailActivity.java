@@ -183,7 +183,7 @@ public class RoomStatusDetailActivity extends BaseActivity implements IRequestLi
     @Override
     protected void initViewData()
     {
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvTitle.setText("房态维护");
@@ -240,7 +240,7 @@ public class RoomStatusDetailActivity extends BaseActivity implements IRequestLi
                             valuePairs.put("status", "1");
                         }
 
-                        DataRequest.instance().request(RoomStatusDetailActivity.this, Urls.getRoomStatusAndPriceUrl(), RoomStatusDetailActivity.this,
+                        DataRequest.instance().request(RoomStatusDetailActivity.this, Urls.getEditRoomStatusUrl(), RoomStatusDetailActivity.this,
                                 HttpRequest.POST, EDIT_ROOM_STATUS,
                                 valuePairs,
                                 new ResultHandler());

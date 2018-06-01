@@ -106,7 +106,7 @@ public class HotelSalesmanListActivity extends BaseActivity implements IRequestL
     protected void initViewData()
     {
         tvTitle.setText("销售列表");
-        setStatusBarTextDeep(true);
+        setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         recyclerView.setLayoutManager(new FullyLinearLayoutManager(HotelSalesmanListActivity.this));

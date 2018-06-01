@@ -57,13 +57,14 @@ public class RoomPriceDayHolder extends RecyclerView.ViewHolder
             mSzPriceTv.setText("双  " + mRoomDayInfo.getSz_price());
             if (mRoomDayInfo.getStatus() == 1)
             {
-                mDayTv.setSelected(true);
-                mItemLayout.setSelected(true);
+                mDayTv.setSelected(false);
+                mItemLayout.setSelected(false);
             }
             else
             {
-                mDayTv.setSelected(false);
-                mItemLayout.setSelected(false);
+                mDayTv.setSelected(true);
+                mItemLayout.setSelected(true);
+
             }
 
             mItemLayout.setOnClickListener(new View.OnClickListener()
