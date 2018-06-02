@@ -64,7 +64,6 @@ public class HotelImgHolder extends RecyclerView.ViewHolder
         mPicTv.setLayoutParams(rp);
 
 
-
         if (!TextUtils.isEmpty(mHotelImgInfo.getPic()))
         {
             ImageLoader.getInstance().displayImage(Urls.getImgUrl(mHotelImgInfo.getPic()), mPivIv);
@@ -75,7 +74,7 @@ public class HotelImgHolder extends RecyclerView.ViewHolder
             if ("2".equals(mHotelImgInfo.getStatus()))//2已经设为首图
             {
                 mFirstTv.setText("首图");
-                mFirstTv.setClickable(false);
+                mFirstTv.setEnabled(false);
                 mFirstTv.setBackgroundResource(R.drawable.common_red_5dp);
             }
             else

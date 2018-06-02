@@ -18,6 +18,7 @@ import com.twlrg.twsl.R;
 import com.twlrg.twsl.http.DataRequest;
 import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
+import com.twlrg.twsl.json.ResultHandler;
 import com.twlrg.twsl.json.RoomMonthListHandler;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
@@ -77,7 +78,7 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
     EditText        etSz;
     @BindView(R.id.btn_save)
     Button          btnSave;
-    private String s_date, e_date, id;
+    private String s_date, e_date, id, room_id;
     private              List<TextView> mWeekViewList = new ArrayList<>();
     private static final int            GET_DATE_CODE = 0x99;
 
@@ -118,7 +119,7 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
         s_date = getIntent().getStringExtra("S_DATE");
         e_date = getIntent().getStringExtra("E_DATE");
         id = getIntent().getStringExtra("ID");
-
+        room_id = getIntent().getStringExtra("ROOM_ID");
     }
 
     @Override
@@ -234,17 +235,56 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
                 valuePairs.put("uid", ConfigManager.instance().getUserID());
                 valuePairs.put("id", id);
                 valuePairs.put("city_value", ConfigManager.instance().getCityValue());
+                valuePairs.put("merchant_id", ConfigManager.instance().getMerchantId());
+                valuePairs.put("room_id", room_id);
                 valuePairs.put("date", s_date);
                 valuePairs.put("wz", wz);
                 valuePairs.put("dz", dz);
                 valuePairs.put("sz", sz);
                 DataRequest.instance().request(SettingRoomPriceActivity.this, Urls.getEditRoomPriceUrl(), this, HttpRequest.POST, EDIT_ROOM_PRICE, valuePairs,
-                        new RoomMonthListHandler());
+                        new ResultHandler());
             }
-        }
-        else
-        {
+            else
+            {
 
+
+                StringBuffer sb = new StringBuffer();
+
+                for (int i = 0; i < mWeekViewList.size(); i++)
+                {
+                    if (mWeekViewList.get(i).isSelected())
+                    {
+                        sb.append(i);
+                        sb.append(",");
+                    }
+                }
+
+
+                String week = sb.toString();
+                if (StringUtils.stringIsEmpty(week))
+                {
+                    ToastUtil.show(this, "请选择需要设置价格的星期");
+                    return;
+                }
+
+                showProgressDialog();
+                Map<String, String> valuePairs = new HashMap<>();
+                valuePairs.put("token", ConfigManager.instance().getToken());
+                valuePairs.put("uid", ConfigManager.instance().getUserID());
+                valuePairs.put("city_value", ConfigManager.instance().getCityValue());
+                valuePairs.put("merchant_id", ConfigManager.instance().getMerchantId());
+                valuePairs.put("room_id", room_id);
+                valuePairs.put("s_date", s_date);
+                valuePairs.put("e_date", e_date);
+                valuePairs.put("wz", wz);
+                valuePairs.put("dz", dz);
+                valuePairs.put("sz", sz);
+                valuePairs.put("week", week.substring(0, week.length() - 1));
+
+                DataRequest.instance().request(SettingRoomPriceActivity.this, Urls.getEditAllRoomPriceUrl(), this, HttpRequest.POST, EDIT_ROOM_PRICE,
+                        valuePairs,
+                        new ResultHandler());
+            }
         }
 
 

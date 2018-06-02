@@ -324,12 +324,16 @@ public class Urls
         return BASE_URL + "room/room_status_edit";
     }
 
-    //房价房态
+    //房价
     public static String getEditRoomPriceUrl()
     {
         return BASE_URL + "room/room_price_edit";
     }
-
+    //批量修改房价
+    public static String getEditAllRoomPriceUrl()
+    {
+        return BASE_URL + "room/room_all_price_edit";
+    }
     //首图设置
     public static String getSetFirstPicUrl()
     {

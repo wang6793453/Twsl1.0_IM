@@ -62,7 +62,7 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
     private RoomPriceMonthAdapter mRoomPriceMonthAdapter;
     private List<RoomMonthInfo> monthInfoList = new ArrayList<>();
 
-
+    private String roomId;
     private static final int REQUEST_SUCCESS = 0x01;
     public static final  int REQUEST_FAIL    = 0x02;
 
@@ -99,71 +99,7 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
     @Override
     protected void initData()
     {
-
-        //        RoomMonthInfo mRoomMonthInfo1 = new RoomMonthInfo();
-        //        mRoomMonthInfo1.setYear(2018);
-        //        mRoomMonthInfo1.setMonth(5);
-        //
-        //        List<RoomDayInfo> r1 = new ArrayList<>();
-        //        //得到该月份的第一天
-        //        Calendar calendar = Calendar.getInstance();
-        //        calendar.set(Calendar.YEAR, mRoomMonthInfo1.getYear());          //指定年份
-        //        calendar.set(Calendar.MONTH, mRoomMonthInfo1.getMonth() - 1);        //指定月份 Java月份从0开始算
-        //        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        //
-        //        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);             //得到该月份第一天 是星期几
-        //        for (int i = 0; i < dayOfWeek - 1; i++)
-        //        {
-        //            RoomDayInfo mRoomDayInfo = new RoomDayInfo();
-        //            mRoomDayInfo.setYear(2018);
-        //            mRoomDayInfo.setMonth(5);
-        //            mRoomDayInfo.setDay(0);
-        //            r1.add(mRoomDayInfo);
-        //        }
-        //        for (int i = 0; i < 31; i++)
-        //        {
-        //            RoomDayInfo mRoomDayInfo = new RoomDayInfo();
-        //            mRoomDayInfo.setYear(2018);
-        //            mRoomDayInfo.setMonth(5);
-        //            mRoomDayInfo.setDay(i + 1);
-        //            r1.add(mRoomDayInfo);
-        //        }
-        //
-        //
-        //        RoomMonthInfo mRoomMonthInfo2 = new RoomMonthInfo();
-        //        mRoomMonthInfo2.setYear(2018);
-        //        mRoomMonthInfo2.setMonth(6);
-        //
-        //        List<RoomDayInfo> r2 = new ArrayList<>();
-        //        //得到该月份的第一天
-        //        Calendar calendar1 = Calendar.getInstance();
-        //        calendar.set(Calendar.YEAR, mRoomMonthInfo2.getYear());          //指定年份
-        //        calendar1.set(Calendar.MONTH, mRoomMonthInfo2.getMonth() - 1);        //指定月份 Java月份从0开始算
-        //        calendar1.set(Calendar.DAY_OF_MONTH, 1);
-        //
-        //        int dayOfWeek1 = calendar1.get(Calendar.DAY_OF_WEEK);             //得到该月份第一天 是星期几
-        //        for (int i = 0; i < dayOfWeek1 - 1; i++)
-        //        {
-        //            RoomDayInfo mRoomDayInfo = new RoomDayInfo();
-        //            mRoomDayInfo.setYear(2018);
-        //            mRoomDayInfo.setMonth(6);
-        //            mRoomDayInfo.setDay(0);
-        //            r2.add(mRoomDayInfo);
-        //        }
-        //        for (int i = 0; i < 30; i++)
-        //        {
-        //            RoomDayInfo mRoomDayInfo = new RoomDayInfo();
-        //            mRoomDayInfo.setYear(2018);
-        //            mRoomDayInfo.setMonth(6);
-        //            mRoomDayInfo.setDay(i + 1);
-        //            r2.add(mRoomDayInfo);
-        //        }
-        //
-        //
-        //        mRoomMonthInfo1.setRoomDayInfoList(r1);
-        //        mRoomMonthInfo2.setRoomDayInfoList(r2);
-        //        monthInfoList.add(mRoomMonthInfo1);
-        //        monthInfoList.add(mRoomMonthInfo2);
+        roomId = getIntent().getStringExtra("ROOM_ID");
 
     }
 
@@ -208,7 +144,7 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
                         .putExtra("S_DATE", day)
                         .putExtra("E_DATE", day)
                         .putExtra("ID", id)
-
+                        .putExtra("ROOM_ID", mRoomDayInfo.getRoom_id())
                 );
             }
         });
@@ -230,7 +166,7 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
         valuePairs.put("token", ConfigManager.instance().getToken());
         valuePairs.put("uid", ConfigManager.instance().getUserID());
         valuePairs.put("merchant_id", ConfigManager.instance().getMerchantId());
-        valuePairs.put("room_id", getIntent().getStringExtra("ROOM_ID"));
+        valuePairs.put("room_id", roomId);
         valuePairs.put("city_value", ConfigManager.instance().getCityValue());
         DataRequest.instance().request(RoomPriceDetailActivity.this, Urls.getRoomStatusAndPriceUrl(), this, HttpRequest.POST, GET_ROOM_lIST, valuePairs,
                 new RoomMonthListHandler());
@@ -248,7 +184,7 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
         }
         else if (v == tvSubmit)
         {
-            startActivity(new Intent(RoomPriceDetailActivity.this, SettingRoomPriceActivity.class));
+            startActivity(new Intent(RoomPriceDetailActivity.this, SettingRoomPriceActivity.class).putExtra("ROOM_ID", roomId));
         }
     }
 
