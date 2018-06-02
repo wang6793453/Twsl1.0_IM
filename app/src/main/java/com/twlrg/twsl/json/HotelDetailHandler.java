@@ -2,6 +2,7 @@ package com.twlrg.twsl.json;
 
 
 import com.twlrg.twsl.entity.ConferenceInfo;
+import com.twlrg.twsl.entity.HotelImgInfo;
 import com.twlrg.twsl.entity.HotelInfo;
 import com.twlrg.twsl.entity.RoomInfo;
 
@@ -54,6 +55,19 @@ public class HotelDetailHandler extends JsonHandler
                 mHotelInfo = new HotelInfo(hotelObj);
             }
 
+            JSONArray arr = obj.optJSONArray("hotel_images_list");
+
+            List<HotelImgInfo> hotelImgInfoList = new ArrayList<>();
+            if (null != arr)
+            {
+
+                for (int i = 0; i < arr.length(); i++)
+                {
+                    HotelImgInfo mHotelImgInfo = new HotelImgInfo(arr.optJSONObject(i));
+                    hotelImgInfoList.add(mHotelImgInfo);
+                }
+            }
+            mHotelInfo.setHotelImgInfoList(hotelImgInfoList);
 
             if (null != roomArr)
             {

@@ -23,6 +23,10 @@ public class MyOnClickListener
         public abstract void onSubmit(int p,String content);
     }
 
+    public interface OnEditCallBackListener
+    {
+        public abstract void onSubmit(String  id,String content);
+    }
 
     public interface OnClickCallBackListener
     {

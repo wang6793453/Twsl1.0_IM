@@ -82,9 +82,9 @@ public class RoomMonthListHandler extends JsonHandler
                             mRoomDayInfo.setDay(0);
                             roomDayInfoList.add(mRoomDayInfo);
                         }
-                        mRoomMonthInfo.setRoomDayInfoList(roomDayInfoList);
-                        monthInfoList.add(mRoomMonthInfo);
                     }
+                    mRoomMonthInfo.setRoomDayInfoList(roomDayInfoList);
+                    monthInfoList.add(mRoomMonthInfo);
                 }
 
 

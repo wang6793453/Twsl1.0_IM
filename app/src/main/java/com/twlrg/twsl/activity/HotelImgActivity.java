@@ -33,6 +33,7 @@ import com.twlrg.twsl.json.HotelImgListHandler;
 import com.twlrg.twsl.json.HotelInfoHandler;
 import com.twlrg.twsl.json.ResultHandler;
 import com.twlrg.twsl.listener.MyItemClickListener;
+import com.twlrg.twsl.listener.MyOnClickListener;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
@@ -74,12 +75,13 @@ public class HotelImgActivity extends BaseActivity implements IRequestListener
     private HotelImgAdapter mHotelImgAdapter;
     private              List<HotelImgInfo> hotelImgInfoList = new ArrayList<>();
     private static final String             GET_HOTEL_INFO   = "get_hotel_info";
-    private static final String             DEL_HOTEL_IMG    = "DEL_HOTEL_IMG";
-
+    private static final String             DEL_HOTEL_IMG    = "del_hotel_img";
+    private static final String             SET_FIRST_PIC    = "set_first_pic";
     private static final int         REQUEST_SUCCESS       = 0x01;
     public static final  int         REQUEST_FAIL          = 0x02;
     private static final int         UPLOAD_PIC_SUCCESS    = 0x03;
     private static final int         DEL_HOTEL_IMG_SUCCESS = 0x05;
+    private static final int         SET_FIRST_PIC_SUCCESS = 0x06;
     @SuppressLint("HandlerLeak")
     private              BaseHandler mHandler              = new BaseHandler(this)
     {
@@ -112,6 +114,11 @@ public class HotelImgActivity extends BaseActivity implements IRequestListener
                     ToastUtil.show(HotelImgActivity.this, "删除成功");
                     loadData();
                     break;
+                case SET_FIRST_PIC_SUCCESS:
+                    ToastUtil.show(HotelImgActivity.this, "设置成功");
+                    loadData();
+                    break;
+
 
             }
         }
@@ -159,21 +166,37 @@ public class HotelImgActivity extends BaseActivity implements IRequestListener
             @Override
             public void onItemClick(View view, final int position)
             {
-                DialogUtils.showToastDialog2Button(HotelImgActivity.this, "是否删除该图片", new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        delImg(hotelImgInfoList.get(position).getId());
-                    }
-                });
+                mSelectPicturePopupWindow.showPopupWindow(HotelImgActivity.this);
+
             }
-        }, new MyItemClickListener()
+        }, new MyOnClickListener.OnCallBackListener()
         {
             @Override
-            public void onItemClick(View view, int position)
+            public void onSubmit(final int p, String content)
             {
-                mSelectPicturePopupWindow.showPopupWindow(HotelImgActivity.this);
+                if ("1".equals(content))
+                {
+                    DialogUtils.showToastDialog2Button(HotelImgActivity.this, "是否删除该图片", new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            delImg(hotelImgInfoList.get(p).getId());
+                        }
+                    });
+                }
+                else//设为首图
+                {
+                    DialogUtils.showToastDialog2Button(HotelImgActivity.this, "是否设置该图为首图", new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            setFirstPic(hotelImgInfoList.get(p).getId());
+                        }
+                    });
+                }
+
             }
         });
         recyclerView.setAdapter(mHotelImgAdapter);
@@ -231,6 +254,18 @@ public class HotelImgActivity extends BaseActivity implements IRequestListener
                 new ResultHandler());
     }
 
+
+    private void setFirstPic(String id)
+    {
+        showProgressDialog();
+        Map<String, String> valuePairs = new HashMap<>();
+        valuePairs.put("id", id);
+        valuePairs.put("merchant_id", ConfigManager.instance().getMerchantId());
+        valuePairs.put("city_value", ConfigManager.instance().getCityValue());
+        DataRequest.instance().request(this, Urls.getSetFirstPicUrl(), this, HttpRequest.POST, SET_FIRST_PIC, valuePairs,
+                new ResultHandler());
+    }
+
     @Override
     public void notify(String action, String resultCode, String resultMsg, Object obj)
     {
@@ -263,6 +298,18 @@ public class HotelImgActivity extends BaseActivity implements IRequestListener
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {
                 mHandler.sendMessage(mHandler.obtainMessage(DEL_HOTEL_IMG_SUCCESS, obj));
+            }
+
+            else
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+            }
+        }
+        else if (SET_FIRST_PIC.equals(action))
+        {
+            if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(SET_FIRST_PIC_SUCCESS, obj));
             }
 
             else

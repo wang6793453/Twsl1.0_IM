@@ -273,6 +273,8 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
 
                 case SAVE_ORDER_PRICE_SUCCESS:
                     ToastUtil.show(OrderDetailActivity.this, "操作成功");
+                    isModifyPrice = false;
+                    tvModifyPrice.setText("修改价格");
                     mOrderInfoList.clear();
                     loadData();
                     break;
@@ -316,12 +318,18 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
         mRecyclerView.setLayoutManager(new FullyLinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new EmptyDecoration(this, ""));
 
-        mOrderPriceAdapter = new OrderPriceAdapter(OrderDetailActivity.this, mOrderInfoList, new MyOnClickListener.OnCallBackListener()
+        mOrderPriceAdapter = new OrderPriceAdapter(OrderDetailActivity.this, mOrderInfoList, new MyOnClickListener.OnEditCallBackListener()
         {
             @Override
-            public void onSubmit(int p, String content)
+            public void onSubmit(String orderId, String content)
             {
-                mOrderInfoList.get(p).setPrice(content);
+                for (int i = 0; i < mOrderInfoList.size(); i++)
+                {
+                    if (orderId.equals(mOrderInfoList.get(i).getId()))
+                    {
+                        mOrderInfoList.get(i).setPrice(content);
+                    }
+                }
 
             }
         });
@@ -390,7 +398,7 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
                         StringBuilder sb = new StringBuilder();
                         for (int i = 0; i < mOrderInfoList.size(); i++)
                         {
-                            sb.append(i + 1);
+                            sb.append(mOrderInfoList.get(i).getId());
                             sb.append(":");
                             sb.append(mOrderInfoList.get(i).getPrice());
                             sb.append(",");

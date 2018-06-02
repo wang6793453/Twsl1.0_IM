@@ -23,6 +23,7 @@ import com.twlrg.twsl.R;
 import com.twlrg.twsl.adapter.ConferenceAdapter;
 import com.twlrg.twsl.adapter.RoomAdapter;
 import com.twlrg.twsl.entity.ConferenceInfo;
+import com.twlrg.twsl.entity.HotelImgInfo;
 import com.twlrg.twsl.entity.HotelInfo;
 import com.twlrg.twsl.entity.RoomInfo;
 import com.twlrg.twsl.http.DataRequest;
@@ -179,6 +180,12 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
                     {
                         picList.clear();
                         picList.add(mHotelInfo.getHotel_img());
+                        List<HotelImgInfo> hotelImgInfoList = mHotelInfo.getHotelImgInfoList();
+
+                        for (int i = 0; i < hotelImgInfoList.size(); i++)
+                        {
+                            picList.add(hotelImgInfoList.get(i).getPic());
+                        }
 
                         rbStar.setRating(Float.parseFloat(mHotelInfo.getStar() + ""));
                         tvAddress.setText("地址:" + mHotelInfo.getAddress());

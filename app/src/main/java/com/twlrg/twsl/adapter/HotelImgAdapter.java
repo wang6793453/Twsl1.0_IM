@@ -11,6 +11,7 @@ import com.twlrg.twsl.entity.HotelImgInfo;
 import com.twlrg.twsl.holder.BillHolder;
 import com.twlrg.twsl.holder.HotelImgHolder;
 import com.twlrg.twsl.listener.MyItemClickListener;
+import com.twlrg.twsl.listener.MyOnClickListener;
 
 import java.util.List;
 
@@ -19,10 +20,10 @@ import java.util.List;
 public class HotelImgAdapter extends RecyclerView.Adapter<HotelImgHolder>
 {
 
-    private List<HotelImgInfo>  list;
-    private MyItemClickListener listener;
-    private MyItemClickListener listener1;
-    public HotelImgAdapter(List<HotelImgInfo> list, MyItemClickListener listener,MyItemClickListener listener1)
+    private List<HotelImgInfo>                        list;
+    private MyItemClickListener                       listener;
+    private MyOnClickListener.OnCallBackListener listener1;
+    public HotelImgAdapter(List<HotelImgInfo> list, MyItemClickListener listener,MyOnClickListener.OnCallBackListener listener1)
     {
         this.list = list;
         this.listener = listener;

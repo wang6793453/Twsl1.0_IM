@@ -3,6 +3,7 @@ package com.twlrg.twsl.entity;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 作者：王先云 on 2018/4/17 14:34
@@ -60,6 +61,9 @@ public class HotelInfo implements Serializable
     private String  province_name;//广东省",
     private String  city_name;//深圳市",
     private String  region_name;//龙岗区"
+
+    private List<HotelImgInfo>  hotelImgInfoList;
+
 
     public HotelInfo(JSONObject obj)
     {
@@ -577,5 +581,15 @@ public class HotelInfo implements Serializable
     public void setRegion_name(String region_name)
     {
         this.region_name = region_name;
+    }
+
+    public List<HotelImgInfo> getHotelImgInfoList()
+    {
+        return hotelImgInfoList;
+    }
+
+    public void setHotelImgInfoList(List<HotelImgInfo> hotelImgInfoList)
+    {
+        this.hotelImgInfoList = hotelImgInfoList;
     }
 }

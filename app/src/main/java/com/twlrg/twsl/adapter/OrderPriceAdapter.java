@@ -19,10 +19,10 @@ public class OrderPriceAdapter extends RecyclerView.Adapter<OrderPriceHolder>
 {
 
     private List<OrderInfo>                      list;
-    private MyOnClickListener.OnCallBackListener listener;
+    private MyOnClickListener.OnEditCallBackListener listener;
     private Context                              mContext;
 
-    public OrderPriceAdapter(Context mContext, List<OrderInfo> list, MyOnClickListener.OnCallBackListener listener)
+    public OrderPriceAdapter(Context mContext, List<OrderInfo> list, MyOnClickListener.OnEditCallBackListener listener)
     {
         this.list = list;
         this.listener = listener;
@@ -41,8 +41,9 @@ public class OrderPriceAdapter extends RecyclerView.Adapter<OrderPriceHolder>
     @Override
     public void onBindViewHolder(OrderPriceHolder holder, int position)
     {
+        holder.setIsRecyclable(false);
         OrderInfo mOrderInfo = list.get(position);
-        holder.setOrderInfo(mOrderInfo, position);
+        holder.setOrderInfo(mOrderInfo);
     }
 
     @Override

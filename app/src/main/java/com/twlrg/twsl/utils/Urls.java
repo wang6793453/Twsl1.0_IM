@@ -330,4 +330,10 @@ public class Urls
         return BASE_URL + "room/room_price_edit";
     }
 
+    //首图设置
+    public static String getSetFirstPicUrl()
+    {
+        return BASE_URL + "picture/hotel_img_set";
+    }
+
 }

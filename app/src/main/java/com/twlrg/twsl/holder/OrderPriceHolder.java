@@ -23,10 +23,10 @@ public class OrderPriceHolder extends RecyclerView.ViewHolder
     private TextView                             mDateTv;
     private EditText                             mPriceEt;
     private TextView                             mPriceTypeTv;
-    private MyOnClickListener.OnCallBackListener listener;
+    private MyOnClickListener.OnEditCallBackListener listener;
     private Context                              mContext;
 
-    public OrderPriceHolder(View rootView, Context mContext, MyOnClickListener.OnCallBackListener listener)
+    public OrderPriceHolder(View rootView, Context mContext, MyOnClickListener.OnEditCallBackListener listener)
     {
         super(rootView);
         mDateTv = (TextView) rootView.findViewById(R.id.tv_date);
@@ -37,7 +37,7 @@ public class OrderPriceHolder extends RecyclerView.ViewHolder
     }
 
 
-    public void setOrderInfo(final OrderInfo mOrderInfo, final int p)
+    public void setOrderInfo(final OrderInfo mOrderInfo)
     {
         mDateTv.setText(mOrderInfo.getDate());
         mPriceEt.setText(mOrderInfo.getPrice());
@@ -66,14 +66,14 @@ public class OrderPriceHolder extends RecyclerView.ViewHolder
 
                     if (!"0".equals(mOrderInfo.getPrice()))
                     {
-                        listener.onSubmit(p, "0");
+                        listener.onSubmit(mOrderInfo.getId(), "0");
                     }
                 }
                 else
                 {
                     if (!s.toString().equals(mOrderInfo.getPrice()))
                     {
-                        listener.onSubmit(p, s.toString());
+                        listener.onSubmit(mOrderInfo.getId(), s.toString());
                     }
 
                 }

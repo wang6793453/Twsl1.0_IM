@@ -16,6 +16,7 @@ import com.twlrg.twsl.R;
 import com.twlrg.twsl.entity.BillInfo;
 import com.twlrg.twsl.entity.HotelImgInfo;
 import com.twlrg.twsl.listener.MyItemClickListener;
+import com.twlrg.twsl.listener.MyOnClickListener;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.Urls;
 
@@ -26,20 +27,22 @@ import com.twlrg.twsl.utils.Urls;
 public class HotelImgHolder extends RecyclerView.ViewHolder
 {
 
-    private RelativeLayout      mItemLayout;
-    private TextView            mPicTv;
-    private TextView            mDelTv;
-    private ImageView           mPivIv;
-    private MyItemClickListener listener, listener1;
+    private RelativeLayout                       mItemLayout;
+    private TextView                             mPicTv;
+    private TextView                             mDelTv;
+    private TextView                             mFirstTv;
+    private ImageView                            mPivIv;
+    private MyItemClickListener                  listener;
+    private MyOnClickListener.OnCallBackListener listener1;
+    private Context                              mContext;
 
-    private Context mContext;
-
-    public HotelImgHolder(View rootView, Context mContext, MyItemClickListener listener, MyItemClickListener listener1)
+    public HotelImgHolder(View rootView, Context mContext, MyItemClickListener listener, MyOnClickListener.OnCallBackListener listener1)
     {
         super(rootView);
         mPicTv = (TextView) rootView.findViewById(R.id.tv_pic);
         mDelTv = (TextView) rootView.findViewById(R.id.tv_del);
         mPivIv = (ImageView) rootView.findViewById(R.id.iv_pic);
+        mFirstTv = (TextView) rootView.findViewById(R.id.tv_first);
         mItemLayout = (RelativeLayout) rootView.findViewById(R.id.ll_item);
         this.listener = listener;
         this.mContext = mContext;
@@ -61,18 +64,33 @@ public class HotelImgHolder extends RecyclerView.ViewHolder
         mPicTv.setLayoutParams(rp);
 
 
+
         if (!TextUtils.isEmpty(mHotelImgInfo.getPic()))
         {
             ImageLoader.getInstance().displayImage(Urls.getImgUrl(mHotelImgInfo.getPic()), mPivIv);
             mPivIv.setVisibility(View.VISIBLE);
             mDelTv.setVisibility(View.VISIBLE);
             mPicTv.setVisibility(View.GONE);
+            mFirstTv.setVisibility(View.VISIBLE);
+            if ("2".equals(mHotelImgInfo.getStatus()))//2已经设为首图
+            {
+                mFirstTv.setText("首图");
+                mFirstTv.setClickable(false);
+                mFirstTv.setBackgroundResource(R.drawable.common_red_5dp);
+            }
+            else
+            {
+                mFirstTv.setText("设为首图");
+                mFirstTv.setEnabled(true);
+                mFirstTv.setBackgroundResource(R.drawable.common_green_5dp);
+            }
         }
         else
         {
             mPivIv.setVisibility(View.GONE);
             mDelTv.setVisibility(View.GONE);
             mPicTv.setVisibility(View.VISIBLE);
+            mFirstTv.setVisibility(View.GONE);
         }
 
         mDelTv.setOnClickListener(new View.OnClickListener()
@@ -80,7 +98,16 @@ public class HotelImgHolder extends RecyclerView.ViewHolder
             @Override
             public void onClick(View v)
             {
-                listener.onItemClick(v, p);
+                listener1.onSubmit(p, "1");
+            }
+        });
+
+        mFirstTv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                listener1.onSubmit(p, "2");
             }
         });
 
@@ -89,7 +116,7 @@ public class HotelImgHolder extends RecyclerView.ViewHolder
             @Override
             public void onClick(View v)
             {
-                listener1.onItemClick(v, p);
+                listener.onItemClick(v, p);
             }
         });
 
