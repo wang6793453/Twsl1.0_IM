@@ -407,7 +407,7 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
 
                             if (StringUtils.stringIsEmpty(mOrderInfoList.get(i).getPrice()))
                             {
-                                ToastUtil.show(OrderDetailActivity.this, "暂无价格，无法修改");
+                                ToastUtil.show(OrderDetailActivity.this, "房间价格不能为空");
                                 return;
                             }
                         }

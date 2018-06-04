@@ -25,6 +25,7 @@ import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
 import com.twlrg.twsl.utils.DialogUtils;
+import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
 import com.twlrg.twsl.widget.AutoFitTextView;
@@ -208,6 +209,14 @@ public class RoomStatusDetailActivity extends BaseActivity implements IRequestLi
                 final int status = monthInfoList.get(p).getRoomDayInfoList().get(n).getStatus();
                 final String id = monthInfoList.get(p).getRoomDayInfoList().get(n).getId();
                 final String date = monthInfoList.get(p).getRoomDayInfoList().get(n).getDate();
+
+
+                if(StringUtils.stringIsEmpty(id))
+                {
+                    ToastUtil.show(RoomStatusDetailActivity.this,"暂无价格，无法修改");
+                    return;
+                }
+
                 String statusTitle;
                 if (status == 1)
                 {
@@ -217,6 +226,7 @@ public class RoomStatusDetailActivity extends BaseActivity implements IRequestLi
                 {
                     statusTitle = "是否执行房间可预订操作";
                 }
+
 
                 DialogUtils.showToastDialog2Button(RoomStatusDetailActivity.this, statusTitle, new View.OnClickListener()
                 {

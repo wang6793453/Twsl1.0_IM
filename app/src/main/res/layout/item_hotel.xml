@@ -63,9 +63,9 @@
                 style="@style/foodRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dm_16"
+                android:isIndicator="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:isIndicator="false"
                 android:numStars="5"
                 android:rating="3.5"/>
 

@@ -1,298 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/white"
-              android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
     >
     <include layout="@layout/layout_head"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dm_15">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="标准大床房"
-            android:textColor="@color/black"
-            android:textSize="@dimen/t14"/>
-
-        <TextView
-            android:id="@+id/tv_selected_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@color/green"
-            android:paddingBottom="@dimen/dm_5"
-            android:paddingLeft="@dimen/dm_15"
-            android:paddingRight="@dimen/dm_15"
-            android:paddingTop="@dimen/dm_5"
-            android:text="选择时间"
-            android:textColor="@color/white"
-            android:textSize="@dimen/t14"/>
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dm_0.5"
-        android:background="@color/line"/>
 
     <LinearLayout
+        android:layout_above="@id/btn_save"
+        android:layout_below="@+id/ll_head"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        >
-        <LinearLayout
-            android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:padding="@dimen/dm_15">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="标准大床房"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t14"/>
+
+            <TextView
+                android:id="@+id/tv_selected_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/common_green_5dp"
+                android:paddingBottom="@dimen/dm_5"
+                android:paddingLeft="@dimen/dm_15"
+                android:paddingRight="@dimen/dm_15"
+                android:paddingTop="@dimen/dm_5"
+                android:text="选择时间"
+                android:textColor="@color/white"
+                android:textSize="@dimen/t14"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_0.5"
+            android:background="@color/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/dm_15"
+            >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开始时间:"
+                    android:textColor="@color/blackC"
+                    android:textSize="@dimen/t14"/>
+
+                <TextView
+                    android:id="@+id/tv_start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dm_5"
+                    android:text="2018-03-03"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/t14"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="结束时间:"
+                    android:textColor="@color/blackC"
+                    android:textSize="@dimen/t14"/>
+
+                <TextView
+                    android:id="@+id/tv_end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dm_5"
+                    android:text="2018-03-03"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/t14"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_1"
+            android:background="#E3E3E3"/>
+        <LinearLayout
+            android:id="@+id/ll_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dm_10"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_week_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_0.5"
+                android:layout_weight="1"
+                android:background="@drawable/room_status_selector"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="日"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/tv_week_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_0.5"
+                android:layout_weight="1"
+                android:background="@drawable/room_status_selector"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="一"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/tv_week_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_0.5"
+                android:layout_weight="1"
+                android:background="@drawable/room_status_selector"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="二"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/tv_week_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_0.5"
+                android:layout_weight="1"
+                android:background="@drawable/room_status_selector"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="三"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/tv_week_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_0.5"
+                android:layout_weight="1"
+                android:background="@drawable/room_status_selector"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="四"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/tv_week_6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_0.5"
+                android:layout_weight="1"
+                android:background="@drawable/room_status_selector"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="五"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+
+                />
+            <TextView
+                android:id="@+id/tv_week_7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_0.5"
+                android:layout_weight="1"
+                android:background="@drawable/room_status_selector"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="六"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dm_10"
             android:orientation="horizontal"
             android:padding="@dimen/dm_10">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="开始时间:"
-                android:textColor="@color/blackC"
-                android:textSize="@dimen/t14"/>
 
             <TextView
-                android:id="@+id/tv_start_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm_5"
-                android:text="2018-03-03"
-                android:textColor="@color/green"
-                android:textSize="@dimen/t14"/>
+                android:layout_weight="3"
+                android:text="无早" android:textSize="@dimen/t14"/>
+            <EditText
+                android:id="@+id/et_wz"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@color/transparent"
+                android:hint="请输入价格"
+                android:inputType="number"
+                android:padding="@dimen/dm_5"
+                android:textSize="@dimen/t14"
+                />
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_1"
+            android:background="#E3E3E3"/>
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dm_10"
+            android:orientation="horizontal"
             android:padding="@dimen/dm_10">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="结束时间:"
-                android:textColor="@color/blackC"
-                android:textSize="@dimen/t14"/>
 
             <TextView
-                android:id="@+id/tv_end_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dm_5"
-                android:text="2018-03-03"
-                android:textColor="@color/green"
-                android:textSize="@dimen/t14"/>
+                android:layout_weight="3"
+                android:text="单早" android:textSize="@dimen/t14"/>
+            <EditText
+                android:id="@+id/et_dz"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@color/transparent"
+                android:hint="请输入价格"
+                android:inputType="number"
+                android:padding="@dimen/dm_5"
+                android:textSize="@dimen/t14"
+                />
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_1"
+            android:background="#E3E3E3"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dm_10"
+            android:orientation="horizontal"
+            android:padding="@dimen/dm_10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="双早"
+                android:textSize="@dimen/t14"/>
+            <EditText
+                android:id="@+id/et_sz"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@color/transparent"
+                android:hint="请输入价格"
+                android:inputType="number"
+                android:padding="@dimen/dm_5"
+                android:textSize="@dimen/t14"
+                />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_1"
+            android:background="#E3E3E3"/>
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_week"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm_10"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:id="@+id/tv_week_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dm_0.5"
-            android:layout_weight="1"
-            android:background="@drawable/room_status_selector"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="日"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            />
-
-        <TextView
-            android:id="@+id/tv_week_2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dm_0.5"
-            android:layout_weight="1"
-            android:background="@drawable/room_status_selector"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="一"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:id="@+id/tv_week_3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dm_0.5"
-            android:layout_weight="1"
-            android:background="@drawable/room_status_selector"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="二"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:id="@+id/tv_week_4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dm_0.5"
-            android:layout_weight="1"
-            android:background="@drawable/room_status_selector"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="三"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:id="@+id/tv_week_5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dm_0.5"
-            android:layout_weight="1"
-            android:background="@drawable/room_status_selector"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="四"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:id="@+id/tv_week_6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dm_0.5"
-            android:layout_weight="1"
-            android:background="@drawable/room_status_selector"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="五"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-
-            />
-        <TextView
-            android:id="@+id/tv_week_7"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dm_0.5"
-            android:layout_weight="1"
-            android:background="@drawable/room_status_selector"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="六"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm_10"
-        android:orientation="horizontal"
-        android:padding="@dimen/dm_10">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="无早" android:textSize="@dimen/t14"/>
-        <EditText
-            android:id="@+id/et_wz"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:background="@color/transparent"
-            android:hint="请输入价格"
-            android:inputType="number"
-            android:padding="@dimen/dm_5"
-            android:textSize="@dimen/t14"
-            />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dm_1"
-        android:background="#E3E3E3"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm_10"
-        android:orientation="horizontal"
-        android:padding="@dimen/dm_10">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="单早" android:textSize="@dimen/t14"/>
-        <EditText
-            android:id="@+id/et_dz"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:background="@color/transparent"
-            android:hint="请输入价格"
-            android:inputType="number"
-            android:padding="@dimen/dm_5"
-            android:textSize="@dimen/t14"
-            />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dm_1"
-        android:background="#E3E3E3"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm_10"
-        android:orientation="horizontal"
-        android:padding="@dimen/dm_10">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="双早"
-            android:textSize="@dimen/t14"/>
-        <EditText
-            android:id="@+id/et_sz"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:background="@color/transparent"
-            android:hint="请输入价格"
-            android:inputType="number"
-            android:padding="@dimen/dm_5"
-            android:textSize="@dimen/t14"
-            />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dm_1"
-        android:background="#E3E3E3"/>
     <Button
+        android:layout_alignParentBottom="true"
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dm_20"
-        android:background="@color/blueB"
+        android:background="@color/green"
         android:text="保存"
         android:textColor="@color/white"
         android:textSize="@dimen/t18"/>
-</LinearLayout>
+</RelativeLayout>

@@ -189,6 +189,7 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
 
             Map<String, String> valuePairs = new HashMap<>();
             valuePairs.put("mobile", phone);
+            valuePairs.put("role", "2");
             DataRequest.instance().request(RegisterActivity.this, Urls.getVerifycodeUrl(), this, HttpRequest.POST, GET_CODE, valuePairs,
                     new ResultHandler());
         }

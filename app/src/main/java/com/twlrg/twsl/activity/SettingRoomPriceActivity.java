@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,7 +18,6 @@ import com.twlrg.twsl.http.DataRequest;
 import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
 import com.twlrg.twsl.json.ResultHandler;
-import com.twlrg.twsl.json.RoomMonthListHandler;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
@@ -34,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * 作者：王先云 on 2018/5/28 14:58
@@ -78,6 +77,8 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
     EditText        etSz;
     @BindView(R.id.btn_save)
     Button          btnSave;
+    @BindView(R.id.ll_date)
+    LinearLayout    llDate;
     private String s_date, e_date, id, room_id;
     private              List<TextView> mWeekViewList = new ArrayList<>();
     private static final int            GET_DATE_CODE = 0x99;
@@ -136,6 +137,7 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
         ivBack.setOnClickListener(this);
         tvDate.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        llDate.setOnClickListener(this);
     }
 
     @Override
@@ -149,7 +151,7 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
         {
             s_date = StringUtils.getCurrentTime();
             e_date = StringUtils.getNextMonth();
-            tvDate.setVisibility(View.VISIBLE);
+            tvDate.setVisibility(View.GONE);
         }
         else
         {
@@ -198,7 +200,7 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
         {
             finish();
         }
-        else if (v == tvDate)
+        else if (v == tvDate||v == llDate)
         {
             startActivityForResult(new Intent(SettingRoomPriceActivity.this, HotelTimeActivity.class), GET_DATE_CODE);
         }
@@ -346,5 +348,13 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
                 mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
             }
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

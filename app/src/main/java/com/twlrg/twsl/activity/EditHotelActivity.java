@@ -1,10 +1,13 @@
 package com.twlrg.twsl.activity;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -224,7 +227,25 @@ public class EditHotelActivity extends BaseActivity implements IRequestListener
     protected void initViews(Bundle savedInstanceState)
     {
         setContentView(R.layout.activity_edit_hotel);
-        setTranslucentStatus();
+        // setTranslucentStatus();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {//5.0及以上
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            //根据上面设置是否对状态栏单独设置颜色
+
+            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.black));
+
+        }
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {//4.4到5.0
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }
+
     }
 
     @Override
@@ -240,7 +261,7 @@ public class EditHotelActivity extends BaseActivity implements IRequestListener
     protected void initViewData()
     {
         setStatusBarTextDeep(false);
-        topView.setVisibility(View.VISIBLE);
+        topView.setVisibility(View.GONE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvTitle.setText("酒店基本信息");
         showProgressDialog();
@@ -301,6 +322,7 @@ public class EditHotelActivity extends BaseActivity implements IRequestListener
             valuePairs.put("fax", etFax.getText().toString());
             valuePairs.put("brand", etBrand.getText().toString());
             valuePairs.put("rooms", rooms);
+            valuePairs.put("star", mHotelInfo.getStar()+"");
             valuePairs.put("opening_time", etOpeningTime.getText().toString());
             valuePairs.put("decoration_time", etDecorationTime.getText().toString());
             valuePairs.put("summary", summary);
@@ -347,17 +369,17 @@ public class EditHotelActivity extends BaseActivity implements IRequestListener
         }
         else if (v == llStart)
         {
-//            final String[] starArr = getResources().getStringArray(R.array.hotel_star);
-//            DialogUtils.showCategoryDialog(this, Arrays.asList(starArr), new MyItemClickListener()
-//            {
-//                @Override
-//                public void onItemClick(View view, int position)
-//                {
-//                    mHotelInfo.setStar(position + 2);
-//                    tvStart.setText(starArr[position]);
-//
-//                }
-//            });
+            final String[] starArr = getResources().getStringArray(R.array.hotel_star);
+            DialogUtils.showCategoryDialog(this, Arrays.asList(starArr), new MyItemClickListener()
+            {
+                @Override
+                public void onItemClick(View view, int position)
+                {
+                    mHotelInfo.setStar(position + 2);
+                    tvStart.setText(starArr[position]);
+
+                }
+            });
         }
     }
 
