@@ -59,7 +59,7 @@ public class HotelImgHolder extends RecyclerView.ViewHolder
 
         RelativeLayout.LayoutParams rp = new RelativeLayout.LayoutParams(width, height);
         rp.addRule(RelativeLayout.CENTER_IN_PARENT);
-        rp.setMargins(20, 10, 20, 10);
+        rp.setMargins(12, 12, 22, 12);
         mPivIv.setLayoutParams(rp);
         mPicTv.setLayoutParams(rp);
 
