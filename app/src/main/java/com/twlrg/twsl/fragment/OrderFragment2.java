@@ -78,6 +78,11 @@ public class OrderFragment2 extends BaseFragment implements PullToRefreshBase.On
             {
                 case REQUEST_SUCCESS:
                     OrderListHandler mOrderListHandler = (OrderListHandler) msg.obj;
+
+                    if(pn==1)
+                    {
+                        orderInfoList.clear();
+                    }
                     orderInfoList.addAll(mOrderListHandler.getOrderInfoList());
                     mOrderAdapter.notifyDataSetChanged();
                     if (orderInfoList.isEmpty())

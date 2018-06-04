@@ -28,6 +28,7 @@ import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
 import com.twlrg.twsl.utils.DialogUtils;
 import com.twlrg.twsl.utils.LogUtil;
+import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
 import com.twlrg.twsl.widget.AutoFitTextView;
@@ -402,6 +403,13 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
                             sb.append(":");
                             sb.append(mOrderInfoList.get(i).getPrice());
                             sb.append(",");
+
+
+                            if (StringUtils.stringIsEmpty(mOrderInfoList.get(i).getPrice()))
+                            {
+                                ToastUtil.show(OrderDetailActivity.this, "暂无价格，无法修改");
+                                return;
+                            }
                         }
 
                         LogUtil.e("TAG", "id_price--->" + sb.toString());

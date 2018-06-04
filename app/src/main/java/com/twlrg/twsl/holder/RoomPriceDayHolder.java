@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.twlrg.twsl.R;
 import com.twlrg.twsl.entity.RoomDayInfo;
 import com.twlrg.twsl.listener.MyItemClickListener;
+import com.twlrg.twsl.utils.StringUtils;
 
 
 /**
@@ -42,7 +43,6 @@ public class RoomPriceDayHolder extends RecyclerView.ViewHolder
 
         if (mRoomDayInfo.getDay() == 0)
         {
-            mDayTv.setEnabled(false);
             mItemLayout.setEnabled(false);
             mDayTv.setText("");
             mWzPriceTv.setText("");
@@ -55,19 +55,15 @@ public class RoomPriceDayHolder extends RecyclerView.ViewHolder
             mWzPriceTv.setText("无  " + mRoomDayInfo.getWz_price());
             mDzPriceTv.setText("单  " + mRoomDayInfo.getDz_price());
             mSzPriceTv.setText("双  " + mRoomDayInfo.getSz_price());
-//            if (mRoomDayInfo.getStatus() == 1)
-//            {
-//                mDayTv.setSelected(false);
-//                mItemLayout.setSelected(false);
-//            }
-//            else
-//            {
-//                mDayTv.setSelected(false);
-//                mItemLayout.setSelected(false);
-//
-//            }
-            mDayTv.setSelected(false);
-            mItemLayout.setSelected(false);
+            if (StringUtils.compareDate( mRoomDayInfo.getDate(),StringUtils.getCurrentTime()) == -1)
+            {
+                mItemLayout.setEnabled(false);
+            }
+            else
+            {
+                mItemLayout.setEnabled(true);
+            }
+
             mItemLayout.setOnClickListener(new View.OnClickListener()
             {
                 @Override

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <include layout="@layout/layout_head"/>
     <ScrollView
-        android:layout_above="@id/btn_submit"
-        android:layout_below="@+id/ll_head"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_submit"
+        android:layout_below="@+id/ll_head">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,16 +17,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+                android:background="@color/grayC"
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
                 <TextView
-                    android:textColor="@color/blackC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="酒店名称"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <com.twlrg.twsl.widget.AutoFitTextView
@@ -35,8 +35,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:textColor="@color/blackC"
-                    android:background="@color/windowBackground"
-                    android:hint="请输入"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -48,26 +46,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+                android:background="@color/grayC"
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
                 <TextView
-                    android:textColor="@color/blackC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="所在省份"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <TextView
-                    android:textColor="@color/blackC"
                     android:id="@+id/tv_province"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
-                    android:background="@color/windowBackground"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -78,7 +75,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+                android:background="@color/grayC"
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
@@ -96,8 +93,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:textColor="@color/blackC"
-                    android:background="@color/windowBackground"
-                    android:hint="请输入"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -111,7 +106,7 @@
                 android:id="@+id/ll_region"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
@@ -128,9 +123,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="6.5"
-                    android:textColor="@color/blackC"
                     android:background="@color/windowBackground"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <ImageView
@@ -163,9 +158,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
-                    android:textColor="@color/blackC"
                     android:background="@color/transparent"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -178,16 +173,15 @@
                 android:id="@+id/ll_start"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
                 <TextView
-                    android:textColor="@color/blackC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="酒店星级"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <TextView
@@ -195,16 +189,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="6.5"
-                    android:textColor="@color/blackC"
                     android:background="@color/transparent"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_arrow_down_64"/>
+                    android:src="@drawable/ic_arrow_down_64"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
             <View
@@ -214,16 +209,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
                 <TextView
-                    android:textColor="@color/blackC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="电话"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
@@ -231,9 +226,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
-                    android:textColor="@color/blackC"
                     android:background="@color/transparent"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -245,7 +240,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
@@ -262,9 +257,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
-                    android:textColor="@color/blackC"
                     android:background="@color/transparent"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -275,7 +270,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
@@ -283,18 +278,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
-                    android:textColor="@color/blackC"
                     android:text="品牌"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
                     android:id="@+id/et_brand"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blackC"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -306,7 +301,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
@@ -323,12 +318,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
-                    android:textColor="@color/blackC"
                     android:background="@color/transparent"
                     android:digits="0123456789"
                     android:hint="请输入"
                     android:inputType="number"
                     android:maxLength="6"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -340,16 +335,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blackC"
                     android:layout_weight="2.5"
                     android:text="开业时间"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
@@ -358,8 +353,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
-                    android:textColor="@color/blackC"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -370,7 +365,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
@@ -386,10 +381,10 @@
                     android:id="@+id/et_decoration_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blackC"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -401,7 +396,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
@@ -409,18 +404,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
-                    android:textColor="@color/blackC"
                     android:text="酒店简介"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
-                    android:textColor="@color/blackC"
                     android:id="@+id/et_summary"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -432,16 +427,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
                 <TextView
-                    android:textColor="@color/blackC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="点评标签"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
@@ -449,9 +444,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
-                    android:textColor="@color/blackC"
                     android:background="@color/transparent"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -464,16 +459,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:textColor="@color/blackC"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="服务标签"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
@@ -481,9 +476,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
-                    android:textColor="@color/blackC"
                     android:background="@color/transparent"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -494,16 +489,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
+
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_15">
 
                 <TextView
-                    android:textColor="@color/blackC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="位置标签"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
@@ -512,8 +507,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
-                    android:textColor="@color/blackC"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -525,16 +520,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
                 android:orientation="horizontal"
-                android:padding="@dimen/dm_15">
+                android:padding="@dimen/dm_15"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:textColor="@color/blackC"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="附近餐饮"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
@@ -542,9 +537,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
-                    android:textColor="@color/blackC"
                     android:background="@color/transparent"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
@@ -556,16 +551,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
                 android:orientation="horizontal"
-                android:padding="@dimen/dm_15">
+                android:padding="@dimen/dm_15"
+                android:visibility="gone">
 
                 <TextView
-                    android:textColor="@color/blackC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="附近购物"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
@@ -574,29 +569,30 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
-                    android:textColor="@color/blackC"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm_1"
-                android:background="@color/line"/>
+                android:background="@color/line"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
                 android:orientation="horizontal"
-                android:padding="@dimen/dm_15">
+                android:padding="@dimen/dm_15"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:textColor="@color/blackC"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text="附近娱乐"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
@@ -605,22 +601,23 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
-                    android:textColor="@color/blackC"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm_1"
-                android:background="@color/line"/>
+                android:background="@color/line"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
                 android:orientation="horizontal"
-                android:padding="@dimen/dm_15">
+                android:padding="@dimen/dm_15"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -636,29 +633,30 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
-                    android:textColor="@color/blackC"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm_1"
-                android:background="@color/line"/>
+                android:background="@color/line"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            
                 android:orientation="horizontal"
-                android:padding="@dimen/dm_15">
+                android:padding="@dimen/dm_15"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
-                    android:textColor="@color/blackC"
                     android:text="附近景点"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
                 <EditText
@@ -667,15 +665,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
-                    android:textColor="@color/blackC"
                     android:hint="请输入"
+                    android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dm_1"
-                android:background="@color/line"/>
+                android:background="@color/line"
+                android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
 

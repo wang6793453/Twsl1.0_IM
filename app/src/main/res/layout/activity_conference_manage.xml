@@ -17,7 +17,7 @@
         android:padding="@dimen/dm_10"
         android:text="添加会议室"
         android:textColor="@color/white"
-        android:textSize="@dimen/t20"/>
+        android:textSize="@dimen/t18"/>
 
     <com.twlrg.twsl.widget.list.refresh.PullToRefreshRecyclerView
         android:id="@+id/pullToRefreshRecyclerView"

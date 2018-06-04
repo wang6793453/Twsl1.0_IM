@@ -38,6 +38,7 @@ import com.twlrg.twsl.json.UserInfoHandler;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
+import com.twlrg.twsl.utils.DialogUtils;
 import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
@@ -377,9 +378,18 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
         }
         else if (v == btnLogout)
         {
-            APPUtils.logout(MyCenterActivity.this);
-            TencentCloud.logout();
-            LoginActivity.start(MyCenterActivity.this, true);
+
+            DialogUtils.showToastDialog2Button(MyCenterActivity.this, "是否退出当前账号", new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    APPUtils.logout(MyCenterActivity.this);
+                    TencentCloud.logout();
+                    LoginActivity.start(MyCenterActivity.this, true);
+                }
+            });
+
 
         }
         else if (v == tvModifyPwd)

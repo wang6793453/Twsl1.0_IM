@@ -207,7 +207,7 @@ public class StringUtils
     public static int compareDate(String DATE1, String DATE2)
     {
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try
         {
             Date dt1 = df.parse(DATE1);
@@ -921,6 +921,7 @@ public class StringUtils
         String preMonth = dft.format(cal.getTime());
         return preMonth;
     }
+
     /**
      * 通过时间秒毫秒数判断两个时间的间隔
      *

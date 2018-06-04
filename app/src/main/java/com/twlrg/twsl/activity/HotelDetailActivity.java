@@ -464,7 +464,7 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
         //查看设施
         else if (v == rlFacilities)
         {
-            startActivity(new Intent(HotelDetailActivity.this, FacilitiesActivity.class).putExtra("MERCHANT_ID", id));
+            startActivity(new Intent(HotelDetailActivity.this, HotelFacilitiesActivity.class).putExtra("MERCHANT_ID", id));
         }
         //跳转聊天
         else if (v == llChat)

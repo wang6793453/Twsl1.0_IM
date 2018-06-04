@@ -212,18 +212,21 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
 
             if (StringUtils.stringIsEmpty(wz))
             {
-                ToastUtil.show(this, "请输入无早的价格");
-                return;
+                wz = "0";
+                //                ToastUtil.show(this, "请输入无早的价格");
+                //                return;
             }
             if (StringUtils.stringIsEmpty(dz))
             {
-                ToastUtil.show(this, "请输入单早的价格");
-                return;
+                dz = "0";
+                //                ToastUtil.show(this, "请输入单早的价格");
+                //                return;
             }
             if (StringUtils.stringIsEmpty(sz))
             {
-                ToastUtil.show(this, "请输入双早的价格");
-                return;
+                sz = "0";
+                //                ToastUtil.show(this, "请输入双早的价格");
+                //                return;
             }
 
             //单修改

@@ -83,6 +83,11 @@ public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnR
             {
                 case REQUEST_SUCCESS:
                     OrderListHandler mOrderListHandler = (OrderListHandler) msg.obj;
+
+                    if (pn == 1)
+                    {
+                        orderInfoList.clear();
+                    }
                     orderInfoList.addAll(mOrderListHandler.getOrderInfoList());
                     mOrderAdapter.notifyDataSetChanged();
                     if (orderInfoList.isEmpty())
@@ -167,7 +172,6 @@ public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnR
     }
 
 
-
     @Override
     protected void initData()
     {
@@ -247,6 +251,7 @@ public class OrderFragment extends BaseFragment implements PullToRefreshBase.OnR
         mRefreshStatus = 0;
         getOrderList();
     }
+
     @Override
     public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView)
     {

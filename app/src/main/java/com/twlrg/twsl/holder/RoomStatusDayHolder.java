@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.twlrg.twsl.R;
 import com.twlrg.twsl.entity.RoomDayInfo;
 import com.twlrg.twsl.listener.MyItemClickListener;
+import com.twlrg.twsl.utils.StringUtils;
 
 
 /**
@@ -33,19 +34,28 @@ public class RoomStatusDayHolder extends RecyclerView.ViewHolder
         if (mRoomDayInfo.getDay() == 0)
         {
             mDayTv.setEnabled(false);
-            mDayTv.setText( "");
+            mDayTv.setText("");
         }
         else
         {
             mDayTv.setText(mRoomDayInfo.getDay() + "");
-            if (mRoomDayInfo.getStatus() == 1)
+
+
+            if (StringUtils.compareDate( mRoomDayInfo.getDate(),StringUtils.getCurrentTime()) == -1)
             {
-                mDayTv.setSelected(false);
+                mDayTv.setEnabled(false);
             }
             else
             {
-                mDayTv.setSelected(true);
+                if (mRoomDayInfo.getStatus() == 1)
+                {
+                    mDayTv.setSelected(false);
+                }
+                else
+                {
+                    mDayTv.setSelected(true);
 
+                }
             }
 
             mDayTv.setOnClickListener(new View.OnClickListener()

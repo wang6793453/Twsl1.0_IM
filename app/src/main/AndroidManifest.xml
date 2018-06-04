@@ -326,6 +326,14 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
 
+        <activity
+            android:name="com.twlrg.twsl.activity.HotelFacilitiesActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+
+
+
 
         <activity
             android:name="com.twlrg.twsl.wxapi.WXPayEntryActivity"
