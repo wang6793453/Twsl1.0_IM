@@ -65,12 +65,13 @@ public class OrderInfo implements Serializable
     private String sale_mobile;
     private  boolean priceModify;
 
-
+    private String  merchant_name;
     private String  show_mobile;
-
+    private String  bill;
     public OrderInfo(){}
     public OrderInfo(JSONObject obj)
     {
+        this.bill = obj.optString("bill");
         this.status = obj.optString("status");
         this.price_type = obj.optString("price_type");
         this.salesperson = obj.optString("salesperson");
@@ -125,7 +126,18 @@ public class OrderInfo implements Serializable
         this.buyer_email = obj.optString("buyer_email");
         this.notify_time = obj.optString("notify_time");
         this.cancel_policy = obj.optString("cancel_policy");
+        this.merchant_name=obj.optString("merchant_name");
 
+    }
+
+    public String getMerchant_name()
+    {
+        return merchant_name;
+    }
+
+    public void setMerchant_name(String merchant_name)
+    {
+        this.merchant_name = merchant_name;
     }
 
     public String getShow_mobile()
@@ -656,5 +668,15 @@ public class OrderInfo implements Serializable
     public void setPriceModify(boolean priceModify)
     {
         this.priceModify = priceModify;
+    }
+
+    public String getBill()
+    {
+        return bill;
+    }
+
+    public void setBill(String bill)
+    {
+        this.bill = bill;
     }
 }

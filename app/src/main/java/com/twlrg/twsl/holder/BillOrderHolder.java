@@ -20,6 +20,7 @@ public class BillOrderHolder extends RecyclerView.ViewHolder
     private TextView            mTotalPriceTv;
     private TextView            mNameTv;
     private TextView            mTimeTv;
+    private TextView            mBillTv;
     private TextView            mRoomTitleTv;
     private MyItemClickListener listener;
 
@@ -29,6 +30,7 @@ public class BillOrderHolder extends RecyclerView.ViewHolder
         mTotalPriceTv = (TextView) rootView.findViewById(R.id.tv_total_price);
         mNameTv = (TextView) rootView.findViewById(R.id.tv_name);
         mTimeTv = (TextView) rootView.findViewById(R.id.tv_time);
+        mBillTv= (TextView) rootView.findViewById(R.id.tv_bill);
         mRoomTitleTv = (TextView) rootView.findViewById(R.id.tv_room_title);
         mItemLayout = (RelativeLayout) rootView.findViewById(R.id.ll_item);
         this.listener = listener;
@@ -51,7 +53,7 @@ public class BillOrderHolder extends RecyclerView.ViewHolder
         {
             zc = "双早";
         }
-
+        mBillTv.setText("1".equals(mOrderInfo.getBill())?"已结算":"未结算");
         mRoomTitleTv.setText(mOrderInfo.getTitle() + "[" + zc + "]");
         mTotalPriceTv.setText("¥ " + mOrderInfo.getTotal_fee());
         mTimeTv.setText(mOrderInfo.getCheck_in() +"  至  "+mOrderInfo.getCheck_out());

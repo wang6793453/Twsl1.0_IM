@@ -64,10 +64,10 @@ public class OrderPriceHolder extends RecyclerView.ViewHolder
                 if (s.length() == 0)
                 {
 
-                    if (!"0".equals(mOrderInfo.getPrice()))
-                    {
-                        listener.onSubmit(mOrderInfo.getId(), "0");
-                    }
+//                    if (!"0".equals(mOrderInfo.getPrice()))
+//                    {
+                        listener.onSubmit(mOrderInfo.getId(), "");
+//                    }
                 }
                 else
                 {

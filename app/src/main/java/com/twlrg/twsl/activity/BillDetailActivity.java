@@ -36,6 +36,11 @@ public class BillDetailActivity extends BaseActivity
     TextView        tvOrderCode;
     @BindView(R.id.tv_check_in)
     TextView        tvCheckIn;
+    @BindView(R.id.tv_check_out)
+    TextView        tvCheckOut;
+
+
+
     @BindView(R.id.tv_days)
     TextView        tvDays;
     @BindView(R.id.tv_name)
@@ -46,6 +51,8 @@ public class BillDetailActivity extends BaseActivity
     TextView        tvServicePrice;
     @BindView(R.id.tv_total_price)
     TextView        tvTotalPrice;
+
+
 
     private OrderInfo mOrderInfo;
 
@@ -78,10 +85,11 @@ public class BillDetailActivity extends BaseActivity
 
         if (null != mOrderInfo)
         {
-            tvHotelName.setText("");
+            tvHotelName.setText(mOrderInfo.getMerchant_name());
             tvRoomTitle.setText(mOrderInfo.getTitle());
             tvOrderCode.setText(mOrderInfo.getOrdcode());
             tvCheckIn.setText(mOrderInfo.getCheck_in());
+            tvCheckOut.setText(mOrderInfo.getCheck_out());
             tvDays.setText(mOrderInfo.getBuynum() + "间   " + mOrderInfo.getDays() + "晚");
             tvName.setText(mOrderInfo.getName());
             tvRoomPrice.setText("¥ " + mOrderInfo.getTotal_fee());

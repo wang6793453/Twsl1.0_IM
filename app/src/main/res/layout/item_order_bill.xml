@@ -13,25 +13,47 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_room_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="标准大床房  [双早]"
-            android:textColor="@color/black"
-            android:textSize="@dimen/t16"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_room_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="标准大床房  [双早]"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t16"
+                />
+
+            <TextView
+                android:id="@+id/tv_total_price"
+                android:layout_width="80dp"
+                android:layout_marginLeft="@dimen/dm_10"
+                android:layout_toLeftOf="@+id/tv_bill"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t14"/>
+
+            <TextView
+                android:id="@+id/tv_bill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/t14"/>
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dm_5"
+            android:layout_marginTop="@dimen/dm_8"
             android:text="2018-03-03 至 2018-03-03"
             android:textColor="@color/black"
             android:textSize="@dimen/t14"/>
@@ -39,19 +61,11 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dm_5"
+            android:layout_marginTop="@dimen/dm_8"
             android:text="入住人XXXXX"
             android:textColor="@color/black"
             android:textSize="@dimen/t14"/>
 
-        <TextView
-            android:id="@+id/tv_total_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dm_5"
-            android:text="总价：888888888888"
-            android:textColor="@color/black"
-            android:textSize="@dimen/t14"/>
     </LinearLayout>
 
 

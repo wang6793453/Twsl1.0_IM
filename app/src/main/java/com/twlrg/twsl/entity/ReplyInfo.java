@@ -1,5 +1,7 @@
 package com.twlrg.twsl.entity;
 
+import com.twlrg.twsl.utils.StringUtils;
+
 import org.json.JSONObject;
 
 /**
@@ -25,6 +27,10 @@ public class ReplyInfo
         this.nickname = obj.optString("nickname");
         this.portrait = obj.optString("portrait");
         this.create_time = obj.optString("create_time");
+        if(!StringUtils.stringIsEmpty(create_time))
+        {
+            this.create_time = create_time.replace("00:00:00","");
+        }
     }
 
     public String getId()

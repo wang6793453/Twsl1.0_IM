@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,7 +7,11 @@
     android:orientation="vertical"
     >
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
 
+    android:layout_height="wrap_content">
     <View
         android:id="@+id/topView"
         android:layout_width="match_parent"
@@ -316,15 +320,15 @@
             android:textColor="@color/blackA"
             android:textSize="@dimen/t14"/>
     </LinearLayout>
+</LinearLayout>
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dm_25"
-        android:layout_marginRight="@dimen/dm_25"
-        android:layout_marginTop="@dimen/dm_10"
+        android:layout_margin="@dimen/dm_25"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/common_light_blue_bg"
         android:text="退出登录"
         android:textColor="@color/white"
         android:textSize="@dimen/t18"/>
-</LinearLayout>
+</RelativeLayout>

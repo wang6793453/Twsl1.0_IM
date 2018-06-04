@@ -379,7 +379,7 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
         else if (v == btnLogout)
         {
 
-            DialogUtils.showToastDialog2Button(MyCenterActivity.this, "是否退出当前账号", new View.OnClickListener()
+            DialogUtils.showToastDialog2Button(MyCenterActivity.this, "是否确认退出登录", new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)

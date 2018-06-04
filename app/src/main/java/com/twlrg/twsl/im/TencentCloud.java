@@ -194,21 +194,30 @@ public class TencentCloud {
     }
 
     public static void logout() {
-        TlsBusiness.logout(TLSService.getInstance().getLastUserIdentifier());
 
-        TIMManager.getInstance().logout(new TIMCallBack() {
-            @Override
-            public void onError(int i, String s) {
-                LogUtil.d(TAG, "onError:" + s);
+        try
+        {
+            TlsBusiness.logout(TLSService.getInstance().getLastUserIdentifier());
 
-            }
+            TIMManager.getInstance().logout(new TIMCallBack() {
+                @Override
+                public void onError(int i, String s) {
+                    LogUtil.d(TAG, "onError:" + s);
 
-            @Override
-            public void onSuccess() {
-                LogUtil.d(TAG, "onSuccess:");
-                EventBus.getDefault().post(new LoginEvent(LoginEvent.STATUS_LOGIN));
-            }
-        });
+                }
+
+                @Override
+                public void onSuccess() {
+                    LogUtil.d(TAG, "onSuccess:");
+                    EventBus.getDefault().post(new LoginEvent(LoginEvent.STATUS_LOGIN));
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     public static String toString(TLSErrInfo errInfo) {

@@ -87,7 +87,7 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
                     orderInfoList.addAll(mOrderListHandler.getOrderInfoList());
                     mBillOrderAdapter.notifyDataSetChanged();
 
-                    tvTotalOrder.setText("订单数：" + mOrderListHandler.getCount());
+                    tvTotalOrder.setText(mOrderListHandler.getCount());
 
                     if (orderInfoList.isEmpty())
                     {
@@ -139,7 +139,7 @@ public class BillOrderListActivity extends BaseActivity implements PullToRefresh
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvTitle.setText("账单详情");
-        tvTotalBill.setText("账单总额：¥ " + getIntent().getStringExtra("total"));
+        tvTotalBill.setText( "¥"+getIntent().getStringExtra("total"));
 
         mPullToRefreshRecyclerView.setPullLoadEnabled(true);
         mRecyclerView = mPullToRefreshRecyclerView.getRefreshableView();

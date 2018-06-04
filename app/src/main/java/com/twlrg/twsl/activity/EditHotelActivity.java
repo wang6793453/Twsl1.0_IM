@@ -347,17 +347,17 @@ public class EditHotelActivity extends BaseActivity implements IRequestListener
         }
         else if (v == llStart)
         {
-            final String[] starArr = getResources().getStringArray(R.array.hotel_star);
-            DialogUtils.showCategoryDialog(this, Arrays.asList(starArr), new MyItemClickListener()
-            {
-                @Override
-                public void onItemClick(View view, int position)
-                {
-                    mHotelInfo.setStar(position + 2);
-                    tvStart.setText(starArr[position]);
-
-                }
-            });
+//            final String[] starArr = getResources().getStringArray(R.array.hotel_star);
+//            DialogUtils.showCategoryDialog(this, Arrays.asList(starArr), new MyItemClickListener()
+//            {
+//                @Override
+//                public void onItemClick(View view, int position)
+//                {
+//                    mHotelInfo.setStar(position + 2);
+//                    tvStart.setText(starArr[position]);
+//
+//                }
+//            });
         }
     }
 
