@@ -82,6 +82,9 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
 
                 case UPLOAD_PIC_SUCCESS:
                     ToastUtil.show(AuthenticationActivity.this, "上传成功");
+                    startActivity(new Intent(AuthenticationActivity.this, BindHotelActivity.class).putExtra("uid", uid));
+
+
                     break;
             }
         }

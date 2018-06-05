@@ -463,6 +463,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                         .putExtra("CITY_VALUE", mCityValue)
                         .putExtra("S_DATE", mStartDate)
                         .putExtra("E_DATE", mEndDate)
+                        .putExtra("PRICE", price)
                         .putExtra("LNG", String.valueOf(lng))
                         .putExtra("LAT", String.valueOf(lat))
 

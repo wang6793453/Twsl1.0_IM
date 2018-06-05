@@ -67,6 +67,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
     public static final  int REQUEST_FAIL          = 0x02;
     public static final  int LOGIN_IM              = 0X03;
     public static final  int ACTIVITY_FINISH       = 0X04;
+    private static final int REQUEST_LOGIN_FAIL    = 0x05;
 
     private static final String USER_LOGIN = "user_login";
 
@@ -91,6 +92,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
 
 
                 case REQUEST_FAIL:
+
                     ToastUtil.show(LoginActivity.this, msg.obj.toString());
                     break;
 
@@ -125,6 +127,13 @@ public class LoginActivity extends BaseActivity implements IRequestListener
 
                 case ACTIVITY_FINISH:
                     finish();
+                    break;
+
+                case REQUEST_LOGIN_FAIL:
+                    LoginHandler mLoginHandler = (LoginHandler) msg.obj;
+                    ToastUtil.show(LoginActivity.this, "未绑定酒店");
+                    String uid = mLoginHandler.getUid();
+                    startActivity(new Intent(LoginActivity.this, AuthenticationActivity.class).putExtra("uid", uid));
                     break;
 
             }
@@ -250,7 +259,15 @@ public class LoginActivity extends BaseActivity implements IRequestListener
             }
             else
             {
-                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+                if ("10105".equals(resultCode))
+                {
+                    mHandler.sendMessage(mHandler.obtainMessage(REQUEST_LOGIN_FAIL, obj));
+                }
+                else
+                {
+                    mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+                }
+
             }
         }
     }

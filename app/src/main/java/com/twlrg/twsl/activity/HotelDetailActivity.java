@@ -152,6 +152,7 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
     private String lng;
     private String lat;
     private String title;
+    private String price;
     private boolean summary_is_open;
     private static final int GET_DATE_CODE = 0x99;
 
@@ -281,6 +282,7 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
         lng = mIntent.getStringExtra("LNG");
         lat = mIntent.getStringExtra("LAT");
         title = mIntent.getStringExtra("TITLE");
+        price= mIntent.getStringExtra("PRICE");
     }
 
     @Override
@@ -411,6 +413,7 @@ public class HotelDetailActivity extends BaseActivity implements IRequestListene
         valuePairs.put("city_value", city_value);
         valuePairs.put("s_date", s_date);
         valuePairs.put("e_date", e_date);
+        valuePairs.put("price", price);
         DataRequest.instance().request(HotelDetailActivity.this, Urls.getHotelDetailUrl(), this, HttpRequest.POST, GET_HOTEL_DETAIL, valuePairs,
                 new HotelDetailHandler());
     }

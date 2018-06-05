@@ -74,8 +74,8 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
     private static final int    GET_CODE_SUCCESS         = 0x03;
     private static final String USER_REGISTER            = "user_register";
     private static final String GET_CODE                 = "GET_CODE";
-
-
+    private static final int    TTS_REGISTER             = 0x04;
+    private String uid;
     @SuppressLint("HandlerLeak")
     private BaseHandler mHandler = new BaseHandler(this)
     {
@@ -88,20 +88,26 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
 
 
                 case REQUEST_REGISTER_SUCCESS:
-                    ToastUtil.show(RegisterActivity.this, "注册成功!");
                     RegisterHandler mRegisterHandler = (RegisterHandler) msg.obj;
+                    uid = mRegisterHandler.getUid();
 
-                    final String uid = mRegisterHandler.getUid();
+                    mHandler.sendEmptyMessageDelayed(TTS_REGISTER, 500);
+                    break;
+
+                case TTS_REGISTER:
 
                     if (!StringUtils.stringIsEmpty(uid))
                     {
+
                         TLSHelper instance = TLSHelper.getInstance();
                         instance.TLSStrAccReg("slbl_server_" + uid, "slbl123456", new TLSStrAccRegListener()
                         {
                             @Override
                             public void OnStrAccRegSuccess(TLSUserInfo tlsUserInfo)
                             {
-                                startActivity(new Intent(RegisterActivity.this, AuthenticationActivity.class).putExtra("uid",uid));
+                                hideProgressDialog();
+                                ToastUtil.show(RegisterActivity.this, "注册成功!");
+                                startActivity(new Intent(RegisterActivity.this, AuthenticationActivity.class).putExtra("uid", uid));
                                 finish();
                                 //LogUtil.d(TAG, "OnStrAccRegSuccess:" + tlsUserInfo.identifier + "");
                             }
@@ -109,26 +115,23 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
                             @Override
                             public void OnStrAccRegFail(TLSErrInfo tlsErrInfo)
                             {
-                                startActivity(new Intent(RegisterActivity.this, AuthenticationActivity.class).putExtra("uid",uid));
-                                finish();
                                 //LogUtil.d(TAG, "OnStrAccRegFail:" + tlsErrInfo.Msg + " " + tlsErrInfo.ExtraMsg);
+                                mHandler.sendEmptyMessageDelayed(TTS_REGISTER, 500);
 
                             }
 
                             @Override
                             public void OnStrAccRegTimeout(TLSErrInfo tlsErrInfo)
                             {
-                                startActivity(new Intent(RegisterActivity.this, AuthenticationActivity.class).putExtra("uid",uid));
-                                finish();
+                                mHandler.sendEmptyMessageDelayed(TTS_REGISTER, 500);
                                 //LogUtil.d(TAG, "OnStrAccRegTimeout:" + tlsErrInfo.Msg + " " + tlsErrInfo.ExtraMsg);
                             }
                         });
                     }
-
                     break;
 
-
                 case REQUEST_FAIL:
+                    hideProgressDialog();
                     ToastUtil.show(RegisterActivity.this, msg.obj.toString());
                     break;
 
@@ -264,6 +267,7 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
                 return;
             }
 
+            showProgressDialog();
             Map<String, String> valuePairs = new HashMap<>();
             valuePairs.put("nickname", nickname);
             valuePairs.put("position", position);

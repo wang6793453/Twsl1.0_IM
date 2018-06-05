@@ -14,7 +14,6 @@ import com.twlrg.twsl.activity.CommentListActivity;
 import com.twlrg.twsl.activity.ConferenceManageActivity;
 import com.twlrg.twsl.activity.EditHotelActivity;
 import com.twlrg.twsl.activity.FacilitiesActivity;
-import com.twlrg.twsl.activity.HotelDetailActivity;
 import com.twlrg.twsl.activity.LocationActivity;
 import com.twlrg.twsl.activity.MainActivity;
 import com.twlrg.twsl.activity.MyCenterActivity;

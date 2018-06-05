@@ -94,7 +94,7 @@ public class BindHotelActivity extends BaseActivity implements IRequestListener
                     break;
 
                 case BIND_HOTEL_SUCCESS:
-                    startActivity(new Intent(BindHotelActivity.this, LoginActivity.class));
+                    LoginActivity.start(BindHotelActivity.this, true);
                     finish();
                     break;
 
@@ -152,7 +152,7 @@ public class BindHotelActivity extends BaseActivity implements IRequestListener
                 mBindHotelAdapter.notifyDataSetChanged();
             }
         });
-
+        recyclerView.setAdapter(mBindHotelAdapter);
     }
 
 

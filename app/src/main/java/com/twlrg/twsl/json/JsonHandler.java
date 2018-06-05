@@ -44,7 +44,7 @@ public abstract class JsonHandler
                     }
                     else
                     {
-                        setResultCode(ConstantUtil.RESULT_FAIL);
+                        setResultCode(ret);
 
                     }
                     setResultMsg(jsonObject.optString("msg"));
