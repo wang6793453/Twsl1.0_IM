@@ -2,12 +2,14 @@ package com.twlrg.twsl.entity;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * 作者：王先云 on 2018/5/30 15:35
  * 邮箱：wangxianyun1@163.com
  * 描述：一句话简单描述
  */
-public class HotelImgInfo
+public class HotelImgInfo implements Serializable
 {
     private String id;// 1,
     private String type;// 1,

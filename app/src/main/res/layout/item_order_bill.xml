@@ -19,7 +19,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <TextView
                 android:id="@+id/tv_room_title"
@@ -32,20 +33,13 @@
 
             <TextView
                 android:id="@+id/tv_total_price"
-                android:layout_width="80dp"
-                android:layout_marginLeft="@dimen/dm_10"
-                android:layout_toLeftOf="@+id/tv_bill"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dm_15"
                 android:textColor="@color/black"
                 android:textSize="@dimen/t14"/>
 
-            <TextView
-                android:id="@+id/tv_bill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/orange"
-                android:textSize="@dimen/t14"/>
         </RelativeLayout>
 
 
@@ -57,14 +51,30 @@
             android:text="2018-03-03 至 2018-03-03"
             android:textColor="@color/black"
             android:textSize="@dimen/t14"/>
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dm_8"
-            android:text="入住人XXXXX"
-            android:textColor="@color/black"
-            android:textSize="@dimen/t14"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dm_8"
+                android:text="入住人XXXXX"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t14"/>
+            <TextView
+                android:id="@+id/tv_bill"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dm_15"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/t14"/>
+        </RelativeLayout>
+
 
     </LinearLayout>
 

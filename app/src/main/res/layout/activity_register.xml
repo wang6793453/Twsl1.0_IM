@@ -65,14 +65,13 @@
                 <EditText
                     android:id="@+id/et_nickname"
                     android:layout_width="0dp"
-                    android:maxLength="16"
-                    android:layout_height="wrap_content"
+                    android:layout_height="22dp"
                     android:layout_marginLeft="@dimen/dm_5"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
-                    android:hint="请输入姓名"
+                    android:maxLength="16"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/t16"/>
+                    android:textSize="@dimen/t14"/>
             </LinearLayout>
 
             <View
@@ -81,7 +80,7 @@
                 android:layout_marginLeft="@dimen/dm_110"
                 android:layout_marginRight="@dimen/dm_30"
                 android:layout_marginTop="@dimen/dm_1"
-                android:background="@color/line"/>
+                android:background="@color/grayB"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,11 +104,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dm_5"
                     android:layout_weight="7.5"
-                    android:maxLength="16"
                     android:background="@color/transparent"
-                    android:hint="请输入职务"
+                    android:maxLength="16"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/t16"/>
+                    android:textSize="@dimen/t14"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -117,7 +115,7 @@
                 android:layout_marginLeft="@dimen/dm_110"
                 android:layout_marginRight="@dimen/dm_30"
                 android:layout_marginTop="@dimen/dm_1"
-                android:background="@color/line"/>
+                android:background="@color/grayB"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -143,11 +141,10 @@
                     android:layout_marginLeft="@dimen/dm_5"
                     android:layout_weight="7.5"
                     android:background="@color/transparent"
-                    android:hint="请输入手机号"
                     android:inputType="phone"
                     android:maxLength="11"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/t16"/>
+                    android:textSize="@dimen/t14"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -155,7 +152,7 @@
                 android:layout_marginLeft="@dimen/dm_110"
                 android:layout_marginRight="@dimen/dm_30"
                 android:layout_marginTop="@dimen/dm_1"
-                android:background="@color/line"/>
+                android:background="@color/grayB"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -171,7 +168,7 @@
                     android:layout_weight="2.5"
                     android:text="验证码"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/t16"/>
+                    android:textSize="@dimen/t14"/>
 
 
                 <EditText
@@ -181,10 +178,9 @@
                     android:layout_marginLeft="@dimen/dm_5"
                     android:layout_weight="4.5"
                     android:background="@color/transparent"
-                    android:hint="请输入验证码"
                     android:inputType="number"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/t16"/>
+                    android:textSize="@dimen/t14"/>
 
                 <TextView
                     android:id="@+id/tv_get_code"
@@ -203,7 +199,7 @@
                 android:layout_marginLeft="@dimen/dm_110"
                 android:layout_marginRight="@dimen/dm_120"
                 android:layout_marginTop="@dimen/dm_1"
-                android:background="@color/line"/>
+                android:background="@color/grayB"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -241,7 +237,7 @@
                 android:layout_marginLeft="@dimen/dm_110"
                 android:layout_marginRight="@dimen/dm_30"
                 android:layout_marginTop="@dimen/dm_1"
-                android:background="@color/line"/>
+                android:background="@color/grayB"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -279,7 +275,7 @@
                 android:layout_marginLeft="@dimen/dm_110"
                 android:layout_marginRight="@dimen/dm_30"
                 android:layout_marginTop="@dimen/dm_1"
-                android:background="@color/line"/>
+                android:background="@color/grayB"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -346,17 +342,18 @@
             </LinearLayout>
             <Button
                 android:id="@+id/btn_register"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/dm_40"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/dm_15"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_marginRight="@dimen/dm_15"
                 android:layout_marginTop="@dimen/dm_30"
                 android:background="@drawable/white_frame_45dp"
-                android:paddingLeft="@dimen/dm_30"
-                android:paddingRight="@dimen/dm_30"
                 android:text="立即注册"
                 android:textColor="@color/white"
                 android:textSize="@dimen/t18"
-               />
+                />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

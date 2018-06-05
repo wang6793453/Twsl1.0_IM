@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_login"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm_20"
+        android:padding="@dimen/dm_5"
+        >
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/dm_5"
+            android:paddingLeft="@dimen/dm_8"
+            android:paddingRight="@dimen/dm_10"
+            android:paddingTop="@dimen/dm_5"
+            android:src="@drawable/ic_back"
+            />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dm_8"
+            android:text="绑定酒店"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t16"
+            />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_top"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dm_15"
+            android:text="选择城市"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t16"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_0.5"
+            android:layout_marginLeft="@dimen/dm_15"
+            android:layout_marginRight="@dimen/dm_15"
+            android:background="@color/grayB"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dm_15">
+
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dm_15"
+                android:background="@drawable/white_frame_5dp"
+                android:paddingBottom="@dimen/dm_5"
+                android:paddingLeft="@dimen/dm_15"
+                android:paddingRight="@dimen/dm_15"
+                android:paddingTop="@dimen/dm_5"
+                android:text="搜索"
+                android:textColor="@color/white"
+                android:textSize="@dimen/t14"/>
+
+
+            <EditText
+                android:id="@+id/et_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dm_15"
+                android:layout_toLeftOf="@+id/tv_search"
+                android:background="@color/transparent"
+                android:hint="酒店名称/关键字"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/t16"/>
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dm_0.5"
+            android:layout_marginLeft="@dimen/dm_15"
+            android:layout_marginRight="@dimen/dm_80"
+            android:background="@color/grayB"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_15"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_bind"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm_40"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dm_15"
+        android:layout_marginLeft="@dimen/dm_15"
+        android:layout_marginRight="@dimen/dm_15"
+        android:background="@drawable/white_frame_45dp"
+        android:text="绑定酒店"
+        android:textColor="@color/white"
+        android:textSize="@dimen/t18"
+        />
+
+</RelativeLayout>

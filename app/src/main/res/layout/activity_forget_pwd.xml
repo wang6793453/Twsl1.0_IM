@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@drawable/bg_login"
               android:orientation="vertical">
 
-
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_marginTop="@dimen/dm_20"
         android:layout_width="match_parent"
@@ -65,11 +68,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="7.5"
             android:background="@color/transparent"
-            android:hint="请输入手机号"
             android:inputType="phone"
             android:maxLength="11"
             android:textColor="@color/white"
-            android:textSize="@dimen/t16"/>
+            android:textSize="@dimen/t14"/>
     </LinearLayout>
 
     <View
@@ -78,7 +80,7 @@
         android:layout_marginLeft="@dimen/dm_110"
         android:layout_marginRight="@dimen/dm_30"
         android:layout_marginTop="@dimen/dm_1"
-        android:background="@color/line"/>
+        android:background="@color/grayB"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -105,9 +107,8 @@
             android:layout_marginLeft="@dimen/dm_5"
             android:layout_weight="4.5"
             android:background="@color/transparent"
-            android:hint="请输入验证码"
             android:textColor="@color/white"
-            android:textSize="@dimen/t16"/>
+            android:textSize="@dimen/t14"/>
 
         <TextView
             android:id="@+id/tv_get_code"
@@ -127,7 +128,7 @@
         android:layout_marginLeft="@dimen/dm_110"
         android:layout_marginRight="@dimen/dm_120"
         android:layout_marginTop="@dimen/dm_1"
-        android:background="@color/line"/>
+        android:background="@color/grayB"/>
 
 
     <LinearLayout
@@ -156,10 +157,10 @@
             android:layout_marginLeft="@dimen/dm_5"
             android:background="@color/transparent"
             android:inputType="textPassword"
-            android:hint="输入新密码(8-16个字符)"
+            android:hint="(8-16个字符)"
             android:maxLength="16"
             android:textColor="@color/white"
-            android:textSize="@dimen/t16"/>
+            android:textSize="@dimen/t14"/>
     </LinearLayout>
 
     <View
@@ -168,7 +169,7 @@
         android:layout_marginLeft="@dimen/dm_110"
         android:layout_marginRight="@dimen/dm_30"
         android:layout_marginTop="@dimen/dm_1"
-        android:background="@color/line"/>
+        android:background="@color/grayB"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -195,10 +196,10 @@
             android:background="@color/transparent"
             android:inputType="textPassword"
             android:layout_marginLeft="@dimen/dm_5"
-            android:hint="输入新密码(8-16个字符)"
+            android:hint="(8-16个字符)"
             android:maxLength="16"
             android:textColor="@color/white"
-            android:textSize="@dimen/t16"/>
+            android:textSize="@dimen/t14"/>
     </LinearLayout>
 
     <View
@@ -207,12 +208,14 @@
         android:layout_marginLeft="@dimen/dm_110"
         android:layout_marginRight="@dimen/dm_30"
         android:layout_marginTop="@dimen/dm_1"
-        android:background="@color/line"/>
+        android:background="@color/grayB"/>
 
-
+</LinearLayout>
     <Button
+        android:layout_alignParentBottom="true"
         android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/dm_15"
         android:layout_height="@dimen/dm_40"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dm_80"
@@ -225,4 +228,4 @@
         android:textStyle="bold"/>
 
 
-</LinearLayout>
+</RelativeLayout>

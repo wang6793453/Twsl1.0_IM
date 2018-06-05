@@ -34,7 +34,7 @@ public class CommentInfo
 
         if(!StringUtils.stringIsEmpty(create_time))
         {
-            this.create_time = create_time.replace("00:00:00","");
+            this.create_time =StringUtils.getFormatTime(create_time);
         }
     }
 

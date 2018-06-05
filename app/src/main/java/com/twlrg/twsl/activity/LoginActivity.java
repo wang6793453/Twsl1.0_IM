@@ -207,6 +207,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
         else if (v == tvRegister)
         {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+
         }
         else if (v == btnLogin)
         {

@@ -64,6 +64,7 @@ public class HotelInfo implements Serializable
 
     private List<HotelImgInfo>  hotelImgInfoList;
 
+    private boolean isSelected;
 
     public HotelInfo(JSONObject obj)
     {
@@ -591,5 +592,15 @@ public class HotelInfo implements Serializable
     public void setHotelImgInfoList(List<HotelImgInfo> hotelImgInfoList)
     {
         this.hotelImgInfoList = hotelImgInfoList;
+    }
+
+    public boolean isSelected()
+    {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected)
+    {
+        isSelected = selected;
     }
 }

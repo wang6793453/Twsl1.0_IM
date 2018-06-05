@@ -8,38 +8,38 @@
     android:layout_marginTop="@dimen/dm_10"
     android:background="@drawable/common_click_selector"
     android:orientation="vertical"
-    android:padding="@dimen/dm_10"
+    android:paddingBottom="@dimen/dm_15"
+    android:paddingLeft="@dimen/dm_10"
+    android:paddingRight="@dimen/dm_10"
+    android:paddingTop="@dimen/dm_15"
     >
-    <LinearLayout
-        android:layout_width="match_parent"
+
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textColor="@color/blackC"
-            android:textSize="@dimen/t14"/>
+        android:layout_centerVertical="true"
+        android:textColor="@color/blackC"
+        android:textSize="@dimen/t14"/>
 
 
-        <TextView
-            android:id="@+id/tv_total_income"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/dm_10"
-            android:textColor="@color/blackC"
-            android:textSize="@dimen/t14"/>
-    </LinearLayout>
+    <TextView
+
+        android:id="@+id/tv_total_income"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/dm_35"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/tv_time"
+        android:textColor="@color/orange"
+        android:textSize="@dimen/t14"/>
 
 
     <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_arrow_right_48"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:src="@drawable/ic_arrow_right_48"/>
 </RelativeLayout>

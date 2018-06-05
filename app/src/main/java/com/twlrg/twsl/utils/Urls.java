@@ -329,15 +329,32 @@ public class Urls
     {
         return BASE_URL + "room/room_price_edit";
     }
+
     //批量修改房价
     public static String getEditAllRoomPriceUrl()
     {
         return BASE_URL + "room/room_all_price_edit";
     }
+
     //首图设置
     public static String getSetFirstPicUrl()
     {
         return BASE_URL + "picture/hotel_img_set";
     }
 
+    //销售绑定酒店
+    public static String getBindHotelUrl()
+    {
+        return BASE_URL + "user/bind_hotel";
+    }
+
+    //上传名片
+    public static String getBusinessCardUrl()
+    {
+        return BASE_URL + "user/business_card";
+    }
+
+
+
 }
+

@@ -28,7 +28,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyHolder>
     public ReplyHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_reply, parent, false);
-        ReplyHolder mHolder = new ReplyHolder(itemView );
+        ReplyHolder mHolder = new ReplyHolder(itemView,parent.getContext() );
         return mHolder;
     }
 

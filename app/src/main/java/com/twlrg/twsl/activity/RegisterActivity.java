@@ -1,6 +1,7 @@
 package com.twlrg.twsl.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
@@ -90,7 +91,7 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
                     ToastUtil.show(RegisterActivity.this, "注册成功!");
                     RegisterHandler mRegisterHandler = (RegisterHandler) msg.obj;
 
-                    String uid = mRegisterHandler.getUid();
+                    final String uid = mRegisterHandler.getUid();
 
                     if (!StringUtils.stringIsEmpty(uid))
                     {
@@ -100,6 +101,7 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
                             @Override
                             public void OnStrAccRegSuccess(TLSUserInfo tlsUserInfo)
                             {
+                                startActivity(new Intent(RegisterActivity.this, AuthenticationActivity.class).putExtra("uid",uid));
                                 finish();
                                 //LogUtil.d(TAG, "OnStrAccRegSuccess:" + tlsUserInfo.identifier + "");
                             }
@@ -107,6 +109,7 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
                             @Override
                             public void OnStrAccRegFail(TLSErrInfo tlsErrInfo)
                             {
+                                startActivity(new Intent(RegisterActivity.this, AuthenticationActivity.class).putExtra("uid",uid));
                                 finish();
                                 //LogUtil.d(TAG, "OnStrAccRegFail:" + tlsErrInfo.Msg + " " + tlsErrInfo.ExtraMsg);
 
@@ -115,6 +118,7 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
                             @Override
                             public void OnStrAccRegTimeout(TLSErrInfo tlsErrInfo)
                             {
+                                startActivity(new Intent(RegisterActivity.this, AuthenticationActivity.class).putExtra("uid",uid));
                                 finish();
                                 //LogUtil.d(TAG, "OnStrAccRegTimeout:" + tlsErrInfo.Msg + " " + tlsErrInfo.ExtraMsg);
                             }

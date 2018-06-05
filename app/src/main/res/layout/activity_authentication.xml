@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_login"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm_20"
+        android:padding="@dimen/dm_5"
+        >
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/dm_5"
+            android:paddingLeft="@dimen/dm_8"
+            android:paddingRight="@dimen/dm_10"
+            android:paddingTop="@dimen/dm_5"
+            android:src="@drawable/ic_back"
+            />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dm_8"
+            android:text="实名认证"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t16"
+            />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_top"
+        android:layout_marginTop="@dimen/dm_50"
+        android:orientation="vertical">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dm_15"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dm_30"
+                android:text="上传名片"/>
+
+            <ImageView
+                android:id="@+id/iv_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"/>
+        </FrameLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dm_15"
+            android:layout_marginRight="@dimen/dm_15"
+            android:layout_marginTop="@dimen/dm_10"
+            android:text="请上传名片进行实名认证，本平台实行实名认证制"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t14"/>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm_40"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dm_15"
+        android:layout_marginLeft="@dimen/dm_15"
+        android:layout_marginRight="@dimen/dm_15"
+        android:background="@drawable/white_frame_45dp"
+        android:text="立即认证"
+        android:textColor="@color/white"
+        android:textSize="@dimen/t18"
+        />
+
+</RelativeLayout>

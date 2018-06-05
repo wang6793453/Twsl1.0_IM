@@ -66,7 +66,7 @@
                             android:layout_height="@dimen/dm_16"
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="@dimen/dm_10"
-                            android:isIndicator="false"
+                            android:isIndicator="true"
                             android:numStars="5"
                             android:rating="3.5"/>
 
@@ -85,6 +85,7 @@
 
 
                     <RelativeLayout
+                        android:id="@+id/rl_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dm_10"
@@ -125,6 +126,7 @@
 
                 </LinearLayout>
                 <RelativeLayout
+                    android:id="@+id/rl_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dm_10"

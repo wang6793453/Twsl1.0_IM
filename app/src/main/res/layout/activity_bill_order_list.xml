@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/grayC"
         android:padding="@dimen/dm_10">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dm_3"
-                android:text="1111111"
+                android:text="0"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/t16"/>
 
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dm_3"
-                android:text="1111111"
+                android:text="0"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/t16"/>
         </LinearLayout>

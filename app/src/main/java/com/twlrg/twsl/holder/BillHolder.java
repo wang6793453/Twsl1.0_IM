@@ -38,7 +38,7 @@ public class BillHolder extends RecyclerView.ViewHolder
     {
         mTimeTv.setText(mBillInfo.getStartDate() + "  至  " + mBillInfo.getEndDate());
 
-        mTotalIncomeTv.setText("¥  " + mBillInfo.getTotalIncome());
+        mTotalIncomeTv.setText("¥ " + mBillInfo.getTotalIncome());
 
         mItemLayout.setOnClickListener(new View.OnClickListener()
         {

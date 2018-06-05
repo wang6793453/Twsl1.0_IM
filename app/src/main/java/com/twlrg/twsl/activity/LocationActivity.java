@@ -106,53 +106,53 @@ public class LocationActivity extends BaseActivity
         mBaiduMap.setMapStatus(msu);
         initOverlay();
 
-        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener()
-        {
-            public boolean onMarkerClick(final Marker marker)
-            {
-                Button button = new Button(getApplicationContext());
-
-
-                button.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-
-                    }
-                });
-
-
-                button.setBackgroundResource(R.drawable.popup);
-                InfoWindow.OnInfoWindowClickListener listener = null;
-                if (marker == mMarkerA)
-                {
-                    button.setText(hotelName);
-                    button.setTextColor(Color.BLACK);
-                    listener = new InfoWindow.OnInfoWindowClickListener()
-                    {
-                        public void onInfoWindowClick()
-                        {
-                            //                            LatLng ll = marker.getPosition();
-                            //                            LatLng llNew = new LatLng(ll.latitude + 0.005,
-                            //                                    ll.longitude + 0.005);
-                            //                            marker.setPosition(llNew);
-                            //                            mBaiduMap.hideInfoWindow();
-
-                            if (null != mSelectMapPopupWindow)
-                            {
-                                mSelectMapPopupWindow.showPopupWindow(LocationActivity.this);
-                            }
-
-                        }
-                    };
-                    LatLng ll = marker.getPosition();
-                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
-                    mBaiduMap.showInfoWindow(mInfoWindow);
-                }
-                return true;
-            }
-        });
+//        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener()
+//        {
+//            public boolean onMarkerClick(final Marker marker)
+//            {
+//                Button button = new Button(getApplicationContext());
+//
+//
+//                button.setOnClickListener(new View.OnClickListener()
+//                {
+//                    @Override
+//                    public void onClick(View v)
+//                    {
+//
+//                    }
+//                });
+//
+//
+//                button.setBackgroundResource(R.drawable.popup);
+//                InfoWindow.OnInfoWindowClickListener listener = null;
+//                if (marker == mMarkerA)
+//                {
+//                    button.setText(hotelName);
+//                    button.setTextColor(Color.BLACK);
+//                    listener = new InfoWindow.OnInfoWindowClickListener()
+//                    {
+//                        public void onInfoWindowClick()
+//                        {
+//                            //                            LatLng ll = marker.getPosition();
+//                            //                            LatLng llNew = new LatLng(ll.latitude + 0.005,
+//                            //                                    ll.longitude + 0.005);
+//                            //                            marker.setPosition(llNew);
+//                            //                            mBaiduMap.hideInfoWindow();
+//
+//                            if (null != mSelectMapPopupWindow)
+//                            {
+//                                mSelectMapPopupWindow.showPopupWindow(LocationActivity.this);
+//                            }
+//
+//                        }
+//                    };
+//                    LatLng ll = marker.getPosition();
+//                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
+//                    mBaiduMap.showInfoWindow(mInfoWindow);
+//                }
+//                return true;
+//            }
+//        });
 
 
         mSelectMapPopupWindow = new SelectMapPopupWindow(LocationActivity.this, new SelectMapPopupWindow.OnSelectedListener()
@@ -256,6 +256,32 @@ public class LocationActivity extends BaseActivity
 
         //改变地图状态
         mBaiduMap.setMapStatus(mMapStatusUpdate);
+
+
+        Button button = new Button(getApplicationContext());
+        button.setPadding(20, 5, 20, 5);
+
+        button.setBackgroundResource(R.drawable.popup);
+        InfoWindow.OnInfoWindowClickListener listener = null;
+        if (null != mMarkerA)
+        {
+            button.setText(hotelName);
+            button.setTextColor(Color.BLACK);
+            listener = new InfoWindow.OnInfoWindowClickListener()
+            {
+                public void onInfoWindowClick()
+                {
+                    if (null != mSelectMapPopupWindow)
+                    {
+                        mSelectMapPopupWindow.showPopupWindow(LocationActivity.this);
+                    }
+
+                }
+            };
+            LatLng ll = mMarkerA.getPosition();
+            mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
+            mBaiduMap.showInfoWindow(mInfoWindow);
+        }
     }
 
     @Override
