@@ -463,7 +463,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                         .putExtra("CITY_VALUE", mCityValue)
                         .putExtra("S_DATE", mStartDate)
                         .putExtra("E_DATE", mEndDate)
-                        .putExtra("PRICE", price)
+                        .putExtra("PRICE", price + "")
                         .putExtra("LNG", String.valueOf(lng))
                         .putExtra("LAT", String.valueOf(lat))
 
@@ -709,7 +709,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
         else if (v == llDateLayout)
         {
-            startActivityForResult(new Intent(getActivity(), HotelTimeActivity.class) , GET_DATE_CODE);
+            startActivityForResult(new Intent(getActivity(), HotelTimeActivity.class), GET_DATE_CODE);
         }
         else if (v == rlCity)
         {

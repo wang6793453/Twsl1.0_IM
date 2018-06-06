@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.tencent.imsdk.TIMConnListener;
+import com.tencent.imsdk.TIMManager;
 import com.twlrg.twsl.MyApplication;
 import com.twlrg.twsl.R;
 import com.twlrg.twsl.fragment.HomeFragment;
@@ -20,6 +23,7 @@ import com.twlrg.twsl.fragment.OrderFragment;
 import com.twlrg.twsl.fragment.OrderListFragment;
 import com.twlrg.twsl.fragment.UserCenterFragment;
 import com.twlrg.twsl.fragment.UserCenterFragment1;
+import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.DialogUtils;
 import com.twlrg.twsl.utils.LogUtil;
 
@@ -58,6 +62,29 @@ public class MainActivity extends BaseActivity
     {
         setContentView(R.layout.activity_main);
         setTranslucentStatus();
+
+        TIMManager.getInstance().getUserConfig().setConnectionListener(new TIMConnListener()
+        {
+            @Override
+            public void onConnected()
+            {
+                Log.e("TAG", "onConnected1111111111111111111111111111111");
+            }
+
+            @Override
+            public void onDisconnected(int i, String s)
+            {
+                Log.e("TAG", "onDisconnected1111111111111111111111111111111111111111111111111111");
+                ConfigManager.instance().setUserId("");
+            }
+
+            @Override
+            public void onWifiNeedAuth(String s)
+            {
+                Log.e("TAG", "onWifiNeedAuth1111111111111111111111111111111111111111111111111");
+            }
+        });
+
     }
 
     @Override
