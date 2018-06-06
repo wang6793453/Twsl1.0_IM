@@ -25,14 +25,12 @@ public class VersionInfoHandler extends JsonHandler
     @Override
     protected void parseJson(JSONObject obj) throws Exception
     {
-
-        JSONArray arr = obj.optJSONArray("data");
+        JSONObject jsonObject = obj.optJSONObject("data");
 
 
         try
         {
-            if (null != arr || arr.length() > 0)
-                mVersionInfo = new VersionInfo(arr.getJSONObject(0));
+            mVersionInfo = new VersionInfo(jsonObject);
 
         } catch (Exception e)
         {

@@ -40,11 +40,26 @@
     </RelativeLayout>
 
 
+    <ImageView
+        android:id="@+id/iv_user_head"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/rl_top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dm_10"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_add_head"/>
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm_0.5"
+        android:layout_below="@+id/iv_user_head"
+        android:layout_marginTop="@dimen/dm_15"
+        android:background="#E3E3E3"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_top"
-        android:layout_marginTop="@dimen/dm_50"
+        android:layout_below="@+id/line"
         android:orientation="vertical">
 
 
@@ -53,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dm_15"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@color/grayC"
             android:orientation="vertical">
 
 
@@ -63,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="@dimen/dm_30"
-                android:text="上传名片"/>
+                android:text="点击上传名片+"/>
 
             <ImageView
                 android:id="@+id/iv_pic"
