@@ -167,7 +167,7 @@ public class BindHotelActivity extends BaseActivity implements IRequestListener
         }
         else if (v == tvCity)
         {
-            startActivityForResult(new Intent(BindHotelActivity.this, SelectActivity.class), GET_CITY_CODE);
+            startActivityForResult(new Intent(BindHotelActivity.this, CityListActivity.class), GET_CITY_CODE);
         }
         else if (v == tvSearch)
         {
