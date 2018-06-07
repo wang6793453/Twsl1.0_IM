@@ -1,5 +1,6 @@
 package com.twlrg.twsl.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
@@ -52,6 +53,7 @@ public class ForgetPwdActivity extends BaseActivity implements IRequestListener
     private static final String GET_CODE                 = "get_code";
 
 
+    @SuppressLint("HandlerLeak")
     private BaseHandler mHandler = new BaseHandler(this)
     {
         @Override
@@ -68,10 +70,12 @@ public class ForgetPwdActivity extends BaseActivity implements IRequestListener
                     break;
 
                 case REQUEST_FAIL:
+                    tvGetCode.setEnabled(true);
                     ToastUtil.show(ForgetPwdActivity.this, msg.obj.toString());
                     break;
 
                 case GET_CODE_SUCCESS:
+                    tvGetCode.setEnabled(true);
                     ToastUtil.show(ForgetPwdActivity.this, "验证码已发送");
                     break;
             }
@@ -124,7 +128,8 @@ public class ForgetPwdActivity extends BaseActivity implements IRequestListener
                 ToastUtil.show(this, "请输入正确的手机号");
                 return;
             }
-
+            showProgressDialog();
+            tvGetCode.setEnabled(false);
             Map<String, String> valuePairs = new HashMap<>();
             valuePairs.put("mobile", phone);
             valuePairs.put("role", "2");
@@ -161,7 +166,7 @@ public class ForgetPwdActivity extends BaseActivity implements IRequestListener
                 return;
             }
 
-
+            showProgressDialog();
             Map<String, String> valuePairs = new HashMap<>();
             valuePairs.put("mobile", phone);
             valuePairs.put("pwd", pwd);
@@ -177,6 +182,7 @@ public class ForgetPwdActivity extends BaseActivity implements IRequestListener
     @Override
     public void notify(String action, String resultCode, String resultMsg, Object obj)
     {
+        hideProgressDialog();
         if (USER_SAVE_PWD.equals(action))
         {
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))

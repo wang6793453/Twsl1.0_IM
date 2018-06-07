@@ -132,11 +132,14 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
 
                 case REQUEST_FAIL:
                     hideProgressDialog();
+                    tvGetCode.setEnabled(true);
                     ToastUtil.show(RegisterActivity.this, msg.obj.toString());
                     break;
 
                 case GET_CODE_SUCCESS:
+                    hideProgressDialog();
                     ToastUtil.show(RegisterActivity.this, "验证码已发送");
+                    tvGetCode.setEnabled(true);
                     break;
             }
         }
@@ -193,12 +196,18 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
                 ToastUtil.show(this, "请输入正确的手机号");
                 return;
             }
-
+            showProgressDialog();
+            tvGetCode.setEnabled(false);
             Map<String, String> valuePairs = new HashMap<>();
             valuePairs.put("mobile", phone);
             valuePairs.put("role", "2");
             DataRequest.instance().request(RegisterActivity.this, Urls.getVerifycodeUrl(), this, HttpRequest.POST, GET_CODE, valuePairs,
                     new ResultHandler());
+
+
+
+
+
         }
         else if (v == btnRegister)
         {

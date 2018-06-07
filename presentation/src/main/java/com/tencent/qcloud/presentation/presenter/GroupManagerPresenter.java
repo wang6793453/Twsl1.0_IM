@@ -59,20 +59,30 @@ public class GroupManagerPresenter {
         TIMGroupPendencyGetParam param = new TIMGroupPendencyGetParam();
         param.setNumPerPage(1);
         param.setTimestamp(0);
-        TIMGroupManagerExt.getInstance().getGroupPendencyList(param, new TIMValueCallBack<TIMGroupPendencyListGetSucc>() {
-            @Override
-            public void onError(int i, String s) {
-                Log.e(TAG, "onError code" + i + " msg " + s);
-            }
 
-            @Override
-            public void onSuccess(TIMGroupPendencyListGetSucc timGroupPendencyListGetSucc) {
-                if (messageView != null && timGroupPendencyListGetSucc.getPendencies().size() > 0){
-                    messageView.onGetGroupManageLastMessage(timGroupPendencyListGetSucc.getPendencies().get(0),
-                            timGroupPendencyListGetSucc.getPendencyMeta().getUnReadCount());
+        try
+        {
+            TIMGroupManagerExt.getInstance().getGroupPendencyList(param, new TIMValueCallBack<TIMGroupPendencyListGetSucc>() {
+                @Override
+                public void onError(int i, String s) {
+                    Log.e(TAG, "onError code" + i + " msg " + s);
                 }
-            }
-        });
+
+                @Override
+                public void onSuccess(TIMGroupPendencyListGetSucc timGroupPendencyListGetSucc) {
+                    if (messageView != null && timGroupPendencyListGetSucc.getPendencies().size() > 0){
+                        messageView.onGetGroupManageLastMessage(timGroupPendencyListGetSucc.getPendencies().get(0),
+                                timGroupPendencyListGetSucc.getPendencyMeta().getUnReadCount());
+                    }
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            
+        }
+
     }
 
 

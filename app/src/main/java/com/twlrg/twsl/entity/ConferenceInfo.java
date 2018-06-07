@@ -63,6 +63,7 @@ public class ConferenceInfo
 
     public List<String> getPicList()
     {
+        picList.clear();
         if (!StringUtils.stringIsEmpty(pic1))
         {
             picList.add(pic1);
