@@ -16,7 +16,7 @@ public class Urls
     //获取版本信息
     public static String getVersionUrl()
     {
-        return BASE_URL + "merchant/search";
+        return BASE_URL + "merchant/version";
     }
 
     public static String getImgUrl(String url)

@@ -16,11 +16,11 @@ public class VersionInfo
 
     public VersionInfo(JSONObject obj)
     {
-        this.version = obj.optString("version");
-        this.version_desc = obj.optString("version_desc");
+        this.version = obj.optString("version_number");
+        this.version_desc = obj.optString("tips");
         this.version_name = obj.optString("version_name");
-        this.link = obj.optString("link");
-        this.forcedup = obj.optString("forcedup");
+        this.link = obj.optString("url");
+        this.forcedup = obj.optString("upgrade");
         this.add_time = obj.optString("add_time");
         this.update_time = obj.optString("update_time");
         this.del_flag = obj.optString("del_flag");

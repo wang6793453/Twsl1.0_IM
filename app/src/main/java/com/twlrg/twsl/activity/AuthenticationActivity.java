@@ -24,12 +24,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kevin.crop.UCrop;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.twlrg.twsl.R;
 import com.twlrg.twsl.http.DataRequest;
 import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
 import com.twlrg.twsl.json.ResultHandler;
+import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
+import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
 import com.twlrg.twsl.widget.SelectPicturePopupWindow;
@@ -54,15 +57,24 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
     TextView  tvPic;
     @BindView(R.id.iv_pic)
     ImageView ivPic;
+
+    @BindView(R.id.iv_user_head)
+    ImageView ivAddHead;
     @BindView(R.id.btn_submit)
     Button    btnSubmit;
 
-    private File   mPicFile;
     private String uid;
 
+    private String type;
 
+
+    private String userHeadUrl, mpUrl;
+
+    private static final String      UPLOAD_USER_PIC    = "upload_user_pic";
+    private static final String      UPLOAD_USER_MP     = "upload_user_mp";
     private static final int         REQUEST_FAIL       = 0x01;
     private static final int         UPLOAD_PIC_SUCCESS = 0x05;
+    private static final int         UPLOAD_MP_SUCCESS  = 0x02;
     @SuppressLint("HandlerLeak")
     private final        BaseHandler mHandler           = new BaseHandler(AuthenticationActivity.this)
     {
@@ -80,10 +92,21 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
                     break;
 
 
+                case UPLOAD_MP_SUCCESS:
+                    ToastUtil.show(AuthenticationActivity.this, "上传成功");
+                    ResultHandler resultHandler = (ResultHandler) msg.obj;
+
+                    mpUrl = resultHandler.getData();
+
+                    ImageLoader.getInstance().displayImage(Urls.getImgUrl(mpUrl), ivPic);
+                    break;
+
+
                 case UPLOAD_PIC_SUCCESS:
                     ToastUtil.show(AuthenticationActivity.this, "上传成功");
-                    startActivity(new Intent(AuthenticationActivity.this, BindHotelActivity.class).putExtra("uid", uid));
-
+                    ResultHandler resultHandler1 = (ResultHandler) msg.obj;
+                    userHeadUrl = resultHandler1.getData();
+                    ImageLoader.getInstance().displayImage(Urls.getImgUrl(userHeadUrl), ivAddHead);
 
                     break;
             }
@@ -111,6 +134,7 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
         ivPic.setOnClickListener(this);
         tvPic.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
+        ivAddHead.setOnClickListener(this);
     }
 
     @Override
@@ -171,29 +195,33 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
         }
         else if (v == ivPic || v == tvPic)
         {
+            type = "2";
+            mSelectPicturePopupWindow.showPopupWindow(this);
+        }
+        else if (v == ivAddHead)
+        {
+            type = "1";
             mSelectPicturePopupWindow.showPopupWindow(this);
         }
         else if (v == btnSubmit)
         {
-            if (null != mPicFile)
+            if (StringUtils.stringIsEmpty(userHeadUrl))
             {
-                Map<String, String> valuePairs = new HashMap<>();
-                valuePairs.put("uid", uid);
-                valuePairs.put("md_img", "md_img");
-                valuePairs.put("submit", "Submit");
-                DataRequest.instance().request(AuthenticationActivity.this, Urls.getBusinessCardUrl(), this, HttpRequest.UPLOAD, UPLOAD_USER_PIC, valuePairs,
-                        mPicFile,
-                        new ResultHandler());
+                ToastUtil.show(this, "请选择要上传的头像");
+                return;
             }
-            else
+
+            if (StringUtils.stringIsEmpty(mpUrl))
             {
                 ToastUtil.show(this, "请选择要上传的名片");
+                return;
             }
+
+            startActivity(new Intent(AuthenticationActivity.this, BindHotelActivity.class).putExtra("uid", uid));
         }
     }
 
 
-    private static final String UPLOAD_USER_PIC = "upload_user_pic";
     private SelectPicturePopupWindow mSelectPicturePopupWindow;
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION  = 101;
     protected static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
@@ -253,11 +281,24 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
      */
     public void startCropActivity(Uri uri)
     {
-        UCrop.of(uri, mDestinationUri)
-                .withAspectRatio(4, 3)
-                .withMaxResultSize(800, 600)
-                .withTargetActivity(CropActivity.class)
-                .start(AuthenticationActivity.this);
+        if ("1".equals(type))
+        {
+            UCrop.of(uri, mDestinationUri)
+                    .withAspectRatio(1, 1)
+                    .withMaxResultSize(200, 200)
+                    .withTargetActivity(CropActivity.class)
+                    .start(AuthenticationActivity.this);
+
+        }
+        else
+        {
+            UCrop.of(uri, mDestinationUri)
+                    .withAspectRatio(4, 3)
+                    .withMaxResultSize(800, 600)
+                    .withTargetActivity(CropActivity.class)
+                    .start(AuthenticationActivity.this);
+        }
+
     }
 
     //将URI文件转化为FILE文件
@@ -321,13 +362,37 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
             //TODO 这个地方处理图片上传操作
             try
             {
-                mPicFile = new File(new URI(resultUri.toString()));
+                File mPicFile = new File(new URI(resultUri.toString()));
 
-                Bitmap mBitmap = getBitmapFromUri(resultUri);
+                //Bitmap mBitmap = getBitmapFromUri(resultUri);
 
-                if (null != mBitmap)
+                if (null != mPicFile)
                 {
-                    ivPic.setImageBitmap(mBitmap);
+                    if ("1".equals(type))
+                    {
+                        //ivAddHead.setImageBitmap(mBitmap);
+                        Map<String, String> valuePairs = new HashMap<>();
+                        valuePairs.put("uid", uid);
+                        //valuePairs.put("token", ConfigManager.instance().getToken());
+                        valuePairs.put("role", "2");
+                        valuePairs.put("submit", "Submit");
+                        DataRequest.instance().request(AuthenticationActivity.this, Urls.getUploadPicUrl(), this, HttpRequest.UPLOAD, UPLOAD_USER_PIC,
+                                valuePairs, mPicFile,
+                                new ResultHandler());
+                    }
+                    else
+                    {
+                        //ivPic.setImageBitmap(mBitmap);
+                        Map<String, String> valuePairs = new HashMap<>();
+                        valuePairs.put("uid", uid);
+                        valuePairs.put("md_img", "md_img");
+                        valuePairs.put("submit", "Submit");
+                        DataRequest.instance().request(AuthenticationActivity.this, Urls.getBusinessCardUrl(), this, HttpRequest.UPLOAD, UPLOAD_USER_MP,
+                                valuePairs,
+                                mPicFile,
+                                new ResultHandler());
+                    }
+
                 }
 
             } catch (Exception e)
@@ -431,6 +496,18 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
             {
                 mHandler.sendMessage(mHandler.obtainMessage(UPLOAD_PIC_SUCCESS, obj));
+            }
+
+            else
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(REQUEST_FAIL, resultMsg));
+            }
+        }
+        else if (UPLOAD_USER_MP.equals(action))
+        {
+            if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
+            {
+                mHandler.sendMessage(mHandler.obtainMessage(UPLOAD_MP_SUCCESS, obj));
             }
 
             else

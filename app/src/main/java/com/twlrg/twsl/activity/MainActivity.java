@@ -26,6 +26,7 @@ import com.twlrg.twsl.fragment.UserCenterFragment1;
 import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.DialogUtils;
 import com.twlrg.twsl.utils.LogUtil;
+import com.twlrg.twsl.utils.VersionManager;
 
 import butterknife.BindView;
 
@@ -125,6 +126,7 @@ public class MainActivity extends BaseActivity
             // fragmentTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.main_tab_selector);
         }
         fragmentTabHost.getTabWidget().setDividerDrawable(R.color.transparent);
+        new VersionManager(this).init();
     }
 
     private View getView(int i)

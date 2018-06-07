@@ -43,10 +43,10 @@ public class VersionManager implements IRequestListener
 
     private Dialog downloadDialog;
     /* 下载包安装路径 */
-    private static final String savePath = "/sdcard/bangfu/";
+    private static final String savePath = "/sdcard/twsl/";
 
     private static final String saveFileName = savePath
-            + "svmuu.apk";
+            + "twsl.apk";
 
     /* 进度条与通知ui刷新的handler和msg常量 */
     private ProgressBar mProgress;
@@ -106,6 +106,7 @@ public class VersionManager implements IRequestListener
     public void init()
     {
         Map<String, String> valuePairs = new HashMap<>();
+        valuePairs.put("role","2");
         DataRequest.instance().request(mContext, Urls.getVersionUrl(), this, HttpRequest.POST, GET_VERSION, valuePairs,
                 new VersionInfoHandler());
     }
@@ -173,7 +174,9 @@ public class VersionManager implements IRequestListener
 
                 HttpURLConnection conn = (HttpURLConnection) url
                         .openConnection();
+                conn.setRequestProperty("Accept-Encoding", "identity");
                 conn.connect();
+
                 int length = conn.getContentLength();
                 InputStream is = conn.getInputStream();
 
