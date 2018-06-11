@@ -150,7 +150,6 @@
             android:name="com.twlrg.twsl.activity.LoginActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity

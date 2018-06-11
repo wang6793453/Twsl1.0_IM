@@ -219,6 +219,7 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
             }
 
             startActivity(new Intent(AuthenticationActivity.this, BindHotelActivity.class).putExtra("uid", uid));
+            finish();
         }
     }
 

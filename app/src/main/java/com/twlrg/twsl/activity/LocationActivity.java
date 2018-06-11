@@ -1,5 +1,6 @@
 package com.twlrg.twsl.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -106,53 +107,53 @@ public class LocationActivity extends BaseActivity
         mBaiduMap.setMapStatus(msu);
         initOverlay();
 
-//        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener()
-//        {
-//            public boolean onMarkerClick(final Marker marker)
-//            {
-//                Button button = new Button(getApplicationContext());
-//
-//
-//                button.setOnClickListener(new View.OnClickListener()
-//                {
-//                    @Override
-//                    public void onClick(View v)
-//                    {
-//
-//                    }
-//                });
-//
-//
-//                button.setBackgroundResource(R.drawable.popup);
-//                InfoWindow.OnInfoWindowClickListener listener = null;
-//                if (marker == mMarkerA)
-//                {
-//                    button.setText(hotelName);
-//                    button.setTextColor(Color.BLACK);
-//                    listener = new InfoWindow.OnInfoWindowClickListener()
-//                    {
-//                        public void onInfoWindowClick()
-//                        {
-//                            //                            LatLng ll = marker.getPosition();
-//                            //                            LatLng llNew = new LatLng(ll.latitude + 0.005,
-//                            //                                    ll.longitude + 0.005);
-//                            //                            marker.setPosition(llNew);
-//                            //                            mBaiduMap.hideInfoWindow();
-//
-//                            if (null != mSelectMapPopupWindow)
-//                            {
-//                                mSelectMapPopupWindow.showPopupWindow(LocationActivity.this);
-//                            }
-//
-//                        }
-//                    };
-//                    LatLng ll = marker.getPosition();
-//                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
-//                    mBaiduMap.showInfoWindow(mInfoWindow);
-//                }
-//                return true;
-//            }
-//        });
+        //        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener()
+        //        {
+        //            public boolean onMarkerClick(final Marker marker)
+        //            {
+        //                Button button = new Button(getApplicationContext());
+        //
+        //
+        //                button.setOnClickListener(new View.OnClickListener()
+        //                {
+        //                    @Override
+        //                    public void onClick(View v)
+        //                    {
+        //
+        //                    }
+        //                });
+        //
+        //
+        //                button.setBackgroundResource(R.drawable.popup);
+        //                InfoWindow.OnInfoWindowClickListener listener = null;
+        //                if (marker == mMarkerA)
+        //                {
+        //                    button.setText(hotelName);
+        //                    button.setTextColor(Color.BLACK);
+        //                    listener = new InfoWindow.OnInfoWindowClickListener()
+        //                    {
+        //                        public void onInfoWindowClick()
+        //                        {
+        //                            //                            LatLng ll = marker.getPosition();
+        //                            //                            LatLng llNew = new LatLng(ll.latitude + 0.005,
+        //                            //                                    ll.longitude + 0.005);
+        //                            //                            marker.setPosition(llNew);
+        //                            //                            mBaiduMap.hideInfoWindow();
+        //
+        //                            if (null != mSelectMapPopupWindow)
+        //                            {
+        //                                mSelectMapPopupWindow.showPopupWindow(LocationActivity.this);
+        //                            }
+        //
+        //                        }
+        //                    };
+        //                    LatLng ll = marker.getPosition();
+        //                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
+        //                    mBaiduMap.showInfoWindow(mInfoWindow);
+        //                }
+        //                return true;
+        //            }
+        //        });
 
 
         mSelectMapPopupWindow = new SelectMapPopupWindow(LocationActivity.this, new SelectMapPopupWindow.OnSelectedListener()
@@ -183,6 +184,16 @@ public class LocationActivity extends BaseActivity
                         }
                         break;
                     case 2:
+                        if (APPUtils.isAppInstall(LocationActivity.this, "com.tencent.map"))
+                        {
+                            invokeNavi(LocationActivity.this, "drive", null, null, null, hotelName, lat + "," + lng, null, "twsl");
+                        }
+                        else
+                        {
+                            ToastUtil.show(LocationActivity.this, "未安装腾讯地图");
+                        }
+                        break;
+                    case 3:
                         mSelectMapPopupWindow.dismissPopupWindow();
                         break;
                 }
@@ -232,6 +243,68 @@ public class LocationActivity extends BaseActivity
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(stringBuffer.toString()));
         intent.setPackage("com.baidu.BaiduMap");
         startActivity(intent);
+    }
+
+
+    /**
+     * 腾讯地图 Uri 标识
+     */
+    public final static String BASE_URL = "qqmap://map/";
+
+    /**
+     * 调用腾讯地图app驾车导航
+     * (此处输入方法执行任务.)
+     * <h3>Version</h3> 1.0
+     * <h3>CreateTime</h3> 2017/11/9,15:31
+     * <h3>UpdateTime</h3> 2017/11/9,15:31
+     * <h3>CreateAuthor</h3>
+     * <h3>UpdateAuthor</h3>
+     * <h3>UpdateInfo</h3> (此处输入修改内容,若无修改可不写.)
+     *
+     * @param context
+     * @param from       选 出发地址
+     * @param fromcoord  选 出发经纬度   移动端如果起点名称和起点坐标均未传递，则使用当前定位位置作为起点 如 39.9761,116.3282
+     * @param to         必 目标地址
+     * @param tocoord    必 目标经纬度 39.9761,116.3282
+     * @param policy     选  本参数取决于type参数的取值
+     *                   公交：type=bus，policy有以下取值 0：较快捷 1：少换乘 2：少步行 3：不坐地铁
+     *                   驾车：type=drive，policy有以下取值 0：较快捷 1：无高速 2：距离 policy的取值缺省为0
+     * @param coord_type 选 坐标类型，取值如下：1 GPS  2 腾讯坐标（默认）  如果用户指定该参数为非腾讯地图坐标系，则URI API自动进行坐标处理，以便准确对应到腾讯地图底图上。
+     * @param type       必 公交：bus  驾车：drive  步行：walk（仅适用移动端）
+     * @param referer    必  调用来源，一般为您的应用名称，为了保障对您的服务，请务必填写！
+     */
+    public static void invokeNavi(Context context, String type, String coord_type, String from,
+                                  String fromcoord, String to, String tocoord, String policy, String referer)
+    {
+        StringBuffer stringBuffer = new StringBuffer(BASE_URL)
+                .append("routeplan?")
+                .append("type=")
+                .append(type)
+                .append("&to=")
+                .append(to)
+                .append("&tocoord=")
+                .append(tocoord)
+                .append("&referer=")
+                .append(referer);
+        if (!TextUtils.isEmpty(from))
+        {
+            stringBuffer.append("&from=").append(from);
+        }
+        if (!TextUtils.isEmpty(fromcoord))
+        {
+            stringBuffer.append("&fromcoord=").append(fromcoord);
+        }
+        if (!TextUtils.isEmpty(policy))
+        {
+            stringBuffer.append("&policy=").append(policy);
+        }
+        if (!TextUtils.isEmpty(coord_type))
+        {
+            stringBuffer.append("&coord_type=").append(coord_type);
+        }
+        Intent intent = new Intent();
+        intent.setData(Uri.parse(stringBuffer.toString()));
+        context.startActivity(intent);
     }
 
 

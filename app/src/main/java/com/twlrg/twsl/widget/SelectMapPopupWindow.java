@@ -20,7 +20,7 @@ import com.twlrg.twsl.R;
 public class SelectMapPopupWindow extends PopupWindow implements View.OnClickListener
 {
 
-    private TextView mOpenGaodeTv, mOpenBaiudTv, cancelBtn;
+    private TextView mOpenGaodeTv, mOpenBaiudTv,mOpenTenxunTv, cancelBtn;
     private View               mMenuView;
     private PopupWindow        popupWindow;
     private OnSelectedListener mOnSelectedListener;
@@ -33,10 +33,12 @@ public class SelectMapPopupWindow extends PopupWindow implements View.OnClickLis
 
         mOpenGaodeTv = (TextView) mMenuView.findViewById(R.id.openGaode);
         mOpenBaiudTv = (TextView) mMenuView.findViewById(R.id.openBaidu);
+        mOpenTenxunTv= (TextView) mMenuView.findViewById(R.id.openTenxun);
         cancelBtn = (TextView) mMenuView.findViewById(R.id.cancel);
         // 设置按钮监听
         mOpenGaodeTv.setOnClickListener(this);
         mOpenBaiudTv.setOnClickListener(this);
+        mOpenTenxunTv.setOnClickListener(this);
         cancelBtn.setOnClickListener(this);
         this.mOnSelectedListener = mOnSelectedListener;
 
@@ -91,10 +93,16 @@ public class SelectMapPopupWindow extends PopupWindow implements View.OnClickLis
                     mOnSelectedListener.OnSelected(v, 1);
                 }
                 break;
-            case R.id.cancel:
+            case R.id.openTenxun:
                 if (null != mOnSelectedListener)
                 {
                     mOnSelectedListener.OnSelected(v, 2);
+                }
+                break;
+            case R.id.cancel:
+                if (null != mOnSelectedListener)
+                {
+                    mOnSelectedListener.OnSelected(v, 3);
                 }
                 break;
         }

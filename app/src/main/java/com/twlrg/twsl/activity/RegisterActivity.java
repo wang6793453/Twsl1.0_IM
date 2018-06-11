@@ -16,6 +16,7 @@ import com.twlrg.twsl.http.HttpRequest;
 import com.twlrg.twsl.http.IRequestListener;
 import com.twlrg.twsl.json.RegisterHandler;
 import com.twlrg.twsl.json.ResultHandler;
+import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.ConstantUtil;
 import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.ToastUtil;
@@ -69,15 +70,14 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
 
     private List<Boolean> isRoleTypeList = new ArrayList<>();
 
-    private static final int    REQUEST_REGISTER_SUCCESS = 0x01;
-    public static final  int    REQUEST_FAIL             = 0x02;
-    private static final int    GET_CODE_SUCCESS         = 0x03;
-    private static final String USER_REGISTER            = "user_register";
-    private static final String GET_CODE                 = "GET_CODE";
-    private static final int    TTS_REGISTER             = 0x04;
-    private String uid;
+    private String phone ,pwd;
+    private static final int         REQUEST_REGISTER_SUCCESS = 0x01;
+    public static final  int         REQUEST_FAIL             = 0x02;
+    private static final int         GET_CODE_SUCCESS         = 0x03;
+    private static final String      USER_REGISTER            = "user_register";
+    private static final String      GET_CODE                 = "GET_CODE";
     @SuppressLint("HandlerLeak")
-    private BaseHandler mHandler = new BaseHandler(this)
+    private              BaseHandler mHandler                 = new BaseHandler(this)
     {
         @Override
         public void handleMessage(Message msg)
@@ -89,55 +89,26 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
 
                 case REQUEST_REGISTER_SUCCESS:
                     RegisterHandler mRegisterHandler = (RegisterHandler) msg.obj;
-                    uid = mRegisterHandler.getUid();
+                    String uid = mRegisterHandler.getUid();
 
-                    mHandler.sendEmptyMessageDelayed(TTS_REGISTER, 500);
+                    ConfigManager.instance().setMobile(phone);
+                    ConfigManager.instance().setUserPwd(pwd);
+                    Intent mIntent = new Intent();
+                    mIntent.setAction("REGISTER_IM");
+                    mIntent.putExtra("UID", uid);
+                    sendBroadcast(mIntent);
+                    ToastUtil.show(RegisterActivity.this, "注册成功!");
+                    startActivity(new Intent(RegisterActivity.this, AuthenticationActivity.class).putExtra("uid", uid));
+                    finish();
                     break;
 
-                case TTS_REGISTER:
-
-                    if (!StringUtils.stringIsEmpty(uid))
-                    {
-
-                        TLSHelper instance = TLSHelper.getInstance();
-                        instance.TLSStrAccReg("slbl_server_" + uid, "slbl123456", new TLSStrAccRegListener()
-                        {
-                            @Override
-                            public void OnStrAccRegSuccess(TLSUserInfo tlsUserInfo)
-                            {
-                                hideProgressDialog();
-                                ToastUtil.show(RegisterActivity.this, "注册成功!");
-                                startActivity(new Intent(RegisterActivity.this, AuthenticationActivity.class).putExtra("uid", uid));
-                                finish();
-                                //LogUtil.d(TAG, "OnStrAccRegSuccess:" + tlsUserInfo.identifier + "");
-                            }
-
-                            @Override
-                            public void OnStrAccRegFail(TLSErrInfo tlsErrInfo)
-                            {
-                                //LogUtil.d(TAG, "OnStrAccRegFail:" + tlsErrInfo.Msg + " " + tlsErrInfo.ExtraMsg);
-                                mHandler.sendEmptyMessageDelayed(TTS_REGISTER, 500);
-
-                            }
-
-                            @Override
-                            public void OnStrAccRegTimeout(TLSErrInfo tlsErrInfo)
-                            {
-                                mHandler.sendEmptyMessageDelayed(TTS_REGISTER, 500);
-                                //LogUtil.d(TAG, "OnStrAccRegTimeout:" + tlsErrInfo.Msg + " " + tlsErrInfo.ExtraMsg);
-                            }
-                        });
-                    }
-                    break;
 
                 case REQUEST_FAIL:
-                    hideProgressDialog();
                     tvGetCode.setEnabled(true);
                     ToastUtil.show(RegisterActivity.this, msg.obj.toString());
                     break;
 
                 case GET_CODE_SUCCESS:
-                    hideProgressDialog();
                     ToastUtil.show(RegisterActivity.this, "验证码已发送");
                     tvGetCode.setEnabled(true);
                     break;
@@ -189,6 +160,7 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
         }
         else if (v == tvGetCode)
         {
+
             String phone = etPhone.getText().toString();
 
             if (StringUtils.stringIsEmpty(phone) || phone.length() < 11)
@@ -205,15 +177,12 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
                     new ResultHandler());
 
 
-
-
-
         }
         else if (v == btnRegister)
         {
-            String phone = etPhone.getText().toString();
+             phone = etPhone.getText().toString();
             String code = etCode.getText().toString();
-            String pwd = etPwd.getText().toString();
+             pwd = etPwd.getText().toString();
             String pwd1 = etPwd1.getText().toString();
             String nickname = etNickname.getText().toString();
             String position = etPosition.getText().toString();
@@ -275,6 +244,8 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
                 ToastUtil.show(this, "请选择业务范围");
                 return;
             }
+
+
 
             showProgressDialog();
             Map<String, String> valuePairs = new HashMap<>();
@@ -350,6 +321,7 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
     @Override
     public void notify(String action, String resultCode, String resultMsg, Object obj)
     {
+        hideProgressDialog();
         if (USER_REGISTER.equals(action))
         {
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))

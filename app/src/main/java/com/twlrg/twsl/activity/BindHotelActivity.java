@@ -94,7 +94,8 @@ public class BindHotelActivity extends BaseActivity implements IRequestListener
                     break;
 
                 case BIND_HOTEL_SUCCESS:
-                    LoginActivity.start(BindHotelActivity.this, true);
+                    //LoginActivity.start(BindHotelActivity.this, true);
+                    ToastUtil.show(BindHotelActivity.this,"操作成功");
                     finish();
                     break;
 
