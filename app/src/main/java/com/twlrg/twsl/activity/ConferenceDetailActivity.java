@@ -1,10 +1,13 @@
 package com.twlrg.twsl.activity;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -139,7 +142,23 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
     protected void initViews(Bundle savedInstanceState)
     {
         setContentView(R.layout.activity_conference_detail);
-        setTranslucentStatus();
+        // setTranslucentStatus();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {//5.0及以上
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            //根据上面设置是否对状态栏单独设置颜色
+
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.black));
+
+        }
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {//4.4到5.0
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }
     }
 
     @Override
@@ -237,7 +256,7 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
             }
 
 
-            if(Integer.parseInt(mTheatre)<=0)
+            if (Integer.parseInt(mTheatre) <= 0)
             {
                 ToastUtil.show(ConferenceDetailActivity.this, "请输入剧院容纳的人数大于0");
                 return;
@@ -250,7 +269,7 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
             }
 
 
-            if(Integer.parseInt(mDesk)<=0)
+            if (Integer.parseInt(mDesk) <= 0)
             {
                 ToastUtil.show(ConferenceDetailActivity.this, "请输入课桌的人数大于0");
                 return;
@@ -263,7 +282,7 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
                 return;
             }
 
-            if(Integer.parseInt(mBanquet)<=0)
+            if (Integer.parseInt(mBanquet) <= 0)
             {
                 ToastUtil.show(ConferenceDetailActivity.this, "请输入宴会的人数大于0");
                 return;

@@ -291,11 +291,19 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
 
+
         <activity
             android:name="com.twlrg.twsl.activity.ConferenceDetailActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name="com.twlrg.twsl.activity.EditHotelActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
         <activity
             android:name="com.twlrg.twsl.activity.MyCenterActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -331,11 +339,6 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
-        <activity
-            android:name="com.twlrg.twsl.activity.EditHotelActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
 
         <activity
             android:name="com.twlrg.twsl.activity.HotelImgActivity"
