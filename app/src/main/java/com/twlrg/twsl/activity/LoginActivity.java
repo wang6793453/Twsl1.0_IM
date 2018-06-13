@@ -100,7 +100,6 @@ public class LoginActivity extends BaseActivity implements IRequestListener
 
 
                 case REQUEST_FAIL:
-
                     ToastUtil.show(LoginActivity.this, msg.obj.toString());
                     break;
 
@@ -117,7 +116,6 @@ public class LoginActivity extends BaseActivity implements IRequestListener
                         @Override
                         public void onFail(String msg, int code2)
                         {
-                            hideProgressDialog();
                             TLSService.getInstance().setLastErrno(-1);
                             LogUtil.e("login", "failed:" + msg + " " + code2);
                             ToastUtil.show(LoginActivity.this, "登录失败!");
@@ -303,6 +301,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
     @Override
     public void notify(String action, String resultCode, String resultMsg, Object obj)
     {
+        hideProgressDialog();
         if (USER_LOGIN.equals(action))
         {
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
@@ -311,7 +310,6 @@ public class LoginActivity extends BaseActivity implements IRequestListener
             }
             else
             {
-                hideProgressDialog();
                 if ("10105".equals(resultCode))
                 {
                     mHandler.sendMessage(mHandler.obtainMessage(REQUEST_LOGIN_FAIL, obj));
