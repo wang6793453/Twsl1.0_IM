@@ -71,7 +71,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
     private String registerUid;
 
     private RegisterImBroadcast mRegisterImBroadcast;
-    private String REGISTER_IM = "REGISTER_IM";
+    public static String REGISTER_IM = "REGISTER_IM";
 
     private static final int    REQUEST_LOGIN_SUCCESS = 0x01;
     public static final  int    REQUEST_FAIL          = 0x02;
@@ -117,6 +117,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
                         @Override
                         public void onFail(String msg, int code2)
                         {
+                            hideProgressDialog();
                             TLSService.getInstance().setLastErrno(-1);
                             LogUtil.e("login", "failed:" + msg + " " + code2);
                             ToastUtil.show(LoginActivity.this, "登录失败!");
@@ -151,13 +152,13 @@ public class LoginActivity extends BaseActivity implements IRequestListener
                     if (!StringUtils.stringIsEmpty(registerUid))
                     {
                         TLSHelper instance = TLSHelper.getInstance();
-                        instance.TLSStrAccReg("slbl_server_" + registerUid, "slbl123456", new TLSStrAccRegListener()
+                        instance.TLSStrAccReg(TencentCloud.UID_PREFIX + registerUid, "slbl123456", new TLSStrAccRegListener()
                         {
                             @Override
                             public void OnStrAccRegSuccess(TLSUserInfo tlsUserInfo)
                             {
 
-                                LogUtil.d("TAG", "OnStrAccRegSuccess:" + tlsUserInfo.identifier + "");
+                                LogUtil.e("TAG", "OnStrAccRegSuccess:" + tlsUserInfo.identifier + "");
                             }
 
                             @Override
@@ -195,7 +196,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
 
     private void modifyUserProfile()
     {
-
+        hideProgressDialog();
         String name = ConfigManager.instance().getUserNickName();
         String userPic = Urls.getImgUrl(ConfigManager.instance().getUserPic());
         FriendshipManagerPresenter.setMyInfo(name, userPic, new TIMCallBack()
@@ -302,7 +303,6 @@ public class LoginActivity extends BaseActivity implements IRequestListener
     @Override
     public void notify(String action, String resultCode, String resultMsg, Object obj)
     {
-        hideProgressDialog();
         if (USER_LOGIN.equals(action))
         {
             if (ConstantUtil.RESULT_SUCCESS.equals(resultCode))
@@ -311,6 +311,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
             }
             else
             {
+                hideProgressDialog();
                 if ("10105".equals(resultCode))
                 {
                     mHandler.sendMessage(mHandler.obtainMessage(REQUEST_LOGIN_FAIL, obj));

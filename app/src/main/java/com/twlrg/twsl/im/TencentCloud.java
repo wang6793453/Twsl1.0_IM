@@ -111,8 +111,7 @@ public class TencentCloud
                 {
                     RefreshEvent.getInstance().notify();
                     onFailed(tlsErrInfo);
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                     onFailed(tlsErrInfo);
@@ -212,7 +211,7 @@ public class TencentCloud
                     @Override
                     public void onError(int i, String s)
                     {
-                        LogUtil.d(TAG, "IM onError:" + s);
+                        LogUtil.e(TAG, "IM onError:" + s);
                         listener.onFail(s, i);
                     }
 

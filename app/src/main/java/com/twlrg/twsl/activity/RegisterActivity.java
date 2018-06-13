@@ -94,7 +94,7 @@ public class RegisterActivity extends BaseActivity implements IRequestListener
                     ConfigManager.instance().setMobile(phone);
                     ConfigManager.instance().setUserPwd(pwd);
                     Intent mIntent = new Intent();
-                    mIntent.setAction("REGISTER_IM");
+                    mIntent.setAction(LoginActivity.REGISTER_IM);
                     mIntent.putExtra("UID", uid);
                     sendBroadcast(mIntent);
                     ToastUtil.show(RegisterActivity.this, "注册成功!");
