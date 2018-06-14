@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -225,10 +226,10 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
 
 
     private SelectPicturePopupWindow mSelectPicturePopupWindow;
-    protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION  = 101;
-    protected static final int CAMERA_PERMISSIONS_REQUEST_CODE  = 102;
-    private static final   int GALLERY_REQUEST_CODE                    = 9001;    // 相册选图标记
-    private static final   int CAMERA_REQUEST_CODE                     = 9002;    // 相机拍照标记
+    protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
+    protected static final int CAMERA_PERMISSIONS_REQUEST_CODE        = 102;
+    private static final   int GALLERY_REQUEST_CODE                   = 9001;    // 相册选图标记
+    private static final   int CAMERA_REQUEST_CODE                    = 9002;    // 相机拍照标记
 
     // 拍照临时图片
     private String mTempPhotoPath;
@@ -244,20 +245,59 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))
             {
-                ToastUtil.show(AuthenticationActivity.this,"您已经拒绝过一次");
+                ToastUtil.show(AuthenticationActivity.this, "您已经拒绝过一次");
             }
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_PERMISSIONS_REQUEST_CODE );
-        }else
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE},
+                    CAMERA_PERMISSIONS_REQUEST_CODE);
+        }
+        else
         {
             mSelectPicturePopupWindow.dismissPopupWindow();
-            Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            //下面这句指定调用相机拍照后的照片存储的路径
-            takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTempPhotoPath)));
-            startActivityForResult(takeIntent, CAMERA_REQUEST_CODE);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            {
+                doTakePhotoIn7(new File(mTempPhotoPath).getAbsolutePath());
+            }
+            else
+            {
+                Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //下面这句指定调用相机拍照后的照片存储的路径
+                takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTempPhotoPath)));
+                startActivityForResult(takeIntent, CAMERA_REQUEST_CODE);
+            }
+
+
         }
     }
 
 
+    private void doTakePhotoIn7(String path)
+    {
+        Uri mCameraTempUri;
+        try
+        {
+            ContentValues values = new ContentValues(1);
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+            values.put(MediaStore.Images.Media.DATA, path);
+            mCameraTempUri = getContentResolver()
+                    .insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            if (mCameraTempUri != null)
+            {
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, mCameraTempUri);
+                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+            }
+            startActivityForResult(intent, CAMERA_REQUEST_CODE);
+
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 
     private void pickFromGallery()
@@ -427,7 +467,7 @@ public class AuthenticationActivity extends BaseActivity implements IRequestList
                     pickFromGallery();
                 }
                 break;
-            case CAMERA_PERMISSIONS_REQUEST_CODE :
+            case CAMERA_PERMISSIONS_REQUEST_CODE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
                     takePhoto();

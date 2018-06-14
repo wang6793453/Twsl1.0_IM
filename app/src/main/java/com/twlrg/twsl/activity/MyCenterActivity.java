@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -478,10 +479,46 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
         else
         {
             mSelectPicturePopupWindow.dismissPopupWindow();
-            Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            //下面这句指定调用相机拍照后的照片存储的路径
-            takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTempPhotoPath)));
-            startActivityForResult(takeIntent, CAMERA_REQUEST_CODE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            {
+                doTakePhotoIn7(new File(mTempPhotoPath).getAbsolutePath());
+            }
+            else
+            {
+                Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //下面这句指定调用相机拍照后的照片存储的路径
+                takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mTempPhotoPath)));
+                startActivityForResult(takeIntent, CAMERA_REQUEST_CODE);
+            }
+        }
+    }
+
+
+    private void doTakePhotoIn7(String path)
+    {
+        Uri mCameraTempUri;
+        try
+        {
+            ContentValues values = new ContentValues(1);
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+            values.put(MediaStore.Images.Media.DATA, path);
+            mCameraTempUri = getContentResolver()
+                    .insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            if (mCameraTempUri != null)
+            {
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, mCameraTempUri);
+                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+            }
+            startActivityForResult(intent, CAMERA_REQUEST_CODE);
+
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
