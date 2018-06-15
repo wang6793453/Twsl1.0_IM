@@ -91,11 +91,16 @@ public class BindHotelActivity extends BaseActivity implements IRequestListener
                     hotelInfoList.clear();
                     hotelInfoList.addAll(mHotelInfoListHandler.getHotelInfoList());
                     mBindHotelAdapter.notifyDataSetChanged();
+
+                    if (hotelInfoList.isEmpty())
+                    {
+                        ToastUtil.show(BindHotelActivity.this, "该城市暂无数据");
+                    }
                     break;
 
                 case BIND_HOTEL_SUCCESS:
                     //LoginActivity.start(BindHotelActivity.this, true);
-                    ToastUtil.show(BindHotelActivity.this,"操作成功");
+                    ToastUtil.show(BindHotelActivity.this, "操作成功");
                     finish();
                     break;
 
@@ -130,7 +135,7 @@ public class BindHotelActivity extends BaseActivity implements IRequestListener
     @Override
     protected void initViewData()
     {
-        recyclerView.setLayoutManager(new FullyLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new EmptyDecoration(this, ""));
 
         mBindHotelAdapter = new BindHotelAdapter(hotelInfoList, new MyItemClickListener()
@@ -142,12 +147,12 @@ public class BindHotelActivity extends BaseActivity implements IRequestListener
                 {
                     if (i == position)
                     {
-                        hotelInfoList.get(position).setSelected(true);
+                        hotelInfoList.get(i).setSelected(true);
                         merchant_id = hotelInfoList.get(position).getId();
                     }
                     else
                     {
-                        hotelInfoList.get(position).setSelected(false);
+                        hotelInfoList.get(i).setSelected(false);
                     }
                 }
                 mBindHotelAdapter.notifyDataSetChanged();
@@ -259,7 +264,8 @@ public class BindHotelActivity extends BaseActivity implements IRequestListener
                 city_value = data.getStringExtra("city_id");
                 String city_name = data.getStringExtra("city_name");
                 tvCity.setText(city_name);
-
+                hotelInfoList.clear();
+                mBindHotelAdapter.notifyDataSetChanged();
 
             }
         }

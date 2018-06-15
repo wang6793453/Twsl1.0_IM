@@ -107,13 +107,11 @@
             android:layout_marginRight="@dimen/dm_80"
             android:background="@color/grayB"/>
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/dm_15"/>
-
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dm_15"/>
     </LinearLayout>
 
     <LinearLayout

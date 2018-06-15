@@ -51,6 +51,11 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
     TextView        tvDate;
     @BindView(R.id.tv_start_date)
     TextView        tvStartDate;
+
+
+    @BindView(R.id.tv_room_name)
+    TextView        tvRoomName;
+
     @BindView(R.id.tv_end_date)
     TextView        tvEndDate;
     @BindView(R.id.tv_week_1)
@@ -79,7 +84,7 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
     Button          btnSave;
     @BindView(R.id.ll_date)
     LinearLayout    llDate;
-    private String s_date, e_date, id, room_id;
+    private String s_date, e_date, id, room_id,room_name;
     private              List<TextView> mWeekViewList = new ArrayList<>();
     private static final int            GET_DATE_CODE = 0x99;
 
@@ -121,6 +126,7 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
         e_date = getIntent().getStringExtra("E_DATE");
         id = getIntent().getStringExtra("ID");
         room_id = getIntent().getStringExtra("ROOM_ID");
+        room_name = getIntent().getStringExtra("ROOM_NAME");
     }
 
     @Override
@@ -147,6 +153,7 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvTitle.setText("房价维护");
+        tvRoomName.setText(room_name);
         if (StringUtils.stringIsEmpty(e_date) || StringUtils.stringIsEmpty(e_date))
         {
             s_date = StringUtils.getCurrentTime();

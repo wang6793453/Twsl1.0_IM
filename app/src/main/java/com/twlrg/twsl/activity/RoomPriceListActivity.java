@@ -147,7 +147,11 @@ public class RoomPriceListActivity extends BaseActivity  implements IRequestList
             @Override
             public void onItemClick(View view, int position)
             {
-                startActivity(new Intent(RoomPriceListActivity.this, RoomPriceDetailActivity.class).putExtra("ROOM_ID", roomInfoList.get(position).getId()));
+                startActivity(new Intent(RoomPriceListActivity.this, RoomPriceDetailActivity.class)
+                        .putExtra("ROOM_ID", roomInfoList.get(position).getId())
+                        .putExtra("ROOM_NAME", roomInfoList.get(position).getTitle())
+
+                );
             }
         });
 

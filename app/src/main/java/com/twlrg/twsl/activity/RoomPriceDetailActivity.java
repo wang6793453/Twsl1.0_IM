@@ -62,7 +62,7 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
     private RoomPriceMonthAdapter mRoomPriceMonthAdapter;
     private List<RoomMonthInfo> monthInfoList = new ArrayList<>();
 
-    private String roomId;
+    private String roomId,roomName;
     private static final int REQUEST_SUCCESS = 0x01;
     public static final  int REQUEST_FAIL    = 0x02;
 
@@ -100,7 +100,7 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
     protected void initData()
     {
         roomId = getIntent().getStringExtra("ROOM_ID");
-
+        roomName = getIntent().getStringExtra("ROOM_NAME");
     }
 
     @Override
@@ -145,6 +145,7 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
                         .putExtra("E_DATE", day)
                         .putExtra("ID", id)
                         .putExtra("ROOM_ID", mRoomDayInfo.getRoom_id())
+                        .putExtra("ROOM_NAME", roomName)
                 );
             }
         });
@@ -184,7 +185,10 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
         }
         else if (v == tvSubmit)
         {
-            startActivity(new Intent(RoomPriceDetailActivity.this, SettingRoomPriceActivity.class).putExtra("ROOM_ID", roomId));
+            startActivity(new Intent(RoomPriceDetailActivity.this, SettingRoomPriceActivity.class)
+                    .putExtra("ROOM_ID", roomId)
+                    .putExtra("ROOM_NAME", roomName)
+            );
         }
     }
 

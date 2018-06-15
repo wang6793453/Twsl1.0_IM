@@ -221,7 +221,6 @@ public class OrderListFragment extends BaseFragment implements View.OnClickListe
         mTabLayout.addTab(mTabLayout.newTab().setText("全部订单"));
         mTabLayout.setupWithViewPager(mViewPager);//给TabLayout设置关联ViewPager，如果设置了ViewPager，那么ViewPagerAdapter中的getPageTitle()方法返回的就是Tab上的标题
 
-
     }
 
     @Override
