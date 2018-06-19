@@ -54,6 +54,11 @@ public class Urls
     {
         return BASE_URL + "merchant/keyword_hotel";
     }
+    //首页酒店列表
+    public static String getHotelByKeywordTitleUrl()
+    {
+        return BASE_URL + "merchant/keyword_title";
+    }
 
 
     //酒店详细
