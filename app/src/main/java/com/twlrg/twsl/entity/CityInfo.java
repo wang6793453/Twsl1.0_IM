@@ -3,6 +3,7 @@ package com.twlrg.twsl.entity;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.twlrg.twsl.MyApplication;
 import com.twlrg.twsl.widget.sidebar.PinYinUtil;
 
 import org.json.JSONObject;
@@ -22,7 +23,7 @@ public class CityInfo implements Comparable<CityInfo>,Serializable
     {
         this.id = obj.optString("id");
         this.name=obj.optString("name");
-        mPinyin = PinYinUtil.toPinyin(name);
+        mPinyin = PinYinUtil.convertChineseToPinyin(name);
     }
 
     public String getId()
