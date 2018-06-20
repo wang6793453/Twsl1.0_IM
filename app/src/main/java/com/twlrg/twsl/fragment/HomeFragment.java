@@ -547,7 +547,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         valuePairs.put("e_date", mEndDate);
         valuePairs.put("page", "99");
         valuePairs.put("keyword", keyword);
-        DataRequest.instance().request(getActivity(), Urls.getHotelByKeywordUrl(), this, HttpRequest.POST, GET_HOTEL_LIST, valuePairs,
+        DataRequest.instance().request(getActivity(), Urls.getHotelByKeywordTitleUrl(), this, HttpRequest.POST, GET_HOTEL_LIST, valuePairs,
                 new HotelInfoListHandler());
     }
 
