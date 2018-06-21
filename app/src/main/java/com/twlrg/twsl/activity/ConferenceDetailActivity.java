@@ -150,7 +150,6 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             //根据上面设置是否对状态栏单独设置颜色
-
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.black));
 
         }
@@ -173,7 +172,7 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
     protected void initViewData()
     {
         setStatusBarTextDeep(false);
-        topView.setVisibility(View.VISIBLE);
+        topView.setVisibility(View.GONE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
         tvTitle.setText("会议室详情");
 

@@ -48,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="起"
+                android:visibility="gone"
                 android:layout_marginLeft="@dimen/dm_3"
                 android:textColor="@color/white"
                 android:textSize="@dimen/t10"

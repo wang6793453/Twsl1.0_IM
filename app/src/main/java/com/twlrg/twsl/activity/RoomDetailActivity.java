@@ -148,7 +148,7 @@ public class RoomDetailActivity extends BaseActivity implements IRequestListener
                         }
                         else
                         {
-                            tvWifi.setText("有窗");
+                            tvWindow.setText("有窗");
                         }
 
                     }
@@ -316,6 +316,7 @@ public class RoomDetailActivity extends BaseActivity implements IRequestListener
             valuePairs.put("check_in", mCheckIn);
             valuePairs.put("floor", mFloor);
             valuePairs.put("add_bed", mAddBed);
+            valuePairs.put("bed_type", mBedType);
             valuePairs.put("smokeless", smokeless + "");
             valuePairs.put("wifi", wifi + "");
             valuePairs.put("window", window + "");
