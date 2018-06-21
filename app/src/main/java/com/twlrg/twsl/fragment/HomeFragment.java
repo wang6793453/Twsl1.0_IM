@@ -154,7 +154,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
     private String mStartDate;
     private String mEndDate;
-    private String           mCityValue     = "2158";
     private List<HotelInfo>  hotelInfoList  = new ArrayList<>();
     private List<CityInfo>   cityInfoList   = new ArrayList<>();
     private List<RegionInfo> regionInfoList = new ArrayList<>();
@@ -460,7 +459,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                 startActivity(new Intent(getActivity(), HotelDetailActivity.class)
                         .putExtra("ID", mHotelInfo.getId())
                         .putExtra("TITLE", mHotelInfo.getTitle())
-                        .putExtra("CITY_VALUE", mCityValue)
+                        .putExtra("CITY_VALUE", city_value)
                         .putExtra("S_DATE", mStartDate)
                         .putExtra("E_DATE", mEndDate)
                         .putExtra("PRICE", price + "")
