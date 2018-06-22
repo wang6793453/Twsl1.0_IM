@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -52,7 +53,9 @@ import com.twlrg.twsl.im.model.VoiceMessage;
 import com.twlrg.twsl.im.utils.FileUtil;
 import com.twlrg.twsl.im.utils.MediaUtil;
 import com.twlrg.twsl.im.utils.RecorderUtil;
+import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.LogUtil;
+import com.twlrg.twsl.utils.StatusBarUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -62,7 +65,7 @@ public class ChatActivity extends FragmentActivity implements ChatView
 {
 
     private static final String TAG = "ChatActivity";
-
+    private View          topView;
     private List<Message> messageList = new ArrayList<>();
     private ChatAdapter   adapter;
     private ListView      listView;
@@ -125,6 +128,13 @@ public class ChatActivity extends FragmentActivity implements ChatView
         presenter = new ChatPresenter(this, identify, type);
         input = (ChatInput) findViewById(R.id.input_panel);
         input.setChatView(this);
+
+        StatusBarUtil.setTranslucentStatus(this, true);
+        StatusBarUtil.setStatusBarTextColor(this, false);
+        topView = (View) findViewById(R.id.topView);
+        topView.setVisibility(View.VISIBLE);
+        topView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
+
         adapter = new ChatAdapter(this, R.layout.item_message, messageList);
         listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
