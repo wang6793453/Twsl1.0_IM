@@ -65,7 +65,6 @@ public class ChatActivity extends FragmentActivity implements ChatView
 {
 
     private static final String TAG = "ChatActivity";
-    private View          topView;
     private List<Message> messageList = new ArrayList<>();
     private ChatAdapter   adapter;
     private ListView      listView;
@@ -116,7 +115,7 @@ public class ChatActivity extends FragmentActivity implements ChatView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
+        StatusBarUtil.setColor(this, R.color.black);
 
         mMyBroadCastReceiver = new MyBroadCastReceiver();
         IntentFilter intentFilter = new IntentFilter();
@@ -128,12 +127,6 @@ public class ChatActivity extends FragmentActivity implements ChatView
         presenter = new ChatPresenter(this, identify, type);
         input = (ChatInput) findViewById(R.id.input_panel);
         input.setChatView(this);
-
-        StatusBarUtil.setTranslucentStatus(this, true);
-        StatusBarUtil.setStatusBarTextColor(this, false);
-        topView = (View) findViewById(R.id.topView);
-        topView.setVisibility(View.VISIBLE);
-        topView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
 
         adapter = new ChatAdapter(this, R.layout.item_message, messageList);
         listView = (ListView) findViewById(R.id.list);
