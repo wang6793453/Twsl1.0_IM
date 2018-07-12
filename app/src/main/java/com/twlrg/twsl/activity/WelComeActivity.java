@@ -64,7 +64,7 @@ public class WelComeActivity extends BaseActivity implements SplashView, TIMCall
     @Override
     protected void initData()
     {
-
+        ConfigManager.instance().setUserId("");
     }
 
     @Override

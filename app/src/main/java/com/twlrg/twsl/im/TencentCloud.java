@@ -37,7 +37,7 @@ public class TencentCloud
 
 
     public static final  String UID_PREFIX = "slbl_serve_";
-    private static final String PASSWORD   = "slbl123456";
+    public static final String PASSWORD   = "slbl123456";
 
     private static final String TAG = "TencentCloud";
 

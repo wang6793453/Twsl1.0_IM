@@ -150,7 +150,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
                     if (!StringUtils.stringIsEmpty(registerUid))
                     {
                         TLSHelper instance = TLSHelper.getInstance();
-                        instance.TLSStrAccReg(TencentCloud.UID_PREFIX + registerUid, "slbl123456", new TLSStrAccRegListener()
+                        instance.TLSStrAccReg(TencentCloud.UID_PREFIX + registerUid, TencentCloud.PASSWORD, new TLSStrAccRegListener()
                         {
                             @Override
                             public void OnStrAccRegSuccess(TLSUserInfo tlsUserInfo)

@@ -62,7 +62,7 @@ public class ConversationFragment extends Fragment implements ConversationView, 
     private ListView                   listView;
     private ConversationPresenter      presenter;
     private FriendshipManagerPresenter friendshipManagerPresenter;
-    private GroupManagerPresenter      groupManagerPresenter;
+  //  private GroupManagerPresenter      groupManagerPresenter;
     private List<String>               groupList;
     private FriendshipConversation     friendshipConversation;
     private GroupManageConversation    groupManageConversation;
@@ -95,13 +95,13 @@ public class ConversationFragment extends Fragment implements ConversationView, 
                     conversationList.get(position).navToDetail(getActivity());
                     if (conversationList.get(position) instanceof GroupManageConversation)
                     {
-                        groupManagerPresenter.getGroupManageLastMessage();
+                      //  groupManagerPresenter.getGroupManageLastMessage();
                     }
 
                 }
             });
             friendshipManagerPresenter = new FriendshipManagerPresenter(this);
-            groupManagerPresenter = new GroupManagerPresenter(this);
+          //  groupManagerPresenter = new GroupManagerPresenter(this);
             reloadData();
             registerForContextMenu(listView);
         }
@@ -158,7 +158,7 @@ public class ConversationFragment extends Fragment implements ConversationView, 
             }
         }
         friendshipManagerPresenter.getFriendshipLastMessage();
-        groupManagerPresenter.getGroupManageLastMessage();
+        //groupManagerPresenter.getGroupManageLastMessage();
     }
 
     /**
@@ -176,7 +176,7 @@ public class ConversationFragment extends Fragment implements ConversationView, 
         }
         if (message.getConversation().getType() == TIMConversationType.System)
         {
-            groupManagerPresenter.getGroupManageLastMessage();
+            //groupManagerPresenter.getGroupManageLastMessage();
             return;
         }
         if (MessageFactory.getMessage(message) instanceof CustomMessage) return;

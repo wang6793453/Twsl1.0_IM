@@ -123,7 +123,7 @@ public class RoomPriceDetailActivity extends BaseActivity implements IRequestLis
         setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
-        tvTitle.setText("房价维护");
+        tvTitle.setText(getIntent().getStringExtra("ROOM_NAME"));
 
         tvSubmit.setText("批量修改");
         tvSubmit.setVisibility(View.VISIBLE);

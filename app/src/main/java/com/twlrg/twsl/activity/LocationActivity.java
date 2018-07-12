@@ -24,8 +24,10 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.twlrg.twsl.R;
+import com.twlrg.twsl.entity.LngLat;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.LogUtil;
+import com.twlrg.twsl.utils.MapUtils;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.widget.AutoFitTextView;
 import com.twlrg.twsl.widget.SelectMapPopupWindow;
@@ -186,7 +188,9 @@ public class LocationActivity extends BaseActivity
                     case 2:
                         if (APPUtils.isAppInstall(LocationActivity.this, "com.tencent.map"))
                         {
-                            invokeNavi(LocationActivity.this, "drive", null, null, null, hotelName, lat + "," + lng, null, "twsl");
+                            LngLat mLngLat = MapUtils.bd_decrypt(new LngLat(Double.parseDouble(lng), Double.parseDouble(lat)));
+                            invokeNavi(LocationActivity.this, "drive", null, null, null, hotelName, mLngLat.getLantitude() + "," + mLngLat.getLongitude(),
+                                    null, "twsl");
                         }
                         else
                         {
@@ -212,12 +216,13 @@ public class LocationActivity extends BaseActivity
      */
     private void openGaoDeNavi()
     {
+        LngLat mLngLat = MapUtils.bd_decrypt(new LngLat(Double.parseDouble(lng), Double.parseDouble(lat)));
+
         StringBuffer stringBuffer = new StringBuffer("androidamap://navi?sourceApplication=")
-                .append("yitu8_driver").append("&lat=").append(lat)
-                .append("&lon=").append(lng)
+                .append("yitu8_driver").append("&lat=").append(mLngLat.getLantitude())
+                .append("&lon=").append(mLngLat.getLongitude())
                 .append("&dev=").append(1)
                 .append("&style=").append(0);
-        ;
         if (!TextUtils.isEmpty(hotelName))
         {
             stringBuffer.append("&poiname=").append(hotelName);

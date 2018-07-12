@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebBackForwardList;
 import android.widget.LinearLayout;
 
 import com.twlrg.twsl.MyApplication;
@@ -15,6 +16,7 @@ import com.twlrg.twsl.activity.ConferenceManageActivity;
 import com.twlrg.twsl.activity.EditHotelActivity;
 import com.twlrg.twsl.activity.FacilitiesActivity;
 import com.twlrg.twsl.activity.LocationActivity;
+import com.twlrg.twsl.activity.LoginActivity;
 import com.twlrg.twsl.activity.MainActivity;
 import com.twlrg.twsl.activity.MyCenterActivity;
 import com.twlrg.twsl.activity.PictureManageActivity;
@@ -22,8 +24,11 @@ import com.twlrg.twsl.activity.PolicyActivity;
 import com.twlrg.twsl.activity.RoomManageActivity;
 import com.twlrg.twsl.activity.RoomPriceListActivity;
 import com.twlrg.twsl.activity.RoomStatusListActivity;
+import com.twlrg.twsl.activity.WebViewActivity;
+import com.twlrg.twsl.activity.WelComeActivity;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
+import com.twlrg.twsl.utils.Urls;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +67,8 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
     LinearLayout llJdzz;
     @BindView(R.id.ll_grzc)
     LinearLayout llGrzc;
+    @BindView(R.id.ll_wgw)
+    LinearLayout llWgw;
     private View rootView = null;
     private Unbinder unbinder;
 
@@ -124,6 +131,7 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
         llJdxx.setOnClickListener(this);
         llJdzz.setOnClickListener(this);
         llGrzc.setOnClickListener(this);
+        llWgw.setOnClickListener(this);
 
     }
 
@@ -187,9 +195,17 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
             gotoActivity(ConferenceManageActivity.class);
 
         }
-        else if (v == llCtgl)
+        else if (v == llWgw)
         {
-
+            if (MyApplication.getInstance().isLogin())
+            {
+                String url = Urls.getWgwUrl(ConfigManager.instance().getMerchantId(), ConfigManager.instance().getUserID());
+                startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra(WebViewActivity.EXTRA_URL, url));
+            }
+            else
+            {
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+            }
         }
         else if (v == llTpgl)
         {
@@ -224,9 +240,8 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
         }
         else
         {
-            startActivity(new Intent(getActivity(), LocationActivity.class));
+            startActivity(new Intent(getActivity(), LoginActivity.class));
         }
     }
-
 
 }

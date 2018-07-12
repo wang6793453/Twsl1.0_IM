@@ -54,6 +54,7 @@ public class Urls
     {
         return BASE_URL + "merchant/keyword_hotel";
     }
+
     //首页酒店列表
     public static String getHotelByKeywordTitleUrl()
     {
@@ -359,6 +360,11 @@ public class Urls
         return BASE_URL + "user/business_card";
     }
 
+    //微官网
+    public static String getWgwUrl(String merchant_id, String uid)
+    {
+        return HTTP_IP + "/microsite/index/index/merchant_id/" + merchant_id + "/uid/" + uid;
+    }
 
 
 }

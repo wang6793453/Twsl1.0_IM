@@ -122,7 +122,7 @@ public class RoomStatusDetailActivity extends BaseActivity implements IRequestLi
         setStatusBarTextDeep(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(this)));
-        tvTitle.setText("房态维护");
+        tvTitle.setText(getIntent().getStringExtra("ROOM_NAME"));
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(RoomStatusDetailActivity.this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.addItemDecoration(new EmptyDecoration(RoomStatusDetailActivity.this, ""));
