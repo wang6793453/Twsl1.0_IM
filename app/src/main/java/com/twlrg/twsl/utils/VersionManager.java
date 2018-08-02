@@ -5,8 +5,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -241,10 +243,27 @@ public class VersionManager implements IRequestListener
         {
             return;
         }
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
-                "application/vnd.android.package-archive");
-        mContext.startActivity(i);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        {
+            Uri apkUri =
+                    FileProvider.getUriForFile(mContext, "com.twlrg.twsl.fileprovider", apkfile);
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            // 由于没有在Activity环境下启动Activity,设置下面的标签
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //添加这一句表示对目标应用临时授权该Uri所代表的文件
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            mContext.startActivity(intent);
+        }
+        else
+        {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
+                    "application/vnd.android.package-archive");
+            mContext.startActivity(i);
+        }
 
     }
 

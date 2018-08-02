@@ -137,8 +137,8 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
 
     //手机定位的经纬度
-    private double lng = 0;
-    private double lat = 0;
+    private double lng = 114.2496;
+    private double lat = 22.737045;
     private int    star;
     private int    range;
     private int    price;
@@ -185,6 +185,10 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
             switch (msg.what)
             {
                 case REQUEST_SUCCESS:
+                    if(pn==1)
+                    {
+                        hotelInfoList.clear();
+                    }
                     HotelInfoListHandler mHotelInfoListHandler = (HotelInfoListHandler) msg.obj;
                     hotelInfoList.addAll(mHotelInfoListHandler.getHotelInfoList());
                     mHotelAdapter.notifyDataSetChanged();
@@ -455,6 +459,11 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
             @Override
             public void onItemClick(View view, int position)
             {
+                if (lat <= 0)
+                {
+                    lng = 114.2496;
+                    lat = 22.737045;
+                }
                 HotelInfo mHotelInfo = hotelInfoList.get(position);
                 startActivity(new Intent(getActivity(), HotelDetailActivity.class)
                         .putExtra("ID", mHotelInfo.getId())
@@ -480,7 +489,8 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
         tvCheck.setText("住 " + StringUtils.toMonthAndDay(mStartDate));
         tvLeave.setText("离 " + StringUtils.toMonthAndDay(mEndDate));
-
+        pn=1;
+        getHotelList();
 
     }
 
@@ -519,6 +529,11 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     //price 价格（0代表不限；1代表150元以下；2代表150-300元；3代表301-450元；4代表451-600元；5代表600元以上）
     private void getHotelList()
     {
+        if (lat <= 0)
+        {
+            lng = 114.2496;
+            lat = 22.737045;
+        }
 
         Map<String, String> valuePairs = new HashMap<>();
         valuePairs.put("lat", lat + "");

@@ -1,11 +1,16 @@
 package com.twlrg.twsl.activity;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -26,6 +31,7 @@ import com.twlrg.twsl.fragment.UserCenterFragment1;
 import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.DialogUtils;
 import com.twlrg.twsl.utils.LogUtil;
+import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.VersionManager;
 
 import butterknife.BindView;
@@ -36,11 +42,11 @@ public class MainActivity extends BaseActivity
     @BindView(android.R.id.tabhost)
     FragmentTabHost fragmentTabHost;
 
-    private String texts[]       = {"首页", "消息", "订单", "我的"};
-    private int    imageButton[] = {
+    private                String texts[]                                   = {"首页", "消息", "订单", "我的"};
+    private                int    imageButton[]                             = {
             R.drawable.ic_home_selector, R.drawable.ic_message_selector,
             R.drawable.ic_order_selector, R.drawable.ic_user_center_selector};
-
+    protected static final int    READ_PHONE_STATE_PERMISSIONS_REQUEST_CODE = 9002;
 
     private Class fragmentArray[] = {HomeFragment.class, MessageFragment.class, OrderListFragment.class, UserCenterFragment1.class};
 
@@ -113,6 +119,54 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initViewData()
     {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+
+
+        {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_PHONE_STATE))
+            {
+                ToastUtil.show(MainActivity.this, "您已经拒绝过一次");
+            }
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                            Manifest.permission.READ_PHONE_STATE, Manifest.permission
+                            .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    READ_PHONE_STATE_PERMISSIONS_REQUEST_CODE);
+        }
+        else
+        {
+            initMain();
+        }
+    }
+
+    /**
+     * Callback received when a permissions request has been completed.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case READ_PHONE_STATE_PERMISSIONS_REQUEST_CODE:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[2] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[3] == PackageManager.PERMISSION_GRANTED)
+                {
+                    initMain();
+                }
+                break;
+
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private void initMain()
+    {
         fragmentTabHost.setup(this, getSupportFragmentManager(),
                 R.id.main_layout);
 
@@ -173,9 +227,9 @@ public class MainActivity extends BaseActivity
 
     public int getTabIndex()
     {
-        if(null ==fragmentTabHost)
+        if (null == fragmentTabHost)
         {
-            return  0;
+            return 0;
         }
         return fragmentTabHost.getCurrentTab();
     }

@@ -70,6 +70,8 @@ public class LoginActivity extends BaseActivity implements IRequestListener
     private String mUserName, mPwd;
     private String registerUid;
 
+    private String  userId;
+
     private RegisterImBroadcast mRegisterImBroadcast;
     public static String REGISTER_IM = "REGISTER_IM";
 
@@ -93,6 +95,8 @@ public class LoginActivity extends BaseActivity implements IRequestListener
 
 
                 case REQUEST_LOGIN_SUCCESS:
+                    LoginHandler mLoginHandler1   = (LoginHandler)msg.obj;
+                    userId = mLoginHandler1.getUserId();
                     ConfigManager.instance().setUserPwd(mPwd);
                     ConfigManager.instance().setMobile(mUserName);
                     sendEmptyMessage(LOGIN_IM);
@@ -194,6 +198,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
 
     private void modifyUserProfile()
     {
+        ConfigManager.instance().setUserId(userId);
         hideProgressDialog();
         String name = ConfigManager.instance().getUserNickName();
         String userPic = Urls.getImgUrl(ConfigManager.instance().getUserPic());
