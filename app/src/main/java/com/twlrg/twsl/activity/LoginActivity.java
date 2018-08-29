@@ -187,15 +187,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
     };
 
 
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-        wxShare.register();
-    }
 
-
-    private WXShare wxShare;
 
     @Override
     protected void initData()
@@ -205,27 +197,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
         intentFilter.addAction(REGISTER_IM);
         registerReceiver(mRegisterImBroadcast, intentFilter);
 
-        wxShare = new WXShare(this);
-        wxShare.setListener(new WXShare.OnResponseListener()
-        {
-            @Override
-            public void onSuccess()
-            {
-                // 分享成功
-            }
 
-            @Override
-            public void onCancel()
-            {
-                // 分享取消
-            }
-
-            @Override
-            public void onFail(String message)
-            {
-                // 分享失败
-            }
-        });
     }
 
 
@@ -303,7 +275,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
         }
         else if (v == tvRegister)
         {
-            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+           startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
 
         }
         else if (v == btnLogin)

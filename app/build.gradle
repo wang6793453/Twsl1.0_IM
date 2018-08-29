@@ -61,5 +61,7 @@ dependencies {
     }
     compile project(':tencentcloudlib')
     compile 'com.meizu.flyme.internet:push-internal:3.6.3@aar'
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }

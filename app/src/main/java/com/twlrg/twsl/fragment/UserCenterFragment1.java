@@ -200,7 +200,10 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
             if (MyApplication.getInstance().isLogin())
             {
                 String url = Urls.getWgwUrl(ConfigManager.instance().getMerchantId(), ConfigManager.instance().getUserID());
-                startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra(WebViewActivity.EXTRA_URL, url));
+                startActivity(new Intent(getActivity(), WebViewActivity.class)
+                        .putExtra(WebViewActivity.EXTRA_URL, url)
+                        .putExtra(WebViewActivity.EXTRA_TITLE, "微官网")
+                );
             }
             else
             {

@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.twlrg.twsl.R;
 import com.twlrg.twsl.utils.StringUtils;
+import com.twlrg.twsl.utils.WXShare;
 
 
 /**
@@ -33,6 +34,7 @@ public class WebViewActivity extends Activity
     private boolean   isSetTitle;
     private ImageView mBackIv;
     private TextView  mTitleTv;
+    private TextView tvSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,6 +49,7 @@ public class WebViewActivity extends Activity
 
     protected void initView()
     {
+        tvSubmit= (TextView) findViewById(R.id.tv_submit);
         mBackIv = (ImageView) findViewById(R.id.iv_back);
         mTitleTv = (TextView) findViewById(R.id.tv_title);
         mWebView = (WebView) findViewById(R.id.mWebView);
@@ -168,9 +171,45 @@ public class WebViewActivity extends Activity
         {
             mWebView.loadUrl(mUrl);
         }
+        tvSubmit.setVisibility(View.VISIBLE);
+        tvSubmit.setText("分享");
+        wxShare = new WXShare(this);
+        wxShare.setListener(new WXShare.OnResponseListener()
+        {
+            @Override
+            public void onSuccess()
+            {
+                // 分享成功
+            }
+
+            @Override
+            public void onCancel()
+            {
+                // 分享取消
+            }
+
+            @Override
+            public void onFail(String message)
+            {
+                // 分享失败
+            }
+        });
     }
 
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        wxShare.register();
+    }
 
+    @Override
+    protected void onDestroy()
+    {
+        wxShare.unregister();
+        super.onDestroy();
+    }
+    private WXShare wxShare;
     private void initEvent()
     {
         mBackIv.setOnClickListener(new View.OnClickListener()
@@ -186,6 +225,14 @@ public class WebViewActivity extends Activity
                 {
                     finish();
                 }
+            }
+        });
+
+        tvSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                wxShare.shareWebpage(WebViewActivity.this);
             }
         });
     }

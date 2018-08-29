@@ -647,6 +647,8 @@
         <activity android:name="com.twlrg.twsl.im.ui.BlackListActivity"></activity>
         <activity android:name="com.twlrg.twsl.im.ui.ImagePreviewActivity"></activity>
         <activity android:name="com.twlrg.twsl.im.ui.MessageNotifySettingActivity"></activity>
+        <meta-data android:value="5b669eeaf43e485299000637" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Umeng" android:name="UMENG_CHANNEL"/>
 
         <receiver
             android:name=".utils.AppRegister"
