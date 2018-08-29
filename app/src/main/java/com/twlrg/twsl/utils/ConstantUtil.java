@@ -23,7 +23,7 @@ public class ConstantUtil
 
 
     public static final  String WX_APPID = "wx17e33484aba9fcc2";
-
+    public static final  String WECHAT_APP_SECREAT ="3cc6755bff9c8852fa5238fd6ae287d7";
 
 
 }

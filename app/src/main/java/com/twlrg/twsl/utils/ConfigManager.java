@@ -45,7 +45,7 @@ public class ConfigManager
     private static final String USER_PIC        = "useer_pic";
     private static final String USER_SEX        = "user_sex";
 
-    private static final String CITY_VALUE = "city_value";
+    private static final String CITY_VALUE  = "city_value";
     private static final String MERCHANT_ID = "merchant_id";
 
 
@@ -108,7 +108,14 @@ public class ConfigManager
 
     public void setUserId(String userId)
     {
-        mSharedPreferences.edit().putString(IDENTIFIER, TencentCloud.UID_PREFIX + userId).putString(USER_ID, userId).apply();
+        mSharedPreferences.edit().putString(USER_ID, userId).commit();
+        setIdentifier(userId);
+    }
+
+
+    public void setIdentifier(String userId)
+    {
+        mSharedPreferences.edit().putString(IDENTIFIER, TencentCloud.UID_PREFIX + userId).commit();
     }
 
     public String getIdentifier()

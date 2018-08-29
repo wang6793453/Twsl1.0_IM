@@ -64,7 +64,7 @@ public class OrderInfo implements Serializable
     private String nickname;
     private String sale_mobile;
     private  boolean priceModify;
-
+    private String  is_pay;
     private String  merchant_name;
     private String  show_mobile;
     private String  bill;
@@ -127,7 +127,17 @@ public class OrderInfo implements Serializable
         this.notify_time = obj.optString("notify_time");
         this.cancel_policy = obj.optString("cancel_policy");
         this.merchant_name=obj.optString("merchant_name");
+        this.is_pay=obj.optString("is_pay");
+    }
 
+    public String getIs_pay()
+    {
+        return is_pay;
+    }
+
+    public void setIs_pay(String is_pay)
+    {
+        this.is_pay = is_pay;
     }
 
     public String getMerchant_name()

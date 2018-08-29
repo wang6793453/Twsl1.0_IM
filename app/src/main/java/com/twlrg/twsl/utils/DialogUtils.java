@@ -236,7 +236,7 @@ public class DialogUtils
         dialog.setCancelable(false);
         View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_toast_2_button, null);
         dialog.setContentView(v);
-        TextView mTitle = (TextView) v.findViewById(R.id.tv_title);
+        TextView mTitle = (TextView) v.findViewById(R.id.tv_dialog_title);
         mTitle.setText(str);
         ((RelativeLayout) v.findViewById(R.id.rl_confirm)).setOnClickListener(new View.OnClickListener()
         {
@@ -277,9 +277,12 @@ public class DialogUtils
         dialog.setCancelable(false);
         View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_toast_2_button, null);
         dialog.setContentView(v);
-        TextView mTitle = (TextView) v.findViewById(R.id.tv_title);
+        TextView mTitle = (TextView) v.findViewById(R.id.tv_dialog_title);
         mTitle.setText(str);
-        ((RelativeLayout) v.findViewById(R.id.rl_confirm)).setOnClickListener(new View.OnClickListener()
+
+        RelativeLayout mConfirmLayout = (RelativeLayout) v.findViewById(R.id.rl_confirm);
+
+        mConfirmLayout.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -289,7 +292,10 @@ public class DialogUtils
             }
         });
 
-        v.findViewById(R.id.rl_cancel).setOnClickListener(new View.OnClickListener()
+
+        RelativeLayout mCancelLayout = (RelativeLayout) v.findViewById(R.id.rl_cancel);
+
+        mCancelLayout.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

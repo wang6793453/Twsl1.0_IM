@@ -192,11 +192,23 @@ public class OrderDetailActivity extends BaseActivity implements IRequestListene
                                 btnAccept.setVisibility(View.GONE);
                                 btnRefuse.setVisibility(View.VISIBLE);
                                 tvModifyPrice.setVisibility(View.VISIBLE);
+
+                                if(!"1".equals(mOrderInfo.getIs_pay()))
+                                {
+                                    tvIsUsed.setText("已取消");
+
+                                    btnAccept.setVisibility(View.GONE);
+                                    btnRefuse.setVisibility(View.GONE);
+                                    btnAlready.setVisibility(View.VISIBLE);
+                                    btnAlready.setText("已取消");
+                                }
                             }
                             else
                             {
                                 btnAccept.setVisibility(View.VISIBLE);
                                 btnRefuse.setVisibility(View.VISIBLE);
+
+
                             }
 
 

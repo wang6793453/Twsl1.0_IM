@@ -2,16 +2,17 @@ package com.twlrg.twsl;
 
 import android.app.Application;
 import android.app.Service;
+import android.os.StrictMode;
 import android.os.Vibrator;
 
 
 import com.baidu.mapapi.SDKInitializer;
 import com.twlrg.twsl.im.TencentCloud;
-import com.twlrg.twsl.service.LocationService;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
 import com.twlrg.twsl.utils.StringUtils;
-
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 
 /**
@@ -21,7 +22,6 @@ import com.twlrg.twsl.utils.StringUtils;
  */
 public class MyApplication extends Application
 {
-    public         LocationService locationService;
     public         Vibrator        mVibrator;
     private static MyApplication   instance;
 
@@ -35,13 +35,19 @@ public class MyApplication extends Application
         instance = this;
         APPUtils.configImageLoader(getApplicationContext());
         ConfigManager.instance().init(this);
-        /***
-         * 初始化定位sdk，建议在Application中创建
-         */
-        locationService = new LocationService(getApplicationContext());
         mVibrator = (Vibrator) getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
         SDKInitializer.initialize(getApplicationContext());
         TencentCloud.init(this);
+
+        MobclickAgent.setCatchUncaughtExceptions(true);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.setLogEnabled(true);
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+
+
     }
 
 

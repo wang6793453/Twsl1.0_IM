@@ -4,8 +4,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
@@ -17,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ActionMode;
 import android.view.KeyEvent;
@@ -143,7 +146,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private int    range;
     private int    price;
     private String region;
-    private String currentCity = "深圳市";
     private String city_value  = "2158";
 
     private List<FilterInfo> starFilterInfos     = new ArrayList<>();
@@ -159,10 +161,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private List<RegionInfo> regionInfoList = new ArrayList<>();
 
     private HotelAdapter    mHotelAdapter;
-    private LocationService locationService;
-
-    private int    count;
-    private Dialog mToastDialog;
     private static final int REQUEST_SUCCESS    = 0x01;
     private static final int REQUEST_FAIL       = 0x02;
     private static final int GET_CITY_SUCCESS   = 0x03;
@@ -432,12 +430,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     {
         super.onResume();
 
-        if (null != mToastDialog)
-        {
-            mToastDialog.dismiss();
-        }
         ((MainActivity) getActivity()).changeTabStatusColor(0);
-        openGPSSettings();
 
 
     }
@@ -482,36 +475,130 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         );
         mRecyclerView.setAdapter(mHotelAdapter);
 
-        if (Build.VERSION.SDK_INT >= 23)
-        {
-            showContacts();
-        }
-
         tvCheck.setText("住 " + StringUtils.toMonthAndDay(mStartDate));
         tvLeave.setText("离 " + StringUtils.toMonthAndDay(mEndDate));
-        pn=1;
+        pn = 1;
         getHotelList();
 
+
+        Map<String, String> valuePairs = new HashMap<>();
+        DataRequest.instance().request(getActivity(), Urls.getCityListUrl(), this, HttpRequest.POST, GET_CITY_LIST, valuePairs,
+                new CityListHandler());
+
+        mMyBroadCastReceiver = new HomeFragment.MyBroadCastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(LOCATION_RESULT);
+        getActivity().registerReceiver(mMyBroadCastReceiver, intentFilter);
+
+        ((MainActivity) getActivity()).startLocation();
     }
 
+    private HomeFragment.MyBroadCastReceiver mMyBroadCastReceiver;
+    private final String LOCATION_RESULT = "TWSL_LOCATION_RESULT";
 
-    private void initLocation()
+    class MyBroadCastReceiver extends BroadcastReceiver
     {
-        locationService = ((MyApplication) getActivity().getApplication()).locationService;
-        //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
-        locationService.registerListener(mListener);
-        //注册监听
-        int type = getActivity().getIntent().getIntExtra("from", 0);
-        if (type == 0)
+        private static final String TAG = "TestBroadCastReceiver";
+
+        @Override
+        public void onReceive(Context context, Intent intent)
         {
-            locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+
+
+            if (LOCATION_RESULT.contentEquals(intent.getAction()))
+            {
+                double mLat = intent.getDoubleExtra("LAT", 22.737045);
+                double mLng = intent.getDoubleExtra("LNG", 114.2496);
+                String currentCity = intent.getStringExtra("CURRENT_CITY");
+                lng = mLng;
+                lat = mLat;
+
+                int index = getCityIndex(currentCity);
+
+                if(lng>0)
+                {
+                    String title = "";
+                    if (index < 0)
+                    {
+                        if (StringUtils.stringIsEmpty(currentCity))
+                        {
+                            if (!cityInfoList.isEmpty())
+                            {
+                                CityInfo mCityInfo = cityInfoList.get(0);
+                                title = "定位失败,已为您自动切换到" + mCityInfo.getName();
+                                tvCity.setText(mCityInfo.getName());
+                                city_value = mCityInfo.getId();
+                            }
+                            else
+                            {
+                                title = "定位失败,已为您自动切换到深圳市";
+                                tvCity.setText("深圳市");
+                                city_value = "2158";
+                            }
+
+
+                        }
+                        else
+                        {
+                            if (cityInfoList.isEmpty())
+                            {
+                                title = "定位成功,您的城市为" + currentCity + ",已为你自动切换到深圳";
+                                tvCity.setText("深圳市");
+                                city_value = "2158";
+                            }
+                            else
+                            {
+                                CityInfo mCityInfo = cityInfoList.get(0);
+                                title = "定位成功,您的城市为" + currentCity + ",已为你自动切换到" + mCityInfo.getName();
+                                LogUtil.e("TAG", "title-->" + title);
+                                tvCity.setText(mCityInfo.getName());
+                                city_value = mCityInfo.getId();
+                            }
+
+                        }
+
+
+                    }
+                    else
+                    {
+                        title = "定位成功,您的城市为" + currentCity;
+                        tvCity.setText(currentCity);
+                    }
+
+                    DialogUtils.showPromptDialog(getActivity(), title, new MyItemClickListener()
+                    {
+                        @Override
+                        public void onItemClick(View view, int position)
+                        {
+                            ((MainActivity) getActivity()).showProgressDialog();
+                            getHotelList();
+                            mHandler.sendEmptyMessageDelayed(GET_REGION_REQUEST, 1 * 1000);
+                        }
+                    });
+
+                }
+                else
+                {
+                    LogUtil.e("TAG", "33333333333333");
+                    String title = "定位失败,已为您自动切换到深圳市";
+                    tvCity.setText("深圳市");
+                    city_value = "2158";
+                    DialogUtils.showPromptDialog(getActivity(), title, new MyItemClickListener()
+                    {
+                        @Override
+                        public void onItemClick(View view, int position)
+                        {
+                            ((MainActivity) getActivity()).showProgressDialog();
+                            getHotelList();
+                            mHandler.sendEmptyMessageDelayed(GET_REGION_REQUEST, 1 * 1000);
+                        }
+                    });
+                }
+
+            }
         }
-        else if (type == 1)
-        {
-            locationService.setLocationOption(locationService.getOption());
-        }
-        locationService.start();// 定位SDK
     }
+
 
     @Override
     public void onDestroy()
@@ -522,7 +609,14 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
             unbinder.unbind();
             unbinder = null;
         }
+
+        if(null !=mMyBroadCastReceiver)
+        {
+            getActivity().unregisterReceiver(mMyBroadCastReceiver);
+        }
     }
+
+
 
     //star 星级（0代表不限；2代表经济型；3代表三星实惠；4代表四星豪华；5代表五星奢华）
     //range 距离（0代表不限；1代表500米内；2代表1公里内；3代表2公里内；4代表5公里内；5代表10公里内；6代表20公里内）
@@ -845,10 +939,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
             }
         }
-        if (requestCode == GPS_REQUEST_CODE)
-        {
-            openGPSSettings();
-        }
+
     }
 
 
@@ -870,230 +961,18 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     }
 
 
-    /*****
-     *
-     * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
-     *
-     */
-    private BDAbstractLocationListener mListener = new BDAbstractLocationListener()
-    {
-
-        @Override
-        public void onReceiveLocation(BDLocation location)
-        {
-            LogUtil.e("TAG", "1111111111111111111111111");
-
-            if (null != location && location.getLocType() != BDLocation.TypeServerError)
-            {
-                LogUtil.e("TAG", "22222222222222222222222");
-                StringBuffer sb = new StringBuffer(256);
-                sb.append("time : ");
-                /**
-                 * 时间也可以使用systemClock.elapsedRealtime()方法 获取的是自从开机以来，每次回调的时间；
-                 * location.getTime() 是指服务端出本次结果的时间，如果位置不发生变化，则时间不变
-                 */
-                sb.append(location.getTime());
-                sb.append("\nlocType : ");// 定位类型
-                sb.append(location.getLocType());
-                sb.append("\nlocType description : ");// *****对应的定位类型说明*****
-                sb.append(location.getLocTypeDescription());
-                sb.append("\nlatitude : ");// 纬度
-                sb.append(location.getLatitude());
-                sb.append("\nlontitude : ");// 经度
-                sb.append(location.getLongitude());
-                sb.append("\nradius : ");// 半径
-                sb.append(location.getRadius());
-                sb.append("\nCountryCode : ");// 国家码
-                sb.append(location.getCountryCode());
-                sb.append("\nCountry : ");// 国家名称
-                sb.append(location.getCountry());
-                sb.append("\ncitycode : ");// 城市编码
-                sb.append(location.getCityCode());
-                sb.append("\ncity : ");// 城市
-                sb.append(location.getCity());
-                sb.append("\nDistrict : ");// 区
-                sb.append(location.getDistrict());
-                sb.append("\nStreet : ");// 街道
-                sb.append(location.getStreet());
-                sb.append("\naddr : ");// 地址信息
-                sb.append(location.getAddrStr());
-                sb.append("\nUserIndoorState: ");// *****返回用户室内外判断结果*****
-                sb.append(location.getUserIndoorState());
-                sb.append("\nDirection(not all devices have value): ");
-                sb.append(location.getDirection());// 方向
-                sb.append("\nlocationdescribe: ");
-                sb.append(location.getLocationDescribe());// 位置语义化信息
-                sb.append("\nPoi: ");// POI信息
-
-
-                lat = location.getLatitude();
-                lng = location.getLongitude();
-                currentCity = location.getCity();
-
-                if (location.getPoiList() != null && !location.getPoiList().isEmpty())
-                {
-                    for (int i = 0; i < location.getPoiList().size(); i++)
-                    {
-                        Poi poi = (Poi) location.getPoiList().get(i);
-                        sb.append(poi.getName() + ";");
-                    }
-                }
-                if (location.getLocType() == BDLocation.TypeGpsLocation)
-                {// GPS定位结果
-                    sb.append("\nspeed : ");
-                    sb.append(location.getSpeed());// 速度 单位：km/h
-                    sb.append("\nsatellite : ");
-                    sb.append(location.getSatelliteNumber());// 卫星数目
-                    sb.append("\nheight : ");
-                    sb.append(location.getAltitude());// 海拔高度 单位：米
-                    sb.append("\ngps status : ");
-                    sb.append(location.getGpsAccuracyStatus());// *****gps质量判断*****
-                    sb.append("\ndescribe : ");
-                    sb.append("gps定位成功");
-                }
-                else if (location.getLocType() == BDLocation.TypeNetWorkLocation)
-                {// 网络定位结果
-                    // 运营商信息
-                    if (location.hasAltitude())
-                    {// *****如果有海拔高度*****
-                        sb.append("\nheight : ");
-                        sb.append(location.getAltitude());// 单位：米
-                    }
-                    sb.append("\noperationers : ");// 运营商信息
-                    sb.append(location.getOperators());
-                    sb.append("\ndescribe : ");
-                    sb.append("网络定位成功");
-                }
-                else if (location.getLocType() == BDLocation.TypeOffLineLocation)
-                {// 离线定位结果
-                    sb.append("\ndescribe : ");
-                    sb.append("离线定位成功，离线定位结果也是有效的");
-                }
-                else if (location.getLocType() == BDLocation.TypeServerError)
-                {
-                    sb.append("\ndescribe : ");
-                    sb.append("服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因");
-                }
-                else if (location.getLocType() == BDLocation.TypeNetWorkException)
-                {
-                    sb.append("\ndescribe : ");
-                    sb.append("网络不同导致定位失败，请检查网络是否通畅");
-                }
-                else if (location.getLocType() == BDLocation.TypeCriteriaException)
-                {
-                    sb.append("\ndescribe : ");
-                    sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
-                }
-
-
-                LogUtil.e("TAG", sb.toString());
-
-                //定位结束
-                locationService.unregisterListener(mListener); //注销掉监听
-                locationService.stop(); //停止定位服务
-
-                if (null == tvCity)
-                    tvCity = (TextView) rootView.findViewById(R.id.tv_city);
-                int index = getCityIndex(currentCity);
-
-                String title = "";
-
-                try
-                {
-                    if (index < 0)
-                    {
-                        if (StringUtils.stringIsEmpty(currentCity))
-                        {
-                            if (!cityInfoList.isEmpty())
-                            {
-                                CityInfo mCityInfo = cityInfoList.get(0);
-                                title = "定位失败,已为您自动切换到" + mCityInfo.getName();
-                                tvCity.setText(mCityInfo.getName());
-                                city_value = mCityInfo.getId();
-                            }
-                            else
-                            {
-                                title = "定位失败,已为您自动切换到深圳市";
-                                tvCity.setText("深圳市");
-                                city_value = "2158";
-                            }
-
-
-                        }
-                        else
-                        {
-                            if (cityInfoList.isEmpty())
-                            {
-                                title = "定位成功,您的城市为" + currentCity + ",已为你自动切换到深圳";
-                                tvCity.setText("深圳市");
-                                city_value = "2158";
-                            }
-                            else
-                            {
-                                CityInfo mCityInfo = cityInfoList.get(0);
-                                title = "定位成功,您的城市为" + currentCity + ",已为你自动切换到" + mCityInfo.getName();
-                                tvCity.setText(mCityInfo.getName());
-                                city_value = mCityInfo.getId();
-                            }
-
-                        }
-
-
-                    }
-                    else
-                    {
-                        title = "定位成功,您的城市为" + currentCity;
-                        tvCity.setText(currentCity);
-                    }
-
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                    title = "定位失败,已为您自动切换到深圳市";
-                    city_value = "2158";
-                    tvCity.setText("深圳市");
-                }
-
-                DialogUtils.showPromptDialog(getActivity(), title, new MyItemClickListener()
-                {
-                    @Override
-                    public void onItemClick(View view, int position)
-                    {
-                        ((MainActivity) getActivity()).showProgressDialog();
-                        getHotelList();
-                        mHandler.sendEmptyMessageDelayed(GET_REGION_REQUEST, 1 * 1000);
-                    }
-                });
-            }
-            else
-            {
-                LogUtil.e("TAG", "33333333333333");
-                String title = "定位失败,已为您自动切换到深圳市";
-                tvCity.setText("深圳市");
-                city_value = "2158";
-                DialogUtils.showPromptDialog(getActivity(), title, new MyItemClickListener()
-                {
-                    @Override
-                    public void onItemClick(View view, int position)
-                    {
-                        ((MainActivity) getActivity()).showProgressDialog();
-                        getHotelList();
-                        mHandler.sendEmptyMessageDelayed(GET_REGION_REQUEST, 1 * 1000);
-                    }
-                });
-            }
-        }
-
-    };
-
 
     private int getCityIndex(String city)
     {
         int index = -99;
 
+        if(StringUtils.stringIsEmpty(city))
+        {
+            return -99;
+        }
         for (int i = 0; i < cityInfoList.size(); i++)
         {
-            if (cityInfoList.get(i).getName().contains(city))
+            if (null !=cityInfoList.get(i).getName()&&cityInfoList.get(i).getName().contains(city))
             {
                 index = i;
                 city_value = cityInfoList.get(i).getId();
@@ -1105,120 +984,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         return index;
     }
 
-
-    private static final int BAIDU_READ_PHONE_STATE = 100;
-
-    public void showContacts()
-    {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE)
-                != PackageManager.PERMISSION_GRANTED)
-        {
-            ToastUtil.show(getActivity(), "没有权限,请手动开启定位权限");
-            openGPSSettings();
-            // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
-            ActivityCompat.requestPermissions(getActivity(), new String[]{
-                    Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission
-                    .ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, BAIDU_READ_PHONE_STATE);
-        }
-        else
-        {
-            openGPSSettings();
-        }
-    }
-
-
-    //Android6.0申请权限的回调方法
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
-    {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode)
-        {
-            // requestCode即所声明的权限获取码，在checkSelfPermission时传入
-            case BAIDU_READ_PHONE_STATE:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                {
-                    // 获取到权限，作相应处理（调用定位SDK应当确保相关权限均被授权，否则可能引起定位失败）
-                    openGPSSettings();
-                }
-                else
-                {
-                    // 没有获取到权限，做特殊处理
-                    ToastUtil.show(getActivity(), "没有权限,请手动开启定位权限");
-                    openGPSSettings();
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    private int GPS_REQUEST_CODE = 10;
-
-    /**
-     * 检测GPS是否打开
-     *
-     * @return
-     */
-    private boolean checkGPSIsOpen()
-    {
-        boolean isOpen;
-        LocationManager locationManager = (LocationManager) getActivity()
-                .getSystemService(Context.LOCATION_SERVICE);
-        isOpen = locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER);
-        return isOpen;
-    }
-
-    /**
-     * 跳转GPS设置
-     */
-    private void openGPSSettings()
-    {
-        if (checkGPSIsOpen())
-        {
-            if (count == 0)
-            {
-                count++;
-                initLocation();
-                Map<String, String> valuePairs = new HashMap<>();
-                DataRequest.instance().request(getActivity(), Urls.getCityListUrl(), this, HttpRequest.POST, GET_CITY_LIST, valuePairs,
-                        new CityListHandler());
-            }
-        }
-        else
-        {
-            if (null != mToastDialog)
-            {
-                mToastDialog.show();
-            }
-            else
-            {
-                mToastDialog = DialogUtils.showToastDialog2Button(getActivity(), "请打开定位功能", new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivityForResult(intent, GPS_REQUEST_CODE);
-                    }
-                }, new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        openGPSSettings();
-                    }
-                });
-                mToastDialog.show();
-            }
-
-        }
-    }
 
 
 }

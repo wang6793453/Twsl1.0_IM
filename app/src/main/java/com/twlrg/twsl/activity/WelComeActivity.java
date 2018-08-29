@@ -174,8 +174,8 @@ public class WelComeActivity extends BaseActivity implements SplashView, TIMCall
                     @Override
                     public void onDisconnected(int code, String desc)
                     {
-                        Log.i(TAG, "onDisconnected");
-                        //ConfigManager.instance().setUserId("");
+                        Log.e(TAG, "onDisconnected");
+                        ConfigManager.instance().setUserId("");
                     }
 
                     @Override
@@ -257,11 +257,9 @@ public class WelComeActivity extends BaseActivity implements SplashView, TIMCall
     @Override
     public void onError(int i, String s)
     {
-
         Log.e(TAG, "login error : code " + i + " " + s);
         switch (i)
         {
-
             case 6208:
                 //离线状态下被其他终端踢下线
                 //                IMNotifyDialog dialog = new IMNotifyDialog();

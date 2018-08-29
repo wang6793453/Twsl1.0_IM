@@ -248,44 +248,44 @@ public class ConferenceDetailActivity extends BaseActivity implements IRequestLi
                 return;
             }
 
-            if (StringUtils.stringIsEmpty(mTheatre))
-            {
-                ToastUtil.show(ConferenceDetailActivity.this, "请输入剧院容纳人数");
-                return;
-            }
-
-
-            if (Integer.parseInt(mTheatre) <= 0)
-            {
-                ToastUtil.show(ConferenceDetailActivity.this, "请输入剧院容纳的人数大于0");
-                return;
-            }
-
-            if (StringUtils.stringIsEmpty(mDesk))
-            {
-                ToastUtil.show(ConferenceDetailActivity.this, "请输入课桌人数");
-                return;
-            }
-
-
-            if (Integer.parseInt(mDesk) <= 0)
-            {
-                ToastUtil.show(ConferenceDetailActivity.this, "请输入课桌的人数大于0");
-                return;
-            }
-
-
-            if (StringUtils.stringIsEmpty(mBanquet))
-            {
-                ToastUtil.show(ConferenceDetailActivity.this, "请输入宴会人数");
-                return;
-            }
-
-            if (Integer.parseInt(mBanquet) <= 0)
-            {
-                ToastUtil.show(ConferenceDetailActivity.this, "请输入宴会的人数大于0");
-                return;
-            }
+//            if (StringUtils.stringIsEmpty(mTheatre))
+//            {
+//                ToastUtil.show(ConferenceDetailActivity.this, "请输入剧院容纳人数");
+//                return;
+//            }
+//
+//
+//            if (Integer.parseInt(mTheatre) <= 0)
+//            {
+//                ToastUtil.show(ConferenceDetailActivity.this, "请输入剧院容纳的人数大于0");
+//                return;
+//            }
+//
+//            if (StringUtils.stringIsEmpty(mDesk))
+//            {
+//                ToastUtil.show(ConferenceDetailActivity.this, "请输入课桌人数");
+//                return;
+//            }
+//
+//
+//            if (Integer.parseInt(mDesk) <= 0)
+//            {
+//                ToastUtil.show(ConferenceDetailActivity.this, "请输入课桌的人数大于0");
+//                return;
+//            }
+//
+//
+//            if (StringUtils.stringIsEmpty(mBanquet))
+//            {
+//                ToastUtil.show(ConferenceDetailActivity.this, "请输入宴会人数");
+//                return;
+//            }
+//
+//            if (Integer.parseInt(mBanquet) <= 0)
+//            {
+//                ToastUtil.show(ConferenceDetailActivity.this, "请输入宴会的人数大于0");
+//                return;
+//            }
 
             if (StringUtils.stringIsEmpty(mPrice))
             {

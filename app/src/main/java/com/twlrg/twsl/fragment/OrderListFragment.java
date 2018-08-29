@@ -93,10 +93,10 @@ public class OrderListFragment extends BaseFragment implements View.OnClickListe
     {
         super.onResume();
         ((MainActivity) getActivity()).changeTabStatusColor(2);
-        if (!MyApplication.getInstance().isLogin())
-        {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
-        }
+//        if (!MyApplication.getInstance().isLogin())
+//        {
+//            startActivity(new Intent(getActivity(), LoginActivity.class));
+//        }
     }
 
     @Override

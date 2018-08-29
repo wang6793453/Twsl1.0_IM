@@ -69,11 +69,16 @@ public class OrderHolder extends RecyclerView.ViewHolder
         int pay_status = Integer.parseInt(mOrderInfo.getPayment_trade_status());
 
 
-
-        if (is_used == 0 )
+        if (is_used == 0)
         {
             mTypeTv.setText("待确认");
             mTypeTv.setBackgroundResource(R.drawable.common_yellow_5dp);
+            if (!"1".equals(mOrderInfo.getIs_pay()))
+            {
+                mTypeTv.setText("已取消");
+                mTypeTv.setBackgroundResource(R.drawable.common_gray_5dp);
+            }
+
         }
         else if (is_used == 1)
         {
