@@ -9,6 +9,8 @@ import org.json.JSONObject;
  */
 public class BillInfo
 {
+
+
     private String startDate;
     private String endDate;
     private String totalIncome;
