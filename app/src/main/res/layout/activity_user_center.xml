@@ -155,6 +155,7 @@
             android:layout_toRightOf="@+id/tv_position"
             android:background="@drawable/edittext_selector"
             android:padding="@dimen/dm_5"
+            android:maxLength="10"
             android:textColor="@color/black"
             android:textSize="@dimen/t16"/>
     </RelativeLayout>
