@@ -10,11 +10,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -146,12 +148,12 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private int    range;
     private int    price;
     private String region;
-    private String city_value  = "2158";
-
-    private List<FilterInfo> starFilterInfos     = new ArrayList<>();
-    private List<FilterInfo> distanceFilterInfos = new ArrayList<>();
-    private List<FilterInfo> priceFilterInfos    = new ArrayList<>();
-    private List<FilterInfo> moreFilterInfos     = new ArrayList<>();
+    private             String           city_value          = "2158";
+    public static final String           SETTINGS_ACTION     = "android.settings.APPLICATION_DETAILS_SETTINGS";
+    private             List<FilterInfo> starFilterInfos     = new ArrayList<>();
+    private             List<FilterInfo> distanceFilterInfos = new ArrayList<>();
+    private             List<FilterInfo> priceFilterInfos    = new ArrayList<>();
+    private             List<FilterInfo> moreFilterInfos     = new ArrayList<>();
 
 
     private String mStartDate;
@@ -160,12 +162,14 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     private List<CityInfo>   cityInfoList   = new ArrayList<>();
     private List<RegionInfo> regionInfoList = new ArrayList<>();
 
-    private HotelAdapter    mHotelAdapter;
-    private static final int REQUEST_SUCCESS    = 0x01;
-    private static final int REQUEST_FAIL       = 0x02;
-    private static final int GET_CITY_SUCCESS   = 0x03;
-    private static final int GET_REGION_SUCCESS = 0x04;
-    private static final int GET_REGION_REQUEST = 0X05;
+    private HotelAdapter mHotelAdapter;
+    private static final int REQUEST_SUCCESS           = 0x01;
+    private static final int REQUEST_FAIL              = 0x02;
+    private static final int GET_CITY_SUCCESS          = 0x03;
+    private static final int GET_REGION_SUCCESS        = 0x04;
+    private static final int GET_REGION_REQUEST        = 0X05;
+    private static final int OPEN_NOTIFICATION_MANAGER = 0X06;
+
 
     private static final int    GET_DATE_CODE   = 0x99;
     private static final int    GET_CITY_CODE   = 0x98;
@@ -183,7 +187,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
             switch (msg.what)
             {
                 case REQUEST_SUCCESS:
-                    if(pn==1)
+                    if (pn == 1)
                     {
                         hotelInfoList.clear();
                     }
@@ -219,7 +223,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                 case GET_CITY_SUCCESS:
                     CityListHandler mCityListHandler = (CityListHandler) msg.obj;
                     cityInfoList.addAll(mCityListHandler.getCityInfoList());
-
+                    ((MainActivity) getActivity()).startLocation();
                     break;
 
                 case GET_REGION_SUCCESS:
@@ -238,6 +242,41 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
                 case GET_REGION_REQUEST:
                     getRegionList();
+                    break;
+
+                case OPEN_NOTIFICATION_MANAGER:
+                    NotificationManagerCompat notification = NotificationManagerCompat.from(getActivity());
+                    boolean isEnabled = notification.areNotificationsEnabled();
+
+                    if (!isEnabled)
+                    {
+                        DialogUtils.showToastDialog2Button(getActivity(), "为了您更方便收到消息，请您打开消息通知", new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BASE)
+                                {
+                                    Intent intent = new Intent()
+                                            .setAction(SETTINGS_ACTION)
+                                            .setData(Uri.fromParts("package",
+                                                    getActivity().getApplicationContext().getPackageName(), null));
+                                    startActivity(intent);
+                                    return;
+                                }
+                                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                                {
+                                    Intent intent = new Intent()
+                                            .setAction(SETTINGS_ACTION)
+                                            .setData(Uri.fromParts("package",
+                                                    getActivity().getApplicationContext().getPackageName(), null));
+                                    startActivity(intent);
+                                    return;
+                                }
+                            }
+                        });
+
+                    }
                     break;
             }
         }
@@ -490,7 +529,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
         intentFilter.addAction(LOCATION_RESULT);
         getActivity().registerReceiver(mMyBroadCastReceiver, intentFilter);
 
-        ((MainActivity) getActivity()).startLocation();
+
     }
 
     private HomeFragment.MyBroadCastReceiver mMyBroadCastReceiver;
@@ -515,7 +554,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
                 int index = getCityIndex(currentCity);
 
-                if(lng>0)
+                if (lng > 0)
                 {
                     String title = "";
                     if (index < 0)
@@ -573,6 +612,9 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                             ((MainActivity) getActivity()).showProgressDialog();
                             getHotelList();
                             mHandler.sendEmptyMessageDelayed(GET_REGION_REQUEST, 1 * 1000);
+                            mHandler.sendEmptyMessageDelayed(OPEN_NOTIFICATION_MANAGER, 5 * 1000);
+                            //
+
                         }
                     });
 
@@ -591,6 +633,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
                             ((MainActivity) getActivity()).showProgressDialog();
                             getHotelList();
                             mHandler.sendEmptyMessageDelayed(GET_REGION_REQUEST, 1 * 1000);
+                            mHandler.sendEmptyMessageDelayed(OPEN_NOTIFICATION_MANAGER, 5 * 1000);
                         }
                     });
                 }
@@ -610,12 +653,11 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
             unbinder = null;
         }
 
-        if(null !=mMyBroadCastReceiver)
+        if (null != mMyBroadCastReceiver)
         {
             getActivity().unregisterReceiver(mMyBroadCastReceiver);
         }
     }
-
 
 
     //star 星级（0代表不限；2代表经济型；3代表三星实惠；4代表四星豪华；5代表五星奢华）
@@ -961,18 +1003,17 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
     }
 
 
-
     private int getCityIndex(String city)
     {
         int index = -99;
 
-        if(StringUtils.stringIsEmpty(city))
+        if (StringUtils.stringIsEmpty(city))
         {
             return -99;
         }
         for (int i = 0; i < cityInfoList.size(); i++)
         {
-            if (null !=cityInfoList.get(i).getName()&&cityInfoList.get(i).getName().contains(city))
+            if (null != cityInfoList.get(i).getName() && cityInfoList.get(i).getName().contains(city))
             {
                 index = i;
                 city_value = cityInfoList.get(i).getId();
@@ -983,7 +1024,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshBase.OnRe
 
         return index;
     }
-
 
 
 }

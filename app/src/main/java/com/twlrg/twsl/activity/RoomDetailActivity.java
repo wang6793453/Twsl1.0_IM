@@ -76,8 +76,8 @@ public class RoomDetailActivity extends BaseActivity implements IRequestListener
     Button          btnSave;
 
     private int smokeless = 0;//1,//0为无烟房，1为有烟房
-    private int wifi      = 0;//0,//0为无WIFI，1为有WIFI
-    private int window    = 0;//1,//0为无窗，1为有窗
+    private int wifi      = 1;//0,//0为无WIFI，1为有WIFI
+    private int window    = 1;//1,//0为无窗，1为有窗
 
 
     private String room_id;

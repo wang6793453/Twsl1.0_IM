@@ -374,7 +374,7 @@ public class DialogUtils
     public static void showPriceDetailDialog(final Context mContext, List<OrderInfo> orderInfoList)
     {
         final Dialog dialog = new Dialog(mContext);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_order_detail, null);
         dialog.setContentView(v);
 
@@ -608,4 +608,49 @@ public class DialogUtils
     }
 
 
+    /**
+     * 价格
+     *
+     * @return
+     */
+    public static void showShareDialog(final Context mContext, final MyOnClickListener.OnSubmitListener listener)
+    {
+        final Dialog dialog = new Dialog(mContext);
+        dialog.setCancelable(true);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.dialog_share, null);
+        dialog.setContentView(v);
+
+
+        v.findViewById(R.id.ll_wx).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+
+                listener.onSubmit("0");
+                dialog.dismiss();
+            }
+        });
+        v.findViewById(R.id.ll_pyq).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+
+                listener.onSubmit("1");
+                dialog.dismiss();
+            }
+        });
+
+        //Dialog部分
+        Window mWindow = dialog.getWindow();
+        WindowManager.LayoutParams lp = mWindow.getAttributes();
+        lp.gravity = Gravity.BOTTOM;
+        mWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mWindow.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mWindow.setAttributes(lp);
+        dialog.show();
+    }
 }

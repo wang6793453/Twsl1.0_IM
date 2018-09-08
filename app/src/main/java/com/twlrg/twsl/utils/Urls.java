@@ -363,7 +363,7 @@ public class Urls
     //微官网
     public static String getWgwUrl(String merchant_id, String uid)
     {
-        return HTTP_IP + "/microsite/index/index/merchant_id/" + merchant_id + "/uid/" + uid;
+        return HTTP_IP + "/microsite/index/index/merchant_id/" + merchant_id + "/uid/" + uid+"/platform=1";
     }
 
 

@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.twlrg.twsl.R;
+import com.twlrg.twsl.utils.LogUtil;
 import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.WXShare;
 
@@ -34,7 +36,7 @@ public class WebViewActivity extends Activity
     private boolean   isSetTitle;
     private ImageView mBackIv;
     private TextView  mTitleTv;
-    private TextView tvSubmit;
+    private TextView  tvSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,7 +51,7 @@ public class WebViewActivity extends Activity
 
     protected void initView()
     {
-        tvSubmit= (TextView) findViewById(R.id.tv_submit);
+        tvSubmit = (TextView) findViewById(R.id.tv_submit);
         mBackIv = (ImageView) findViewById(R.id.iv_back);
         mTitleTv = (TextView) findViewById(R.id.tv_title);
         mWebView = (WebView) findViewById(R.id.mWebView);
@@ -58,7 +60,7 @@ public class WebViewActivity extends Activity
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setSupportZoom(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.addJavascriptInterface(new JSService(), "Svmuu");
+        mWebView.addJavascriptInterface(new JSService(), "native");
         mWebView.setWebViewClient(new WebViewClient()
                                   {
                                       @Override
@@ -88,13 +90,13 @@ public class WebViewActivity extends Activity
                                           {
                                               return super.shouldOverrideUrlLoading(view, url);
                                           }
-//                                          else
-//                                          {
-//                                              Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-//                                              startActivity(intent);
-//                                              finish();
-//                                              return true;
-//                                          }
+                                          //                                          else
+                                          //                                          {
+                                          //                                              Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                          //                                              startActivity(intent);
+                                          //                                              finish();
+                                          //                                              return true;
+                                          //                                          }
                                           return true;
                                       }
 
@@ -209,7 +211,9 @@ public class WebViewActivity extends Activity
         wxShare.unregister();
         super.onDestroy();
     }
+
     private WXShare wxShare;
+
     private void initEvent()
     {
         mBackIv.setOnClickListener(new View.OnClickListener()
@@ -228,11 +232,23 @@ public class WebViewActivity extends Activity
             }
         });
 
-        tvSubmit.setOnClickListener(new View.OnClickListener() {
+        tvSubmit.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
-                wxShare.shareWebpage(WebViewActivity.this);
+                //wxShare.shareWebpage(WebViewActivity.this);
+
+                mWebView.evaluateJavascript("javascript:shareInfoHandle()", new ValueCallback()
+                {
+                    @Override
+                    public void onReceiveValue(Object value)
+                    {
+                        LogUtil.e("TAG","value");
+                    }
+
+
+                });
             }
         });
     }

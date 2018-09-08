@@ -921,7 +921,19 @@ public class StringUtils
         String preMonth = dft.format(cal.getTime());
         return preMonth;
     }
-
+    /**
+     * 描述:获取下一个年.
+     *
+     * @return
+     */
+    public static String getNextYear()
+    {
+        Calendar cal =Calendar.getInstance();
+        cal.add(cal.YEAR, 1);
+        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
+        String preMonth = dft.format(cal.getTime());
+        return preMonth;
+    }
     /**
      * 通过时间秒毫秒数判断两个时间的间隔
      *

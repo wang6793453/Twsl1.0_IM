@@ -343,7 +343,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:padding="@dimen/dm_5"
-                    android:text="无WIFI"
+                    android:text="有WIFI"
                     android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 
@@ -388,7 +388,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:padding="@dimen/dm_5"
-                    android:text="无窗"
+                    android:text="有窗"
                     android:textColor="@color/blackC"
                     android:textSize="@dimen/t16"/>
 

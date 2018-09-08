@@ -85,7 +85,7 @@ public class HotelInfo implements Serializable
         this.lng = obj.optString("lng");
         this.lat = obj.optString("lat");
         this.hotel_img = obj.optString("hotel_img");
-        this.star = obj.optDouble("star", 5);
+        this.star = obj.optDouble("star", 1);
 
 
         this.reviews_label = obj.optString("reviews_label");

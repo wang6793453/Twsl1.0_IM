@@ -11,13 +11,17 @@ import android.os.Parcelable;
 
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.twlrg.twsl.R;
+import com.twlrg.twsl.entity.ShareInfo;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 public class WXShare
@@ -80,21 +84,21 @@ public class WXShare
         return this;
     }
 
-    public WXShare shareWebpage(Context context)
+    public WXShare shareWebpage(Context context,ShareInfo shareInfo)
     {
 
         WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = "http://www.baidu.com";
+        webpage.webpageUrl = shareInfo.getUrl();
         WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = "标题";
-        msg.description = "描述信息";
+        msg.title = shareInfo.getTitle();
+        msg.description = shareInfo.getContent();
         Bitmap thumb = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_logo);
         msg.thumbData = Util.bmpToByteArray(thumb, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("webpage");
         req.message = msg;
-        req.scene = SendMessageToWX.Req.WXSceneSession;
+        req.scene = shareInfo.getShareStyle();
         api.sendReq(req);
 
         boolean result = api.sendReq(req);
@@ -102,6 +106,49 @@ public class WXShare
         return this;
     }
 
+    private void  sharePic(final Context context, final ShareInfo shareInfo)
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+
+                try
+                {
+                    WXImageObject imgObj = new WXImageObject();
+                    //                    设置图片的url
+                    imgObj.imagePath = Urls.getImgUrl(shareInfo.getImg());
+                    //                    第二步：创建WXMediaMeaasge对象，包装WXImageObject对象
+                    WXWebpageObject webpage = new WXWebpageObject();
+                    webpage.webpageUrl = shareInfo.getUrl();
+
+                    WXMediaMessage msg = new WXMediaMessage(webpage);
+                    msg.mediaObject = imgObj;
+                    msg.title = shareInfo.getTitle();
+                    msg.description = shareInfo.getContent();
+                    //                    第三步：压缩图片
+                    Bitmap bitmap = BitmapFactory.decodeStream(new URL(Urls.getImgUrl(shareInfo.getImg())).openStream());
+                    // Bitmap thumBitmap = bitmap.createScaledBitmap(bitmap, 120, 150, true);
+                    //                    释放资源
+                    bitmap.recycle();
+                    msg.thumbData = Util.bitmap2Bytes(bitmap, 32);
+
+
+                    SendMessageToWX.Req req = new SendMessageToWX.Req();
+                    req.transaction = buildTransaction("webpage");
+                    req.message = msg;
+                    req.scene = shareInfo.getShareStyle();
+                    api.sendReq(req);
+
+                    boolean result = api.sendReq(req);
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 
     public IWXAPI getApi()
     {

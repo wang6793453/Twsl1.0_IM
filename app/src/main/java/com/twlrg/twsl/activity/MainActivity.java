@@ -21,6 +21,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -233,6 +234,7 @@ public class MainActivity extends BaseActivity
         }
 
     }
+
 
 
     public int getTabIndex()
@@ -657,6 +659,9 @@ public class MainActivity extends BaseActivity
 //        {
 //            mToastDialog.dismiss();
 //        }
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        // 隐藏软键盘
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
 
     }
 

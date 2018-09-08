@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.kevin.crop.UCrop;
@@ -42,6 +43,7 @@ public class CropActivity extends BaseActivity
     private Uri                  mOutputUri;
     private View                 topView;
     private AutoFitTextView      mTitleTv;
+    private ImageView ivBack;
     @Override
     protected void initData()
     {
@@ -54,6 +56,7 @@ public class CropActivity extends BaseActivity
         setContentView(R.layout.activity_crop);
         setTranslucentStatus();
         topView = (View) findViewById(R.id.topView);
+        ivBack =(ImageView)findViewById(R.id.iv_back);
         mTitleTv = (AutoFitTextView) findViewById(R.id.tv_title);
         mUCropView = (UCropView) findViewById(R.id.weixin_act_ucrop);
         mSaveFab = (FloatingActionButton) findViewById(R.id.crop_act_save_fab);
@@ -74,6 +77,13 @@ public class CropActivity extends BaseActivity
             public void onClick(View v)
             {
                 cropAndSaveImage();
+            }
+        });
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
             }
         });
     }

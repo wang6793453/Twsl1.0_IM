@@ -96,7 +96,8 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
     @BindView(R.id.btn_logout)
     Button          btnLogout;
     private int mEditStatus;
-
+    @BindView(R.id.tv_version)
+    TextView tvVersion;
 
     private List<TextView> mTextViewList = new ArrayList<>();
 
@@ -217,6 +218,7 @@ public class MyCenterActivity extends BaseActivity implements IRequestListener
     @Override
     protected void initViewData()
     {
+        tvVersion.setText("版本：V" + APPUtils.getVersionName(this));
         showEditStatus(false);
         topView.setVisibility(View.VISIBLE);
         topView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, APPUtils.getStatusBarHeight(MyCenterActivity.this)));

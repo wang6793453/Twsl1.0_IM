@@ -73,7 +73,7 @@ public class OrderHolder extends RecyclerView.ViewHolder
         {
             mTypeTv.setText("待确认");
             mTypeTv.setBackgroundResource(R.drawable.common_yellow_5dp);
-            if (!"1".equals(mOrderInfo.getIs_pay()))
+            if (!"1".equals(mOrderInfo.getIs_pay()) &&"0".equals(pay_status))
             {
                 mTypeTv.setText("已取消");
                 mTypeTv.setBackgroundResource(R.drawable.common_gray_5dp);

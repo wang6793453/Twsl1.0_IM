@@ -157,7 +157,7 @@ public class SettingRoomPriceActivity extends BaseActivity implements IRequestLi
         if (StringUtils.stringIsEmpty(e_date) || StringUtils.stringIsEmpty(e_date))
         {
             s_date = StringUtils.getCurrentTime();
-            e_date = StringUtils.getNextMonth();
+            e_date = StringUtils.getNextYear();
             tvDate.setVisibility(View.GONE);
         }
         else

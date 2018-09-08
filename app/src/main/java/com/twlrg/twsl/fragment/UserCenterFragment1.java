@@ -1,10 +1,12 @@
 package com.twlrg.twsl.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebBackForwardList;
 import android.widget.LinearLayout;
 
@@ -19,6 +21,7 @@ import com.twlrg.twsl.activity.LocationActivity;
 import com.twlrg.twsl.activity.LoginActivity;
 import com.twlrg.twsl.activity.MainActivity;
 import com.twlrg.twsl.activity.MyCenterActivity;
+import com.twlrg.twsl.activity.NewWebViewActivity;
 import com.twlrg.twsl.activity.PictureManageActivity;
 import com.twlrg.twsl.activity.PolicyActivity;
 import com.twlrg.twsl.activity.RoomManageActivity;
@@ -28,6 +31,7 @@ import com.twlrg.twsl.activity.WebViewActivity;
 import com.twlrg.twsl.activity.WelComeActivity;
 import com.twlrg.twsl.utils.APPUtils;
 import com.twlrg.twsl.utils.ConfigManager;
+import com.twlrg.twsl.utils.KeyBoardUtils;
 import com.twlrg.twsl.utils.Urls;
 
 import butterknife.BindView;
@@ -200,7 +204,7 @@ public class UserCenterFragment1 extends BaseFragment implements View.OnClickLis
             if (MyApplication.getInstance().isLogin())
             {
                 String url = Urls.getWgwUrl(ConfigManager.instance().getMerchantId(), ConfigManager.instance().getUserID());
-                startActivity(new Intent(getActivity(), WebViewActivity.class)
+                startActivity(new Intent(getActivity(), NewWebViewActivity.class)
                         .putExtra(WebViewActivity.EXTRA_URL, url)
                         .putExtra(WebViewActivity.EXTRA_TITLE, "微官网")
                 );
