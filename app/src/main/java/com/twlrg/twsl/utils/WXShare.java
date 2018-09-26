@@ -20,6 +20,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.twlrg.twsl.R;
 import com.twlrg.twsl.entity.ShareInfo;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
@@ -92,7 +93,7 @@ public class WXShare
         WXMediaMessage msg = new WXMediaMessage(webpage);
         msg.title = shareInfo.getTitle();
         msg.description = shareInfo.getContent();
-        Bitmap thumb = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_logo);
+        Bitmap thumb = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_share_logo);
         msg.thumbData = Util.bmpToByteArray(thumb, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
@@ -105,6 +106,7 @@ public class WXShare
         //  Logger.i("text shared: " + result);
         return this;
     }
+
 
     private void  sharePic(final Context context, final ShareInfo shareInfo)
     {

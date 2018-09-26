@@ -16,7 +16,6 @@ import com.twlrg.twsl.R;
 import com.twlrg.twsl.utils.DialogUtils;
 import com.twlrg.twsl.utils.LogUtil;
 import com.twlrg.twsl.utils.StatusBarUtil;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -122,7 +121,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.onPause();
         //SDK已经禁用了基于Activity 的页面统计，所以需要再次重新统计页面
         //        MobclickAgent.onPageEnd(mPageName);
-        MobclickAgent.onPause(this);
+        //MobclickAgent.onPause(this);
     }
 
     @Override
@@ -131,7 +130,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.onResume();
         //SDK已经禁用了基于Activity 的页面统计，所以需要再次重新统计页面
         //        MobclickAgent.onPageStart(mPageName);
-        MobclickAgent.onResume(this);
+        //MobclickAgent.onResume(this);
     }
 
     @Override

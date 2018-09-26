@@ -21,13 +21,6 @@ public class LoginHandler extends JsonHandler
         return uid;
     }
 
-    private String userId;
-
-    public String getUserId()
-    {
-        return userId;
-    }
-
     @Override
     protected void parseJson(JSONObject jsonObj) throws Exception
     {
@@ -35,8 +28,7 @@ public class LoginHandler extends JsonHandler
         {
             uid = jsonObj.optString("data");
             JSONObject obj = jsonObj.optJSONObject("data");
-            userId = obj.optString("uid");
-           // ConfigManager.instance().setUserId(obj.optString("uid"));
+            ConfigManager.instance().setUserId(obj.optString("uid"));
             ConfigManager.instance().setUserName(obj.optString("name"));
             ConfigManager.instance().setToken(obj.optString("token"));
             ConfigManager.instance().setUserNickName(obj.optString("nickname"));

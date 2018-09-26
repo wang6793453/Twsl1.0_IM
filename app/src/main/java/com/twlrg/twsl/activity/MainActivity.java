@@ -46,7 +46,6 @@ import com.twlrg.twsl.utils.LogUtil;
 import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.VersionManager;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
 

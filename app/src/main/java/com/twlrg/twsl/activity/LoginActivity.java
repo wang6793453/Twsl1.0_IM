@@ -29,7 +29,6 @@ import com.twlrg.twsl.utils.LogUtil;
 import com.twlrg.twsl.utils.StringUtils;
 import com.twlrg.twsl.utils.ToastUtil;
 import com.twlrg.twsl.utils.Urls;
-import com.twlrg.twsl.utils.WXShare;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,31 +57,29 @@ public class LoginActivity extends BaseActivity implements IRequestListener
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_register)
-    TextView tvRegister;
+    TextView  tvRegister;
     @BindView(R.id.et_phone)
-    EditText etPhone;
+    EditText  etPhone;
     @BindView(R.id.et_pwd)
-    EditText etPwd;
+    EditText  etPwd;
     @BindView(R.id.btn_login)
-    Button btnLogin;
+    Button    btnLogin;
     @BindView(R.id.tv_forget_pwd)
-    TextView tvForgetPwd;
+    TextView  tvForgetPwd;
 
     private String mUserName, mPwd;
     private String registerUid;
 
-    private String userId;
-
     private RegisterImBroadcast mRegisterImBroadcast;
     public static String REGISTER_IM = "REGISTER_IM";
 
-    private static final int REQUEST_LOGIN_SUCCESS = 0x01;
-    public static final int REQUEST_FAIL = 0x02;
-    public static final int LOGIN_IM = 0X03;
-    public static final int ACTIVITY_FINISH = 0X04;
-    private static final int REQUEST_LOGIN_FAIL = 0x05;
-    private static final int TTS_REGISTER = 0x06;
-    private static final String USER_LOGIN = "user_login";
+    private static final int    REQUEST_LOGIN_SUCCESS = 0x01;
+    public static final  int    REQUEST_FAIL          = 0x02;
+    public static final  int    LOGIN_IM              = 0X03;
+    public static final  int    ACTIVITY_FINISH       = 0X04;
+    private static final int    REQUEST_LOGIN_FAIL    = 0x05;
+    private static final int    TTS_REGISTER          = 0x06;
+    private static final String USER_LOGIN            = "user_login";
 
     @SuppressLint("HandlerLeak")
     private BaseHandler mHandler = new BaseHandler(this)
@@ -96,8 +93,6 @@ public class LoginActivity extends BaseActivity implements IRequestListener
 
 
                 case REQUEST_LOGIN_SUCCESS:
-                    LoginHandler mLoginHandler1 = (LoginHandler) msg.obj;
-                    userId = mLoginHandler1.getUserId();
                     ConfigManager.instance().setUserPwd(mPwd);
                     ConfigManager.instance().setMobile(mUserName);
                     sendEmptyMessage(LOGIN_IM);
@@ -121,8 +116,10 @@ public class LoginActivity extends BaseActivity implements IRequestListener
                         @Override
                         public void onFail(String msg, int code2)
                         {
+                            ConfigManager.instance().setUserId("");
                             TLSService.getInstance().setLastErrno(-1);
                             LogUtil.e("login", "failed:" + msg + " " + code2);
+                            hideProgressDialog();
                             ToastUtil.show(LoginActivity.this, "登录失败!");
                             registerUid = ConfigManager.instance().getUserID();
                             mHandler.sendEmptyMessage(TTS_REGISTER);
@@ -168,6 +165,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
                             public void OnStrAccRegFail(TLSErrInfo tlsErrInfo)
                             {
                                 //LogUtil.d(TAG, "OnStrAccRegFail:" + tlsErrInfo.Msg + " " + tlsErrInfo.ExtraMsg);
+                                ConfigManager.instance().setUserId("");
                                 mHandler.sendEmptyMessageDelayed(TTS_REGISTER, 500);
 
                             }
@@ -175,6 +173,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
                             @Override
                             public void OnStrAccRegTimeout(TLSErrInfo tlsErrInfo)
                             {
+                                ConfigManager.instance().setUserId("");
                                 mHandler.sendEmptyMessageDelayed(TTS_REGISTER, 500);
                                 //LogUtil.d(TAG, "OnStrAccRegTimeout:" + tlsErrInfo.Msg + " " + tlsErrInfo.ExtraMsg);
                             }
@@ -187,8 +186,6 @@ public class LoginActivity extends BaseActivity implements IRequestListener
     };
 
 
-
-
     @Override
     protected void initData()
     {
@@ -196,14 +193,11 @@ public class LoginActivity extends BaseActivity implements IRequestListener
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(REGISTER_IM);
         registerReceiver(mRegisterImBroadcast, intentFilter);
-
-
     }
 
 
     private void modifyUserProfile()
     {
-        ConfigManager.instance().setUserId(userId);
         hideProgressDialog();
         String name = ConfigManager.instance().getUserNickName();
         String userPic = Urls.getImgUrl(ConfigManager.instance().getUserPic());
@@ -275,7 +269,7 @@ public class LoginActivity extends BaseActivity implements IRequestListener
         }
         else if (v == tvRegister)
         {
-           startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
 
         }
         else if (v == btnLogin)
@@ -303,7 +297,8 @@ public class LoginActivity extends BaseActivity implements IRequestListener
             valuePairs.put("mobile", mUserName);
             valuePairs.put("pwd", mPwd);
             valuePairs.put("role", "2");
-            DataRequest.instance().request(LoginActivity.this, Urls.getLoginUrl(), this, HttpRequest.POST, USER_LOGIN, valuePairs, new LoginHandler());
+            DataRequest.instance().request(LoginActivity.this, Urls.getLoginUrl(), this, HttpRequest.POST, USER_LOGIN, valuePairs,
+                    new LoginHandler());
         }
     }
 

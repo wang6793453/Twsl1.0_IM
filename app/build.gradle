@@ -8,8 +8,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 25
         multiDexEnabled true
-        versionCode 10015
-        versionName "1.1.5"
+        versionCode 10016
+        versionName "1.1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -61,8 +61,8 @@ dependencies {
     }
     compile project(':tencentcloudlib')
     compile 'com.meizu.flyme.internet:push-internal:3.6.3@aar'
-    compile 'com.umeng.sdk:common:latest.integration'
-    compile 'com.umeng.sdk:analytics:latest.integration'
+//    compile 'com.umeng.sdk:common:latest.integration'
+//    compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     compile 'com.github.lzyzsd:jsbridge:1.0.4'
 
